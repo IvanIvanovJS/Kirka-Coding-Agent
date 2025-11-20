@@ -12,14 +12,14 @@ export default function GhostIcon({ className = '', size = 100 }) {
             <path
                 d="M16 50C16 50 14 12 34 12C48 12 50 28 50 36V50"
                 fill="rgba(224, 231, 255, 0.8)"
-                stroke="rgba(167, 139, 250, 0.7)"
+                stroke="none"
                 strokeWidth="1.5"
                 strokeLinejoin="round"
             />
             <path
                 d="M50 50C50 50 48 54 44.3 54C40.6 54 38 50 38 50C38 50 36 54 32.3 54C28.6 54 26 50 26 50C26 50 24 54 20.3 54C16.6 54 16 50 16 50"
                 fill="rgba(224, 231, 255, 0.8)"
-                stroke="rgba(167, 139, 250, 0.7)"
+                stroke="none"
                 strokeWidth="1.5"
                 strokeLinejoin="round"
                 strokeLinecap="round"
