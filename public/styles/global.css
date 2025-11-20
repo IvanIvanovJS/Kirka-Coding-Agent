@@ -1,7 +1,6 @@
-/* Import Lato font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 
-/* CSS Variables */
+
 :root {
     /* Background Colors */
     --bg-primary: rgb(26, 11, 46);
@@ -41,7 +40,6 @@
     --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;

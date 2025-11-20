@@ -13,7 +13,7 @@ const Header = () => {
     };
 
     return (
-        // Header Container with Nav as Sibling
+
         <div className={styles.headerWrapper}>
             <header className={styles.header}>
                 {/* Logo Section */}
@@ -38,7 +38,7 @@ const Header = () => {
                 </div>
             </header>
 
-            {/* Mobile Navigation as Sibling */}
+            {/* Mobile Navigation */}
             <nav className={`${styles.navMobile} ${isMenuOpen ? styles.navMobileOpen : ''}`}>
                 <Link to="/" className={styles.navLink}>Home</Link>
                 <Link to="/templates" className={styles.navLink}>Templates</Link>
