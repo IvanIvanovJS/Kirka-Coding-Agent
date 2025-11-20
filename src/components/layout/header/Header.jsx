@@ -19,7 +19,7 @@ const Header = () => {
                 {/* Logo Section */}
                 <div className={styles.logo}>
                     <GhostIcon />
-                    <span className={styles.siteName}>GhostMiner</span>
+                    <span className={styles.siteName}>Kirka</span>
                 </div>
 
                 {/* Desktop Navigation */}
