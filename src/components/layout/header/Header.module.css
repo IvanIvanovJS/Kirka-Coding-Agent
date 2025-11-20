@@ -1,0 +1,185 @@
+/* Wrapper for header and mobile nav as siblings */
+.headerWrapper {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    backdrop-filter: blur(var(--blur-sm));
+    background: var(--fg-primary);
+    border-bottom: 1px solid var(--fg-border);
+}
+
+/* Logo Section */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.logo svg {
+    width: 2rem;
+    height: 2rem;
+    color: var(--accent-primary);
+}
+
+.siteName {
+    letter-spacing: 0.5px;
+}
+
+/* Desktop Navigation */
+.navDesktop {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+/* Mobile Navigation - hidden by default */
+.navMobile {
+    display: none;
+}
+
+.navLink {
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-weight: 400;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.navLink:hover {
+    color: var(--color-accent);
+}
+
+.navLink::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-primary);
+    transition: width 0.3s ease;
+}
+
+.navLink:hover::after {
+    width: 100%;
+}
+
+/* Mobile Menu Icon */
+.menuIcon {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    z-index: 101;
+}
+
+.menuIcon span {
+    width: 24px;
+    height: 2px;
+    background: var(--color-primary);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Burger menu animation when open */
+.menuIconOpen span:nth-child(1) {
+    transform: rotate(45deg) translate(4px, 5px);
+}
+
+.menuIconOpen span:nth-child(2) {
+    opacity: 0;
+}
+
+.menuIconOpen span:nth-child(3) {
+    transform: rotate(-45deg) translate(4px, -5px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header {
+        padding: 1rem 1.5rem;
+    }
+
+    /* Hide desktop nav on mobile */
+    .navDesktop {
+        display: none;
+    }
+
+    /* Mobile nav as sibling - now backdrop-filter works! */
+    .navMobile {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: var(--fg-primary);
+        backdrop-filter: blur(var(--blur-sm));
+        border-bottom: 1px solid var(--fg-border);
+        padding: 0;
+        gap: 0;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.6s ease, opacity 0.3s ease, padding 0.6s ease;
+    }
+
+    .navMobileOpen {
+        display: flex;
+        max-height: 300px;
+        opacity: 1;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .menuIcon {
+        display: flex;
+    }
+
+    /* Staggered animation for nav links */
+    .navMobileOpen .navLink {
+        animation: slideDown 0.6s ease forwards;
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    .navMobileOpen .navLink:nth-child(1) {
+        animation-delay: 0.12s;
+    }
+
+    .navMobileOpen .navLink:nth-child(2) {
+        animation-delay: 0.24s;
+    }
+
+    .navMobileOpen .navLink:nth-child(3) {
+        animation-delay: 0.36s;
+    }
+
+    .navMobileOpen .navLink:nth-child(4) {
+        animation-delay: 0.48s;
+    }
+
+    /* Remove hover underline effect on mobile */
+    .navLink::after {
+        display: none;
+    }
+}
+
+/* Keyframe animation for nav links */
+@keyframes slideDown {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
