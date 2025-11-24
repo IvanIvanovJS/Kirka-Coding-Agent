@@ -4,6 +4,7 @@ import Header from "../components/layout/header/Header"
 import Hero from "../components/hero/Hero"
 import styles from "./App.module.css"
 import Login from "../components/auth/login/Login"
+import Register from "../components/auth/register/Register"
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
 
             <Route path="/auth">
               <Route path='login' element={<Login />} />
+              <Route path='register' element={<Register />} />
             </Route>
 
           </Routes>
