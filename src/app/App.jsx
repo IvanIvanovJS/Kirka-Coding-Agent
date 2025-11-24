@@ -5,6 +5,7 @@ import Hero from "../components/hero/Hero"
 import styles from "./App.module.css"
 import Login from "../components/auth/login/Login"
 import Register from "../components/auth/register/Register"
+import Templates from "../components/templates/Templates"
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <main className={styles.mainContent}>
           <Routes>
             <Route path="/" element={<Hero />} />
+            <Route path="/templates" element={<Templates />} />
 
             <Route path="/auth">
               <Route path='login' element={<Login />} />
