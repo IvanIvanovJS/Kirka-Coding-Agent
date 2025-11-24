@@ -27,7 +27,7 @@ const Header = () => {
                     <Link to="/" className={styles.navLink} >Home</Link>
                     <Link to="/templates" className={styles.navLink} >Templates</Link>
                     <Link to="/my-templates" className={styles.navLink}>My Templates</Link>
-                    <Link to="/login" className={styles.navLink}>Login</Link>
+                    <Link to="/auth/login" className={styles.navLink}>Login</Link>
                 </nav>
 
                 {/* Mobile Menu Icon */}
