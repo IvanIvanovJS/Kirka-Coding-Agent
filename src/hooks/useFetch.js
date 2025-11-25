@@ -7,16 +7,19 @@ export default function useFetch(url, initialState) {
 
     useEffect(() => {
         const controller = new AbortController();
-        setIsLoading(true);
-        setError(null);
+
         const fetchData = async () => {
+
+            setIsLoading(true);
+            setError(null);
+
             try {
                 const res = await fetch(url, {
                     signal: controller.signal
                 })
 
                 if (!res.ok) {
-                    const errorMessage = await res.text
+                    const errorMessage = await res.text()
                     setError(errorMessage)
                     throw new Error(errorMessage)
                 }
