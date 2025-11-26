@@ -34,6 +34,16 @@
     border: none;
 }
 
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.previewFrame iframe::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Edge, Safari */
+}
+
 
 .cardTitle {
     font-size: 1.5rem;
