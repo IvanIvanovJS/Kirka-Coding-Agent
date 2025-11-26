@@ -19,6 +19,23 @@
     gap: 2rem;
 }
 
+.previewWrapper {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.previewFrame {
+    transform: scale(0.5);
+    transform-origin: top left;
+    width: 200%;
+    height: 200%;
+    border: none;
+}
+
+
 .templateCard {
     min-height: 400px;
     background: var(--fg-primary);
