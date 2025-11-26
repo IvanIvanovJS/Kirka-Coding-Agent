@@ -46,7 +46,7 @@ export default function TemplateDetails() {
                                     Add to Kirka
                                 </button>
                                 <button className={styles.actionButton} >
-                                    Export Template
+                                    Export Section
                                 </button>
                             </div>
                         </div>
