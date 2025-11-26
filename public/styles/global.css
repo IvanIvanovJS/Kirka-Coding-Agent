@@ -31,6 +31,10 @@
     --spacing-xl: 2rem;
     --spacing-2xl: 3rem;
     --spacing-3xl: 4rem;
+    --spacing-4xl: 5rem;
+    --spacing-5xl: 6rem;
+    --spacing-6xl: 7rem;
+    --spacing-7xl: 8rem;
 
     /* Effects */
     --blur-sm: 10px;
@@ -38,6 +42,10 @@
     --blur-lg: 30px;
     --glow: 0 0 20px rgba(167, 139, 250, 0.5);
     --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+    /* Error */
+    --error-color: rgb(255, 0, 0);
+    --error-bg: rgba(255, 0, 0, 0.1);
 }
 
 * {

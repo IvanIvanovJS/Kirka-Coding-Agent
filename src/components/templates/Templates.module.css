@@ -1,8 +1,9 @@
 .templatesContainer {
     max-width: 1280px;
     margin: 0 auto;
-    padding: var(--spacing-xl);
+    padding: var(--spacing-4xl);
     width: 100%;
+    margin-bottom: var(--spacing-3xl);
 }
 
 .title {
@@ -19,7 +20,17 @@
     gap: 2rem;
 }
 
-
+.error {
+    position: absolute;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    color: var(--error-color);
+    align-self: center;
+    justify-self: center;
+    font-size: 1.5rem;
+    background: var(--error-bg);
+    backdrop-filter: blur(var(--blur-md));
+}
 
 @media (min-width: 769px) {
     .templatesGrid {

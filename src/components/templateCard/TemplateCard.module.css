@@ -34,17 +34,6 @@
     border: none;
 }
 
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
-    display: none;
-}
-
-.previewFrame iframe::-webkit-scrollbar {
-    display: none;
-    /* Chrome, Edge, Safari */
-}
-
-
 .cardTitle {
     font-size: 1.5rem;
     font-weight: 700;
@@ -57,4 +46,39 @@ body::-webkit-scrollbar {
     color: var(--color-secondary);
     line-height: 1.6;
     flex-grow: 1;
+}
+
+.cardSkeleton {
+    width: 100%;
+    height: 250px;
+    background: linear-gradient(135deg, var(--fg-secondary), var(--fg-primary));
+    border-radius: 0.5rem;
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cardSkeleton::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg,
+            transparent 30%,
+            rgba(167, 139, 250, 0.1) 50%,
+            transparent 70%);
+    animation: shimmer 0.7s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
 }

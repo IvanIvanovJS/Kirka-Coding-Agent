@@ -3,21 +3,26 @@ import styles from './TemplateCard.module.css'
 
 export default function TemplateCard({
     temp,
+    isLoading
 }) {
+    const cardIframe = () => (<div className={styles.previewWrapper}>
+        <iframe
+            className={styles.previewFrame}
+            sandbox="allow-scripts allow-same-origin"
+            srcDoc={wrapperIframeData(temp?.thumbnail)}
+        />
+    </div>)
 
-    console.log()
+    const cardSkeleton = () => {
+
+        return <div className={styles.cardSkeleton} />
+    }
     return (
         <div className={styles.templateCard}>
-            <div className={styles.previewWrapper}>
-                <iframe
-                    className={styles.previewFrame}
-                    sandbox="allow-scripts allow-same-origin"
-                    srcDoc={wrapperIframeData(temp.thumbnail)}
-                />
-            </div>
-            <h3 className={styles.cardTitle}>{temp.name}</h3>
+            {isLoading || !temp ? cardSkeleton() : cardIframe()}
+            <h3 className={styles.cardTitle}>{temp?.name}</h3>
             <p className={styles.cardDescription}>
-                {temp.description}
+                {temp?.description}
             </p>
         </div>
     )
