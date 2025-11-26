@@ -1,0 +1,50 @@
+.templateCard {
+    min-height: 400px;
+    background: var(--fg-primary);
+    backdrop-filter: blur(var(--blur-md));
+    border: 1px solid var(--fg-border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.templateCard:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--glow), var(--shadow);
+    border-color: var(--accent-glow);
+}
+
+.previewWrapper {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.previewFrame {
+    transform: scale(0.5);
+    transform-origin: top left;
+    width: 200%;
+    height: 200%;
+    border: none;
+}
+
+
+.cardTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.cardDescription {
+    font-size: 1rem;
+    color: var(--color-secondary);
+    line-height: 1.6;
+    flex-grow: 1;
+}

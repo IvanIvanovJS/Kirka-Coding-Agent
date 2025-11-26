@@ -1,4 +1,5 @@
 import useFetch from '../../hooks/useFetch';
+import TemplateCard from '../templateCard/TemplateCard';
 import styles from './Templates.module.css';
 
 export default function Templates() {
@@ -17,52 +18,14 @@ export default function Templates() {
             `
     const { data, isLoading, error } = useFetch('http://localhost:3030/jsonstore/templates', {})
 
-    const transformedData = Object.values(data);
+    const templates = Object.values(data);
 
     return (
         <div className={styles.templatesContainer}>
             <h2 className={styles.title}>Templates</h2>
 
             <div className={styles.templatesGrid}>
-                <div className={styles.templateCard}>
-                    <div className={styles.cardImage}></div>
-                    <h3 className={styles.cardTitle}>E-Commerce Store</h3>
-                    <p className={styles.cardDescription}>
-                        A modern e-commerce template with product listings, shopping cart, and checkout flow.
-                    </p>
-                </div>
-
-                <div className={styles.templateCard}>
-                    <div className={styles.previewWrapper}>
-                        <iframe
-                            className={styles.previewFrame}
-                            sandbox="allow-scripts allow-same-origin"
-                            srcDoc={iFrameInputSrc}
-                        />
-                    </div>
-                    <h3 className={styles.cardTitle}>Portfolio Website</h3>
-                    <p className={styles.cardDescription}>
-                        Showcase your work with this elegant portfolio template featuring project galleries and contact forms.
-                    </p>
-                </div>
-
-
-                <div className={styles.templateCard}>
-                    <div className={styles.cardImage}></div>
-                    <h3 className={styles.cardTitle}>Business Landing</h3>
-                    <p className={styles.cardDescription}>
-                        Professional landing page template perfect for startups and businesses to showcase their services.
-                    </p>
-                </div>
-
-                <div className={styles.templateCard}>
-                    <div className={styles.cardImage}></div>
-                    <h3 className={styles.cardTitle}>Blog Platform</h3>
-                    <p className={styles.cardDescription}>
-                        Clean and minimal blog template with article listings, categories, and reading experience optimized.
-                    </p>
-                </div>
-
+                {templates.map(temp => <TemplateCard temp={temp} />)}
             </div>
         </div>
 
