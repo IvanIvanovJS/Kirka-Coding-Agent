@@ -1,4 +1,4 @@
-import useFetch from '../../hooks/useFetch';
+import useFetch from '../../../hooks/useFetch';
 import TemplateCard from '../templateCard/TemplateCard';
 import styles from './Templates.module.css';
 

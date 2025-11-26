@@ -1,4 +1,4 @@
-import wrapperIframeData from '../../utils/wrapperIframeData'
+import wrapperIframeData from '../../../utils/wrapperIframeData'
 import styles from './TemplateCard.module.css'
 
 export default function TemplateCard({

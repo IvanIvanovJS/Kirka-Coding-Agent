@@ -5,7 +5,7 @@ import Hero from "../components/hero/Hero"
 import styles from "./App.module.css"
 import Login from "../components/auth/login/Login"
 import Register from "../components/auth/register/Register"
-import Templates from "../components/templates/Templates"
+import Templates from "../components/templateDepend/templates/Templates"
 
 function App() {
 
