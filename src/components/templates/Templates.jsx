@@ -1,3 +1,4 @@
+import useFetch from '../../hooks/useFetch';
 import styles from './Templates.module.css';
 
 export default function Templates() {
@@ -14,6 +15,10 @@ export default function Templates() {
             </body>
             </html>
             `
+    const { data, isLoading, error } = useFetch('http://localhost:3030/jsonstore/templates', {})
+
+    const transformedData = Object.values(data);
+
     return (
         <div className={styles.templatesContainer}>
             <h2 className={styles.title}>Templates</h2>
