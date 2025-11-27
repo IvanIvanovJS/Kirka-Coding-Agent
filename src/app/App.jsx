@@ -12,7 +12,6 @@ function App() {
 
   const location = useLocation()
 
-
   const isDetails = location.pathname.includes('/templates/') && location.pathname.endsWith('/details');
 
   const shouldRenderLayout = !isDetails;
@@ -20,10 +19,10 @@ function App() {
   return (
     <>
 
-
-      <Routes>
+      {isDetails && <Routes>
         <Route path='/templates/:templateId/details' element={<TemplateDetails />} />
-      </Routes>
+      </Routes>}
+
 
       {shouldRenderLayout &&
         <div className={styles.layoutWrapper}>

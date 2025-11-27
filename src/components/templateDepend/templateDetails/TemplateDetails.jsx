@@ -1,6 +1,17 @@
+import { Link, useParams } from 'react-router';
 import styles from './TemplateDetails.module.css';
+import useFetch from '../../../hooks/useFetch';
 
 export default function TemplateDetails() {
+
+    const { templateId } = useParams('templateId')
+
+    const { data, isLoading, error } = useFetch(`http://localhost:3030/jsonstore/templates/${templateId}`, null)
+
+    const template = data || {};
+
+
+
 
     const scrollToSectionHandler = (sectionId) => {
         const element = document.getElementById(sectionId);
@@ -9,12 +20,11 @@ export default function TemplateDetails() {
         }
     };
 
-
     return (
         <div className={styles.container}>
-            <button className={styles.backButton} >
+            <Link to={'/templates'} className={styles.backButton} >
                 ← Back to Templates
-            </button>
+            </Link>
 
             <h1 className={styles.templateName}></h1>
 

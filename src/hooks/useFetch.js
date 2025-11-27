@@ -12,7 +12,6 @@ export default function useFetch(url, initialDataState) {
 
             setIsLoading(true);
             setError(null);
-
             try {
                 const res = await fetch(url, {
                     signal: controller.signal
@@ -26,12 +25,17 @@ export default function useFetch(url, initialDataState) {
 
                 const result = await res.json()
                 setData(result)
+                requestAnimationFrame(() => {
+                    setIsLoading(false);
+                });
+
             } catch (error) {
                 if (error.name === 'AbortError') return;
                 setError(error.message)
+                requestAnimationFrame(() => {
+                    setIsLoading(false);
+                });
 
-            } finally {
-                setIsLoading(false)
             }
 
         }

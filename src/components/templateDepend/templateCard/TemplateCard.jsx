@@ -7,28 +7,37 @@ export default function TemplateCard({
     isLoading
 }) {
 
-    const cardIframe = () => (<div className={styles.previewWrapper}>
+
+    const cardIframe = () => (<><div className={styles.previewWrapper}>
         <iframe
             className={styles.previewFrame}
             sandbox="allow-scripts allow-same-origin"
             srcDoc={wrapperIframeData(temp?.thumbnail)}
         />
-    </div>)
+    </div>
+        <h3 className={styles.cardTitle}>{temp?.name}</h3>
+        <p className={styles.cardDescription}>
+            {temp?.description}
+        </p>
+        <Link to={`/templates/${temp?.id}/details`} className={styles.detailsButton}>
+            Details
+        </Link>
+    </>)
+
 
     const cardSkeleton = () => {
-
-        return <div className={styles.cardSkeleton} />
+        return (
+            <>
+                <div className={styles.cardSkeleton} />
+                <button className={styles.detailsButton}>
+                    Loading...
+                </button>
+            </>
+        )
     }
     return (
         <div className={styles.templateCard}>
             {isLoading || !temp ? cardSkeleton() : cardIframe()}
-            <h3 className={styles.cardTitle}>{temp?.name}</h3>
-            <p className={styles.cardDescription}>
-                {temp?.description}
-            </p>
-            <Link to={`/templates/${temp?.id}/details`} className={styles.detailsButton}>
-                Details
-            </Link>
         </div>
     )
 }

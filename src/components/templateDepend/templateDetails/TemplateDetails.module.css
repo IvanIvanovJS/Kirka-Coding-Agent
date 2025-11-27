@@ -221,12 +221,13 @@
 .fixedNav {
     position: fixed;
     bottom: 0;
-    left: 0;
-    right: 0;
-    background: var(--bg-primary);
+    justify-self: center;
+    background: rgb(var(--bg-secondary), 0.1);
     backdrop-filter: blur(var(--blur-lg));
     border-top: 1px solid var(--fg-border);
-    padding: var(--spacing-lg);
+    border-radius: 12px;
+    max-width: fit-content;
+    padding: var(--spacing-md);
     display: flex;
     gap: var(--spacing-md);
     justify-content: center;

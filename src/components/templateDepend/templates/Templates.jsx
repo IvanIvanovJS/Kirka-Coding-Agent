@@ -12,15 +12,18 @@ export default function Templates() {
 
     let content;
 
+
     if (isLoading) {
         content = Array(SKELETON_COUNT).fill(null).map((_, index) => (
             <TemplateCard key={index} temp={null} isLoading={true} />
         ));
     } else if (error) {
         content = <p className={styles.error}>Unable to fetch templates info. Please try again later.</p>;
-    } else {
+    } else if (templates.length > 0) {
         content = templates.map(temp => (
             <TemplateCard temp={temp} key={temp.id} isLoading={false} />));
+    } else {
+        content = <p>No templates found.</p>;
     }
 
     return (
