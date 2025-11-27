@@ -9,19 +9,19 @@
 
 .backButton {
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: var(--spacing-md);
     background: var(--fg-primary);
     border: 1px solid var(--fg-border);
     color: var(--color-primary);
+    letter-spacing: 2px;
     padding: var(--spacing-md) var(--spacing-lg);
     border-radius: 0.5rem;
     font-size: 1rem;
     font-weight: 600;
-    margin-bottom: var(--spacing-xl);
+    margin-top: var(--spacing-xl);
     transition: all 0.3s ease;
     z-index: 1000;
-    margin-bottom: var(--spacing-xl);
 }
 
 .backButton:hover {

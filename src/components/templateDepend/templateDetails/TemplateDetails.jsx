@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router';
 import styles from './TemplateDetails.module.css';
 import useFetch from '../../../hooks/useFetch';
 import wrapperIframeData from '../../../utils/wrapperIframeData';
+import SectionCard from './sectionCard/SectionCard';
 
 export default function TemplateDetails() {
 
@@ -9,10 +10,14 @@ export default function TemplateDetails() {
 
     const { data, isLoading, error } = useFetch(`http://localhost:3030/jsonstore/templates/${templateId}`, null)
 
-    const template = data || {};
 
 
-
+    let content = {}
+    if (isLoading) {
+        console.log('Loading')
+    } else {
+        content = data;
+    }
 
     const scrollToSectionHandler = (sectionId) => {
         const element = document.getElementById(sectionId);
@@ -25,10 +30,10 @@ export default function TemplateDetails() {
     return (
         <div className={styles.container}>
             <Link to={'/templates'} className={styles.backButton} >
-                ← Back to Templates
+                ← Templates
             </Link>
 
-            <h1 className={styles.templateName}>{template.name}</h1>
+            <h1 className={styles.templateName}>{content?.name}</h1>
 
             <div className={styles.heroPreview} id="thumbnail">
 
@@ -37,19 +42,19 @@ export default function TemplateDetails() {
                     <iframe
                         className={styles.heroFrame}
                         sandbox="allow-scripts allow-same-origin"
-                        srcDoc={wrapperIframeData(`${template.sections?.header}\n${template.sections?.hero}`)}
+                        srcDoc={wrapperIframeData(`${content.sections?.header}\n${content.sections?.hero}`)}
                     />
                 }
             </div>
 
             <p className={styles.description}>
-                {template.description}
+                {content.description}
             </p>
 
             <div className={styles.sectionsContainer} id="sections">
                 <h2 className={styles.sectionTitle}>See the highlights of this website</h2>
                 <div className={styles.sectionsGrid}>
-                    {/** Sectiion card here */}
+                    {isLoading ? <></> : Object.entries(content.sections)?.map(section => <SectionCard key={section?.[0]} section={section} />)}
 
                 </div>
             </div>
