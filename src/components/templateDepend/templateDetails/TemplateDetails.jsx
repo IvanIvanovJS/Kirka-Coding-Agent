@@ -3,6 +3,7 @@ import styles from './TemplateDetails.module.css';
 import useFetch from '../../../hooks/useFetch';
 import wrapperIframeData from '../../../utils/wrapperIframeData';
 import SectionCard from './sectionCard/SectionCard';
+import ColorCard from './colorCard/ColorCard';
 
 export default function TemplateDetails() {
 
@@ -63,14 +64,8 @@ export default function TemplateDetails() {
                 <h2 className={styles.sectionTitle}>Color Palette</h2>
                 <div className={styles.colorPalette}>
 
-                    <div className={styles.colorItem}>
-                        <div className={styles.colorCircle} />
-                        <div className={styles.colorInfo}>
-                            <span className={styles.colorName}></span>
-                            <span className={styles.colorValue}></span>
-                        </div>
-                    </div>
-
+                    {/**ColorCard */}
+                    {isLoading ? <></> : Object.entries(content.config?.colors)?.map(color => <ColorCard key={color?.[0]} color={color} />)}
                 </div>
             </div>
 
