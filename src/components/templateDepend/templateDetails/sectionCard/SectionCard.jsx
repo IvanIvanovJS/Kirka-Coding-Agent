@@ -1,4 +1,9 @@
-export default function SectionCard() {
+import wrapperIframeData from '../../../../utils/wrapperIframeData'
+import styles from './SectionCard.module.css'
+
+export default function SectionCard(section) {
+
+
     return (
         <div className={styles.sectionCard}>
             <div className={styles.sectionPreview}>

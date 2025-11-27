@@ -1,0 +1,67 @@
+.sectionCard {
+    background: var(--fg-primary);
+    backdrop-filter: blur(var(--blur-md));
+    border: 1px solid var(--fg-border);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.sectionCard:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--glow), var(--shadow);
+    border-color: var(--accent-glow);
+}
+
+.sectionPreview {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    background: var(--bg-secondary);
+}
+
+.sectionFrame {
+    transform: scale(0.5);
+    transform-origin: top left;
+    width: 200%;
+    height: 200%;
+    border: none;
+}
+
+.sectionInfo {
+    padding: var(--spacing-lg);
+}
+
+.sectionName {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--accent-glow);
+    margin-bottom: var(--spacing-md);
+    letter-spacing: 0.05em;
+}
+
+.sectionActions {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.actionButton {
+    flex: 1;
+    min-width: 140px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--accent-primary);
+    color: var(--color-primary);
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.actionButton:hover {
+    background: var(--accent-hover);
+    box-shadow: var(--glow);
+    transform: translateY(-2px);
+}
