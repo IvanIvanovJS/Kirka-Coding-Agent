@@ -4,9 +4,10 @@ import useFetch from '../../../hooks/useFetch';
 import wrapperIframeData from '../../../utils/wrapperIframeData';
 import SectionCard from './sectionCard/SectionCard';
 import ColorCard from './colorCard/ColorCard';
+import { useState } from 'react';
 
 export default function TemplateDetails() {
-
+    const [isPreviewOpen, setIsPreviewOpen] = useState(false);
     const { templateId } = useParams('templateId')
 
     const { data, isLoading, error } = useFetch(`http://localhost:3030/jsonstore/templates/${templateId}`, null)
@@ -79,8 +80,30 @@ export default function TemplateDetails() {
                 <button className={styles.navButton} onClick={() => scrollToSectionHandler('colors')}>
                     Colors
                 </button>
+                <button className={styles.navButtonPrimary} onClick={() => {
+                    setIsPreviewOpen(true)
+                    console.log('test')
+                }}>
+                    Preveiw
+                </button>
+                {isPreviewOpen && (
+                    <>
+                        <div className={styles.backdrop} onClick={() => setIsPreviewOpen(false)} />
+                        {!isLoading && (
+                            <div className={styles.templatePreview}>
+                                <div className={styles.iframeContainer}>
+                                    <iframe
+                                        className={styles.iframe}
+                                        sandbox="allow-scripts allow-same-origin"
+                                        srcDoc={wrapperIframeData(`${content.full_html_template}`, content.bodyClass)}
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </>
+                )}
                 <button className={styles.navButtonPrimary} >
-                    Export Template
+                    Export
                 </button>
                 <button className={styles.navButtonAccent} >
                     Add to Kirka

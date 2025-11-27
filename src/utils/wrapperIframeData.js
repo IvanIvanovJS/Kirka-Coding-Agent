@@ -7,7 +7,10 @@ export default function wrapperIframeData(data, bodyClass) {
             <style> html::-webkit-scrollbar,
                     body::-webkit-scrollbar {
                             display: none;
-                        }</style>
+                        }
+                    a{
+                    pointer-events: none;
+                    }        </style>
             </head>
             <body ${bodyClass}>
              ${data}
