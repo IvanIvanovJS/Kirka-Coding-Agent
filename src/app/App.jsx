@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router"
+import { Route, Routes, useLocation } from "react-router"
 import Footer from "../components/layout/footer/Footer"
 import Header from "../components/layout/header/Header"
 import Hero from "../components/hero/Hero"
@@ -10,29 +10,43 @@ import TemplateDetails from "../components/templateDepend/templateDetails/Templa
 
 function App() {
 
+  const location = useLocation()
+
+
+  const isDetails = location.pathname.includes('/templates/') && location.pathname.endsWith('/details');
+
+  const shouldRenderLayout = !isDetails;
+
   return (
     <>
-      <div className={styles.layoutWrapper}>
-        <Header />
-        <main className={styles.mainContent}>
-          <Routes>
-            <Route path="/" element={<Hero />} />
-            <Route path="/templates" >
-              <Route index element={<Templates />} />
-              <Route path='/templates/:templateId/details' element={<TemplateDetails />} />
-            </Route>
 
-            <Route path="/auth">
-              <Route path='login' element={<Login />} />
-              <Route path='register' element={<Register />} />
-            </Route>
 
-          </Routes>
-        </main>
+      <Routes>
+        <Route path='/templates/:templateId/details' element={<TemplateDetails />} />
+      </Routes>
 
-        <Footer />
-      </div>
+      {shouldRenderLayout &&
+        <div className={styles.layoutWrapper}>
+          <Header />
+          <main className={styles.mainContent}>
+            <Routes>
+              <Route path="/" element={<Hero />} />
+              <Route path="/templates" >
+                <Route index element={<Templates />} />
 
+              </Route>
+
+              <Route path="/auth">
+                <Route path='login' element={<Login />} />
+                <Route path='register' element={<Register />} />
+              </Route>
+
+            </Routes>
+          </main>
+
+          <Footer />
+        </div>
+      }
     </>
   )
 }
