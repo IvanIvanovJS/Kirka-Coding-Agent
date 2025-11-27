@@ -2,7 +2,7 @@ import toPascalCase from '../../../../utils/toPascalCase'
 import wrapperIframeData from '../../../../utils/wrapperIframeData'
 import styles from './SectionCard.module.css'
 
-export default function SectionCard({ section }) {
+export default function SectionCard({ temp, section }) {
 
 
     if (section[0].includes('javascript')) return;
@@ -13,7 +13,7 @@ export default function SectionCard({ section }) {
                 <iframe
                     className={styles.sectionFrame}
                     sandbox="allow-scripts allow-same-origin"
-                    srcDoc={wrapperIframeData(`${section?.at(1)}`)}
+                    srcDoc={wrapperIframeData(`${section?.at(1)}`, temp.bodyClass)}
                 />
             </div>
             <div className={styles.sectionInfo}>

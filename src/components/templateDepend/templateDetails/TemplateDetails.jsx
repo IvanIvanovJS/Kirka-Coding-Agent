@@ -34,16 +34,16 @@ export default function TemplateDetails() {
                 ← Templates
             </Link>
 
-            <h1 className={styles.templateName}>{content?.name}</h1>
+            <h1 className={styles.templateName} id="thumbnail">{content?.name}</h1>
 
-            <div className={styles.heroPreview} id="thumbnail">
+            <div className={styles.heroPreview} >
 
                 {isLoading ? <div className={styles.skeletonHero} />
                     :
                     <iframe
                         className={styles.heroFrame}
                         sandbox="allow-scripts allow-same-origin"
-                        srcDoc={wrapperIframeData(`${content.sections?.header}\n${content.sections?.hero}`)}
+                        srcDoc={wrapperIframeData(`${content.sections?.header}\n${content.sections?.hero}`, content.bodyClass)}
                     />
                 }
             </div>
@@ -55,7 +55,7 @@ export default function TemplateDetails() {
             <div className={styles.sectionsContainer} id="sections">
                 <h2 className={styles.sectionTitle}>See the highlights of this website</h2>
                 <div className={styles.sectionsGrid}>
-                    {isLoading ? <></> : Object.entries(content.sections)?.map(section => <SectionCard key={section?.[0]} section={section} />)}
+                    {isLoading ? <></> : Object.entries(content.sections)?.map(section => <SectionCard key={section?.[0]} temp={content} section={section} />)}
 
                 </div>
             </div>

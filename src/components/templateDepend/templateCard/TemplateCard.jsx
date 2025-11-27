@@ -12,7 +12,7 @@ export default function TemplateCard({
         <iframe
             className={styles.previewFrame}
             sandbox="allow-scripts allow-same-origin"
-            srcDoc={wrapperIframeData(temp?.thumbnail)}
+            srcDoc={wrapperIframeData(temp?.thumbnail, temp?.bodyClass)}
         />
     </div>
         <h3 className={styles.cardTitle}>{temp?.name}</h3>

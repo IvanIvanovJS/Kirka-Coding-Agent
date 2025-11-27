@@ -1,4 +1,4 @@
-export default function wrapperIframeData(data) {
+export default function wrapperIframeData(data, bodyClass) {
     return (
         `
             <html>
@@ -9,7 +9,7 @@ export default function wrapperIframeData(data) {
                             display: none;
                         }</style>
             </head>
-            <body>
+            <body ${bodyClass}>
              ${data}
             </body>
             </html>
