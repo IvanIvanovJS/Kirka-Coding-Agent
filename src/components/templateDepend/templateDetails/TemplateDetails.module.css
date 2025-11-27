@@ -4,9 +4,13 @@
     padding: var(--spacing-2xl) var(--spacing-lg);
     padding-bottom: 120px;
     min-height: 100vh;
+    padding-top: 120px;
 }
 
 .backButton {
+    position: fixed;
+    bottom: 0;
+    left: var(--spacing-md);
     background: var(--fg-primary);
     border: 1px solid var(--fg-border);
     color: var(--color-primary);
@@ -16,6 +20,8 @@
     font-weight: 600;
     margin-bottom: var(--spacing-xl);
     transition: all 0.3s ease;
+    z-index: 1000;
+    margin-bottom: var(--spacing-xl);
 }
 
 .backButton:hover {
@@ -25,10 +31,10 @@
 }
 
 .templateName {
-    font-size: 3rem;
-    font-weight: 700;
+    font-size: 3.5rem;
+    font-weight: 800;
     color: var(--color-primary);
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-4xl);
     text-align: center;
     background: linear-gradient(135deg, var(--color-primary), var(--accent-glow));
     -webkit-background-clip: text;
@@ -49,6 +55,41 @@
     box-shadow: var(--shadow);
 }
 
+.skeletonHero {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: var(--spacing-xl);
+    border-radius: 1rem;
+    border: 1px solid var(--fg-border);
+    background: var(--fg-primary);
+    backdrop-filter: blur(var(--blur-md));
+    box-shadow: var(--shadow);
+}
+
+.skeletonHero::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg,
+            transparent 30%,
+            rgba(167, 139, 250, 0.1) 50%,
+            transparent 70%);
+    animation: shimmer 1s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
 .heroFrame {
     transform: scale(0.5);
     transform-origin: top left;
@@ -58,7 +99,7 @@
 }
 
 .description {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     color: var(--color-secondary);
     line-height: 1.8;
     text-align: center;
@@ -66,6 +107,7 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+
 }
 
 .sectionsContainer {
@@ -73,11 +115,12 @@
 }
 
 .sectionTitle {
-    font-size: 2rem;
+    margin-top: var(--spacing-4xl);
+    font-size: 3rem;
     font-weight: 700;
     color: var(--color-primary);
-    margin-bottom: var(--spacing-xl);
-    text-align: center;
+    margin-bottom: var(--spacing-4xl);
+    text-align: left;
 }
 
 .sectionsGrid {

@@ -70,7 +70,7 @@
             transparent 30%,
             rgba(167, 139, 250, 0.1) 50%,
             transparent 70%);
-    animation: shimmer 0.7s infinite;
+    animation: shimmer 1s infinite;
 }
 
 .detailsButton {

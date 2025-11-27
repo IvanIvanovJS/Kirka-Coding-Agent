@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router';
 import styles from './TemplateDetails.module.css';
 import useFetch from '../../../hooks/useFetch';
+import wrapperIframeData from '../../../utils/wrapperIframeData';
 
 export default function TemplateDetails() {
 
@@ -20,47 +21,35 @@ export default function TemplateDetails() {
         }
     };
 
+
     return (
         <div className={styles.container}>
             <Link to={'/templates'} className={styles.backButton} >
                 ← Back to Templates
             </Link>
 
-            <h1 className={styles.templateName}></h1>
+            <h1 className={styles.templateName}>{template.name}</h1>
 
             <div className={styles.heroPreview} id="thumbnail">
-                <iframe
-                    className={styles.heroFrame}
-                    sandbox="allow-scripts allow-same-origin"
-                />
+
+                {isLoading ? <div className={styles.skeletonHero} />
+                    :
+                    <iframe
+                        className={styles.heroFrame}
+                        sandbox="allow-scripts allow-same-origin"
+                        srcDoc={wrapperIframeData(`${template.sections?.header}\n${template.sections?.hero}`)}
+                    />
+                }
             </div>
 
-            <p className={styles.description}></p>
+            <p className={styles.description}>
+                {template.description}
+            </p>
 
             <div className={styles.sectionsContainer} id="sections">
                 <h2 className={styles.sectionTitle}>See the highlights of this website</h2>
                 <div className={styles.sectionsGrid}>
-
-                    <div className={styles.sectionCard}>
-                        <div className={styles.sectionPreview}>
-                            <iframe
-                                className={styles.sectionFrame}
-                                sandbox="allow-scripts allow-same-origin"
-
-                            />
-                        </div>
-                        <div className={styles.sectionInfo}>
-                            <h3 className={styles.sectionName}></h3>
-                            <div className={styles.sectionActions}>
-                                <button className={styles.actionButton} >
-                                    Add to Kirka
-                                </button>
-                                <button className={styles.actionButton} >
-                                    Export Section
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    {/** Sectiion card here */}
 
                 </div>
             </div>
