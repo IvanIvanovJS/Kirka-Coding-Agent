@@ -24,6 +24,9 @@ export default function TemplateCard({
             <p className={styles.cardDescription}>
                 {temp?.description}
             </p>
+            <button className={styles.detailsButton}>
+                Details
+            </button>
         </div>
     )
 }
