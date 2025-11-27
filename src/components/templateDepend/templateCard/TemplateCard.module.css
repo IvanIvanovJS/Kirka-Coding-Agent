@@ -79,6 +79,7 @@
     padding: var(--spacing-md) var(--spacing-lg);
     background: var(--accent-primary);
     color: var(--color-primary);
+    text-align: center;
     border: none;
     border-radius: 0.5rem;
     font-size: 1rem;
@@ -91,6 +92,7 @@
     box-shadow: var(--glow);
     transform: translateY(-2px);
 }
+
 
 @keyframes shimmer {
     0% {

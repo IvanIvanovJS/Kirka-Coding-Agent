@@ -9,8 +9,6 @@ export default function Templates() {
     const { data, isLoading, error } = useFetch('http://localhost:3030/jsonstore/templates', null)
 
     const templates = data ? Object.values(data) : [];
-    console.log({ data, isLoading, templates });
-
 
     let content;
 

@@ -1,4 +1,4 @@
-import styles from './TemplateDetail.module.css';
+import styles from './TemplateDetails.module.css';
 
 export default function TemplateDetails() {
 
