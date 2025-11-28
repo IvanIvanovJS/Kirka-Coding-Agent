@@ -4,7 +4,7 @@ import useFetch from '../../../hooks/useFetch';
 import wrapperIframeData from '../../../utils/wrapperIframeData';
 import SectionCard from './sectionCard/SectionCard';
 import ColorCard from './colorCard/ColorCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PreveiwModal from './previewModal/previewModal';
 
 export default function TemplateDetails() {
@@ -12,6 +12,18 @@ export default function TemplateDetails() {
     const { templateId } = useParams('templateId')
 
     const { data, isLoading, error } = useFetch(`http://localhost:3030/jsonstore/templates/${templateId}`, null)
+
+    useEffect(() => {
+        if (isPreviewOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+
+        return () => {
+            document.body.style.overflow = "unset";
+        };
+    }, [isPreviewOpen]);
 
     // Temporary
     if (error) { console.log(error) }
