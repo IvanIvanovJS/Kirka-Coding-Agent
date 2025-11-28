@@ -1,41 +1,41 @@
 .colorItem {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
-    padding: var(--spacing-md) var(--spacing-lg);
-    background: var(--fg-secondary);
-    border-radius: 0.75rem;
-    transition: all 0.3s ease;
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-md);
+	padding: var(--spacing-md) var(--spacing-lg);
+	background: var(--fg-secondary);
+	border-radius: 0.75rem;
+	transition: all 0.3s ease;
 }
 
 .colorItem:hover {
-    transform: scale(1.05);
-    box-shadow: var(--glow);
+	transform: scale(1.05);
+	box-shadow: var(--glow);
 }
 
 .colorCircle {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 3px solid var(--fg-border);
-    box-shadow: var(--shadow);
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	border: 3px solid var(--fg-border);
+	box-shadow: var(--shadow);
 }
 
 .colorInfo {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xs);
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-xs);
 }
 
 .colorName {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--color-primary);
-    text-transform: capitalize;
+	font-size: 1rem;
+	font-weight: 700;
+	color: var(--color-primary);
+	text-transform: capitalize;
 }
 
 .colorValue {
-    font-size: 0.875rem;
-    color: var(--color-secondary);
-    font-family: monospace;
+	font-size: 0.875rem;
+	color: var(--color-secondary);
+	font-family: monospace;
 }

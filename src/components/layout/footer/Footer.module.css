@@ -1,69 +1,66 @@
 .footer {
-    background: var(--fg-primary);
-    backdrop-filter: blur(var(--blur-sm));
-    border-top: 1px solid var(--fg-border);
-    padding: 2rem;
-    width: 100%;
-
+	background: var(--fg-primary);
+	backdrop-filter: blur(var(--blur-sm));
+	border-top: 1px solid var(--fg-border);
+	padding: 2rem;
+	width: 100%;
 }
 
 .footerContent {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    max-width: 1280px;
-    margin: 0 auto;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	max-width: 1280px;
+	margin: 0 auto;
 }
 
 .copyright {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: var(--color-secondary);
-    justify-self: center;
-    font-size: 0.875rem;
-    letter-spacing: 1.5px;
-    line-height: 1.2;
-    margin: 0 auto;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: var(--color-secondary);
+	justify-self: center;
+	font-size: 0.875rem;
+	letter-spacing: 1.5px;
+	line-height: 1.2;
+	margin: 0 auto;
 }
 
 .website {
-    color: var(--color-secondary);
-    font-size: 0.875rem;
-    letter-spacing: 1.5px;
-    justify-self: right;
-    line-height: 1.2;
-    margin-left: auto;
+	color: var(--color-secondary);
+	font-size: 0.875rem;
+	letter-spacing: 1.5px;
+	justify-self: right;
+	line-height: 1.2;
+	margin-left: auto;
 }
 
-.website>a:hover {
-    text-decoration: underline;
-    text-underline-offset: 2px;
+.website > a:hover {
+	text-decoration: underline;
+	text-underline-offset: 2px;
 }
-
 
 @media (max-width: 768px) {
-    .footer {
-        padding: 1.5rem 1rem;
-    }
+	.footer {
+		padding: 1.5rem 1rem;
+	}
 
-    .footerContent {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-    }
+	.footerContent {
+		flex-direction: column;
+		gap: 1rem;
+		text-align: center;
+	}
 
-    .copyright {
-        position: relative;
-        top: 0;
-        left: 0;
-        margin: 0;
-        transform: none;
-    }
+	.copyright {
+		position: relative;
+		top: 0;
+		left: 0;
+		margin: 0;
+		transform: none;
+	}
 
-    .website {
-        margin: 0;
-    }
-
+	.website {
+		margin: 0;
+	}
 }

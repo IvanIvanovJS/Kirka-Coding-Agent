@@ -1,149 +1,152 @@
 .heroContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: 100%;
-    padding: var(--spacing-xl);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	min-height: 100%;
+	padding: var(--spacing-xl);
 }
 
 .heroContent {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--spacing-3xl);
-    max-width: 1280px;
-    width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--spacing-3xl);
+	max-width: 1280px;
+	width: 100%;
 }
 
 .heroText {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-lg);
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-lg);
 }
 
 .heroTitle {
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--color-primary);
-    line-height: 1.2;
-    margin: 0;
+	font-size: 3rem;
+	font-weight: 700;
+	color: var(--color-primary);
+	line-height: 1.2;
+	margin: 0;
 }
 
 .heroSubtitle {
-    font-size: 1.25rem;
-    color: var(--color-secondary);
-    line-height: 1.6;
-    margin: 0;
+	font-size: 1.25rem;
+	color: var(--color-secondary);
+	line-height: 1.6;
+	margin: 0;
 }
 
 .ctaButtons {
-    display: flex;
-    gap: var(--spacing-md);
-    margin-top: var(--spacing-md);
+	display: flex;
+	gap: var(--spacing-md);
+	margin-top: var(--spacing-md);
 }
 
 .primaryBtn,
 .secondaryBtn {
-    padding: 0.75rem 2rem;
-    border-radius: 2rem;
-    border: none;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
+	padding: 0.75rem 2rem;
+	border-radius: 2rem;
+	border: none;
+	font-size: 1rem;
+	font-weight: 700;
+	cursor: pointer;
+	transition: all 0.3s ease;
 }
 
 .primaryBtn {
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-hover));
-    color: var(--color-primary);
-    box-shadow: var(--glow);
+	background: linear-gradient(
+		135deg,
+		var(--accent-primary),
+		var(--accent-hover)
+	);
+	color: var(--color-primary);
+	box-shadow: var(--glow);
 }
 
 .primaryBtn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 30px rgba(167, 139, 250, 0.7);
+	transform: translateY(-2px);
+	box-shadow: 0 0 30px rgba(167, 139, 250, 0.7);
 }
 
 .secondaryBtn {
-    background: transparent;
-    border: 2px solid var(--accent-primary);
-    color: var(--accent-primary);
+	background: transparent;
+	border: 2px solid var(--accent-primary);
+	color: var(--accent-primary);
 }
 
 .secondaryBtn:hover {
-    background: var(--fg-primary);
-    border-color: var(--accent-glow);
-    color: var(--accent-glow);
-    box-shadow: var(--glow);
+	background: var(--fg-primary);
+	border-color: var(--accent-glow);
+	color: var(--accent-glow);
+	box-shadow: var(--glow);
 }
 
 .heroVisual {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .ghostIcon {
-    color: var(--accent-glow);
-    filter: drop-shadow(var(--glow));
-    animation: float 3s ease-in-out infinite;
+	color: var(--accent-glow);
+	filter: drop-shadow(var(--glow));
+	animation: float 3s ease-in-out infinite;
 }
 
 @keyframes float {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
 
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-20px);
-    }
+	50% {
+		transform: translateY(-20px);
+	}
 }
 
 @media (max-width: 768px) {
-    .heroContainer {
-        padding: var(--spacing-lg);
-    }
+	.heroContainer {
+		padding: var(--spacing-lg);
+	}
 
-    .heroContent {
-        flex-direction: column-reverse;
-        gap: var(--spacing-2xl);
-        text-align: center;
-    }
+	.heroContent {
+		flex-direction: column-reverse;
+		gap: var(--spacing-2xl);
+		text-align: center;
+	}
 
-    .heroText {
-        align-items: center;
-    }
+	.heroText {
+		align-items: center;
+	}
 
-    .heroTitle {
-        font-size: 2rem;
-    }
+	.heroTitle {
+		font-size: 2rem;
+	}
 
-    .heroSubtitle {
-        font-size: 1rem;
-    }
+	.heroSubtitle {
+		font-size: 1rem;
+	}
 
-    .ctaButtons {
-        flex-direction: column;
-        width: 100%;
-        max-width: 300px;
-    }
+	.ctaButtons {
+		flex-direction: column;
+		width: 100%;
+		max-width: 300px;
+	}
 
-    .primaryBtn,
-    .secondaryBtn {
-        width: 100%;
-    }
+	.primaryBtn,
+	.secondaryBtn {
+		width: 100%;
+	}
 
-    .heroVisual {
-        max-width: 200px;
-    }
+	.heroVisual {
+		max-width: 200px;
+	}
 
-    .ghostIcon {
-        width: 200px;
-        height: 200px;
-    }
+	.ghostIcon {
+		width: 200px;
+		height: 200px;
+	}
 }

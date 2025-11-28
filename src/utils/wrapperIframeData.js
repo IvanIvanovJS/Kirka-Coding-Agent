@@ -1,6 +1,5 @@
 export default function wrapperIframeData(data, bodyClass) {
-    return (
-        `
+	return `
             <html>
             <head>
             <script src="https://cdn.tailwindcss.com"></script>
@@ -34,6 +33,5 @@ export default function wrapperIframeData(data, bodyClass) {
             </script>
             </body>
             </html>
-            `
-    )
+            `;
 }

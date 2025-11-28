@@ -1,39 +1,39 @@
 .templatesContainer {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: var(--spacing-4xl);
-    width: 100%;
-    margin-bottom: var(--spacing-3xl);
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: var(--spacing-4xl);
+	width: 100%;
+	margin-bottom: var(--spacing-3xl);
 }
 
 .title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-primary);
-    text-align: center;
-    margin-bottom: var(--spacing-2xl);
+	font-size: 2rem;
+	font-weight: 700;
+	color: var(--color-primary);
+	text-align: center;
+	margin-bottom: var(--spacing-2xl);
 }
 
 .templatesGrid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 2rem;
 }
 
 .error {
-    position: absolute;
-    padding: 1rem 2rem;
-    border-radius: 0.5rem;
-    color: var(--error-color);
-    align-self: center;
-    justify-self: center;
-    font-size: 1.5rem;
-    background: var(--error-bg);
-    backdrop-filter: blur(var(--blur-md));
+	position: absolute;
+	padding: 1rem 2rem;
+	border-radius: 0.5rem;
+	color: var(--error-color);
+	align-self: center;
+	justify-self: center;
+	font-size: 1.5rem;
+	background: var(--error-bg);
+	backdrop-filter: blur(var(--blur-md));
 }
 
 @media (min-width: 769px) {
-    .templatesGrid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+	.templatesGrid {
+		grid-template-columns: repeat(2, 1fr);
+	}
 }

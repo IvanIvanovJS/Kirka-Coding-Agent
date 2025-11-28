@@ -1,78 +1,75 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
 
 :root {
-    /* Background Colors */
-    --bg-primary: rgb(26, 11, 46);
-    --bg-secondary: rgb(45, 27, 78);
-    --bg-tertiary: rgb(22, 33, 62);
-    --bg-gradient: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 50%, #16213e 100%);
+	/* Background Colors */
+	--bg-primary: rgb(26, 11, 46);
+	--bg-secondary: rgb(45, 27, 78);
+	--bg-tertiary: rgb(22, 33, 62);
+	--bg-gradient: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 50%, #16213e 100%);
 
-    --bg-semiglass: rgba(26, 11, 46, 0.45);
-    --bg-secondary-semiglass: rgb(45, 27, 78, 0.45);
-    --bg-tertiary-semiglass: rgb(22, 33, 62, 0.45);
+	--bg-semiglass: rgba(26, 11, 46, 0.45);
+	--bg-secondary-semiglass: rgb(45, 27, 78, 0.45);
+	--bg-tertiary-semiglass: rgb(22, 33, 62, 0.45);
 
+	/* Foreground/Glass Colors */
+	--fg-primary: rgba(139, 92, 246, 0.1);
+	--fg-secondary: rgba(167, 139, 250, 0.15);
+	--fg-border: rgba(167, 139, 250, 0.3);
 
-    /* Foreground/Glass Colors */
-    --fg-primary: rgba(139, 92, 246, 0.1);
-    --fg-secondary: rgba(167, 139, 250, 0.15);
-    --fg-border: rgba(167, 139, 250, 0.3);
+	/* Text Colors */
+	--color-primary: #e0e7ff;
+	--color-secondary: #c4b5fd;
+	--color-accent: #a78bfa;
 
-    /* Text Colors */
-    --color-primary: #e0e7ff;
-    --color-secondary: #c4b5fd;
-    --color-accent: #a78bfa;
+	/* Accent Colors */
+	--accent-primary: #8b5cf6;
+	--accent-glow: #a78bfa;
+	--accent-hover: #7c3aed;
 
-    /* Accent Colors */
-    --accent-primary: #8b5cf6;
-    --accent-glow: #a78bfa;
-    --accent-hover: #7c3aed;
+	/* Spacing */
+	--spacing-xs: 0.25rem;
+	--spacing-sm: 0.5rem;
+	--spacing-md: 1rem;
+	--spacing-lg: 1.5rem;
+	--spacing-xl: 2rem;
+	--spacing-2xl: 3rem;
+	--spacing-3xl: 4rem;
+	--spacing-4xl: 5rem;
+	--spacing-5xl: 6rem;
+	--spacing-6xl: 7rem;
+	--spacing-7xl: 8rem;
 
-    /* Spacing */
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 1rem;
-    --spacing-lg: 1.5rem;
-    --spacing-xl: 2rem;
-    --spacing-2xl: 3rem;
-    --spacing-3xl: 4rem;
-    --spacing-4xl: 5rem;
-    --spacing-5xl: 6rem;
-    --spacing-6xl: 7rem;
-    --spacing-7xl: 8rem;
+	/* Effects */
+	--blur-sm: 10px;
+	--blur-md: 20px;
+	--blur-lg: 30px;
+	--glow: 0 0 20px rgba(167, 139, 250, 0.5);
+	--shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 
-    /* Effects */
-    --blur-sm: 10px;
-    --blur-md: 20px;
-    --blur-lg: 30px;
-    --glow: 0 0 20px rgba(167, 139, 250, 0.5);
-    --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-
-    /* Error */
-    --error-color: rgb(255, 0, 0);
-    --error-bg: rgba(255, 0, 0, 0.1);
+	/* Error */
+	--error-color: rgb(255, 0, 0);
+	--error-bg: rgba(255, 0, 0, 0.1);
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
-
 html {
-    font-size: 16px;
-    scroll-behavior: smooth;
+	font-size: 16px;
+	scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Lato', sans-serif;
-    font-weight: 400;
-    line-height: 1.6;
-    color: var(--color-primary);
-    background: var(--bg-gradient);
-    background-attachment: fixed;
-    min-height: 100vh;
+	font-family: "Lato", sans-serif;
+	font-weight: 400;
+	line-height: 1.6;
+	color: var(--color-primary);
+	background: var(--bg-gradient);
+	background-attachment: fixed;
+	min-height: 100vh;
 }
 
 /* Typography */
@@ -82,51 +79,51 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--color-primary);
+	font-weight: 700;
+	line-height: 1.2;
+	color: var(--color-primary);
 }
 
 h1 {
-    font-size: 3rem;
+	font-size: 3rem;
 }
 
 h2 {
-    font-size: 2rem;
+	font-size: 2rem;
 }
 
 h3 {
-    font-size: 1.5rem;
+	font-size: 1.5rem;
 }
 
 p {
-    font-size: 1rem;
-    color: var(--color-secondary);
+	font-size: 1rem;
+	color: var(--color-secondary);
 }
 
 small {
-    font-size: 0.875rem;
+	font-size: 0.875rem;
 }
 
 /* Links */
 a {
-    color: var(--color-accent);
-    text-decoration: none;
-    transition: color 0.3s ease;
+	color: var(--color-accent);
+	text-decoration: none;
+	transition: color 0.3s ease;
 }
 
 a:hover {
-    color: var(--accent-glow);
+	color: var(--accent-glow);
 }
 
 /* Buttons */
 button {
-    font-family: 'Lato', sans-serif;
-    cursor: pointer;
+	font-family: "Lato", sans-serif;
+	cursor: pointer;
 }
 
 /* Inputs */
 input,
 textarea {
-    font-family: 'Lato', sans-serif;
+	font-family: "Lato", sans-serif;
 }

@@ -1,117 +1,121 @@
 .registerContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100%;
-    padding: var(--spacing-xl);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100%;
+	padding: var(--spacing-xl);
 }
 
 .registerForm {
-    width: 100%;
-    max-width: 400px;
-    background: var(--fg-primary);
-    backdrop-filter: blur(var(--blur-md));
-    border: 1px solid var(--fg-border);
-    border-radius: 1rem;
-    padding: var(--spacing-2xl);
-    box-shadow: var(--shadow);
+	width: 100%;
+	max-width: 400px;
+	background: var(--fg-primary);
+	backdrop-filter: blur(var(--blur-md));
+	border: 1px solid var(--fg-border);
+	border-radius: 1rem;
+	padding: var(--spacing-2xl);
+	box-shadow: var(--shadow);
 }
 
 .formTitle {
-    color: var(--color-primary);
-    font-size: 2rem;
-    font-weight: 700;
-    margin: 0 0 var(--spacing-xl) 0;
-    text-align: center;
+	color: var(--color-primary);
+	font-size: 2rem;
+	font-weight: 700;
+	margin: 0 0 var(--spacing-xl) 0;
+	text-align: center;
 }
 
 .inputGroup {
-    margin-bottom: var(--spacing-lg);
+	margin-bottom: var(--spacing-lg);
 }
 
 .label {
-    display: block;
-    color: var(--color-secondary);
-    font-size: 0.875rem;
-    font-weight: 600;
-    margin-bottom: var(--spacing-sm);
+	display: block;
+	color: var(--color-secondary);
+	font-size: 0.875rem;
+	font-weight: 600;
+	margin-bottom: var(--spacing-sm);
 }
 
 .input {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(var(--blur-sm));
-    border: 1px solid var(--fg-border);
-    border-radius: 0.5rem;
-    padding: 0.75rem 1rem;
-    color: var(--color-primary);
-    font-size: 1rem;
-    font-family: 'Lato', sans-serif;
-    transition: all 0.3s ease;
+	width: 100%;
+	background: rgba(255, 255, 255, 0.05);
+	backdrop-filter: blur(var(--blur-sm));
+	border: 1px solid var(--fg-border);
+	border-radius: 0.5rem;
+	padding: 0.75rem 1rem;
+	color: var(--color-primary);
+	font-size: 1rem;
+	font-family: "Lato", sans-serif;
+	transition: all 0.3s ease;
 }
 
 .input::placeholder {
-    color: var(--color-secondary);
-    opacity: 0.6;
+	color: var(--color-secondary);
+	opacity: 0.6;
 }
 
 .input:focus {
-    outline: none;
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+	outline: none;
+	border-color: var(--accent-primary);
+	box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
 }
 
 .submitBtn {
-    width: 100%;
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-hover));
-    color: var(--color-primary);
-    border: none;
-    border-radius: 2rem;
-    padding: 0.75rem 2rem;
-    font-size: 1rem;
-    font-weight: 700;
-    font-family: 'Lato', sans-serif;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: var(--glow);
-    margin-top: var(--spacing-md);
+	width: 100%;
+	background: linear-gradient(
+		135deg,
+		var(--accent-primary),
+		var(--accent-hover)
+	);
+	color: var(--color-primary);
+	border: none;
+	border-radius: 2rem;
+	padding: 0.75rem 2rem;
+	font-size: 1rem;
+	font-weight: 700;
+	font-family: "Lato", sans-serif;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: var(--glow);
+	margin-top: var(--spacing-md);
 }
 
 .submitBtn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 30px rgba(167, 139, 250, 0.7);
+	transform: translateY(-2px);
+	box-shadow: 0 0 30px rgba(167, 139, 250, 0.7);
 }
 
 .formLink {
-    color: var(--color-secondary);
-    font-size: 0.875rem;
-    text-align: center;
-    margin-top: var(--spacing-lg);
-    margin-bottom: 0;
+	color: var(--color-secondary);
+	font-size: 0.875rem;
+	text-align: center;
+	margin-top: var(--spacing-lg);
+	margin-bottom: 0;
 }
 
 .link {
-    color: var(--accent-primary);
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
+	color: var(--accent-primary);
+	text-decoration: none;
+	font-weight: 600;
+	transition: color 0.3s ease;
 }
 
 .link:hover {
-    color: var(--accent-glow);
-    text-decoration: underline;
+	color: var(--accent-glow);
+	text-decoration: underline;
 }
 
 @media (max-width: 768px) {
-    .registerContainer {
-        padding: var(--spacing-md);
-    }
+	.registerContainer {
+		padding: var(--spacing-md);
+	}
 
-    .registerForm {
-        padding: var(--spacing-xl);
-    }
+	.registerForm {
+		padding: var(--spacing-xl);
+	}
 
-    .formTitle {
-        font-size: 1.75rem;
-    }
+	.formTitle {
+		font-size: 1.75rem;
+	}
 }
