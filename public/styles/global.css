@@ -4,9 +4,14 @@
 :root {
     /* Background Colors */
     --bg-primary: rgb(26, 11, 46);
-    --bg-secondary: #2d1b4e;
-    --bg-tertiary: #16213e;
+    --bg-secondary: rgb(45, 27, 78);
+    --bg-tertiary: rgb(22, 33, 62);
     --bg-gradient: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 50%, #16213e 100%);
+
+    --bg-semiglass: rgba(26, 11, 46, 0.45);
+    --bg-secondary-semiglass: rgb(45, 27, 78, 0.45);
+    --bg-tertiary-semiglass: rgb(22, 33, 62, 0.45);
+
 
     /* Foreground/Glass Colors */
     --fg-primary: rgba(139, 92, 246, 0.1);
@@ -54,9 +59,6 @@
     box-sizing: border-box;
 }
 
-iframe a {
-    pointer-events: none;
-}
 
 html {
     font-size: 16px;

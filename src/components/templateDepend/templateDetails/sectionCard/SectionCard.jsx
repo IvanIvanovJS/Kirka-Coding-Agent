@@ -20,11 +20,12 @@ export default function SectionCard({ temp, section }) {
                 <h3 className={styles.sectionName}>{toPascalCase(section?.at(0))}</h3>
                 <div className={styles.sectionActions}>
                     <button className={styles.actionButton} >
-                        Add to Kirka
-                    </button>
-                    <button className={styles.actionButton} >
                         Export Section
                     </button>
+                    <button className={styles.actionButton} >
+                        Add to App
+                    </button>
+
                 </div>
             </div>
         </div>

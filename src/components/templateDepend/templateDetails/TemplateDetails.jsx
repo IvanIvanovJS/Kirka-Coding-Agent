@@ -86,15 +86,14 @@ export default function TemplateDetails() {
                 </button>
                 <button className={styles.navButtonPrimary} onClick={() => {
                     setIsPreviewOpen(true)
-                    console.log('test')
                 }}>
-                    Preveiw
+                    Preview
                 </button>
                 <button className={styles.navButtonPrimary} >
                     Export
                 </button>
                 <button className={styles.navButtonAccent} >
-                    Add to Kirka
+                    Add to App
                 </button>
             </div>
             {isPreviewOpen && (
