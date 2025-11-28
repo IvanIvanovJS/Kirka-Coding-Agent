@@ -5,7 +5,7 @@ import wrapperIframeData from '../../../utils/wrapperIframeData';
 import SectionCard from './sectionCard/SectionCard';
 import ColorCard from './colorCard/ColorCard';
 import { useState } from 'react';
-import PreveiwModal from '../previewModal/previewModal';
+import PreveiwModal from './previewModal/previewModal';
 
 export default function TemplateDetails() {
     const [isPreviewOpen, setIsPreviewOpen] = useState(false);
