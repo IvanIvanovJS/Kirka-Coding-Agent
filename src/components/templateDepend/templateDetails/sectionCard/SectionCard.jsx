@@ -1,28 +1,34 @@
+import exportAsHtml from '../../../../utils/exportAsHtml';
 import toPascalCase from '../../../../utils/toPascalCase'
 import wrapperIframeData from '../../../../utils/wrapperIframeData'
 import styles from './SectionCard.module.css'
 
 export default function SectionCard({ temp, section }) {
-
+    
 
     if (section[0].includes('javascript')) return;
 
+    const sectionData = wrapperIframeData(`${section.at(1)}`, temp.bodyClass);
+    const sectionName = toPascalCase(section.at(0));
     return (
         <div className={styles.sectionCard}>
             <div className={styles.sectionPreview}>
                 <iframe
+                title={section.at(0)}
                     className={styles.sectionFrame}
                     sandbox="allow-scripts allow-same-origin"
-                    srcDoc={wrapperIframeData(`${section?.at(1)}`, temp.bodyClass)}
+                    srcDoc={sectionData}
                 />
             </div>
             <div className={styles.sectionInfo}>
-                <h3 className={styles.sectionName}>{toPascalCase(section?.at(0))}</h3>
+                <h3 className={styles.sectionName}>{sectionName}</h3>
                 <div className={styles.sectionActions}>
-                    <button className={styles.actionButton} >
-                        Export Section
+                    <button type='button' className={styles.actionButton} onClick={()=>{
+                        exportAsHtml(sectionData, `${temp.name} - ${sectionName}` )}
+                        }>
+                        Download Section
                     </button>
-                    <button className={styles.actionButton} >
+                    <button type='button' className={styles.actionButton} >
                         Add to App
                     </button>
 
