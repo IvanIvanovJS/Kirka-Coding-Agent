@@ -5,6 +5,7 @@ import wrapperIframeData from '../../../utils/wrapperIframeData';
 import SectionCard from './sectionCard/SectionCard';
 import ColorCard from './colorCard/ColorCard';
 import { useState } from 'react';
+import PreveiwModal from '../previewModal/previewModal';
 
 export default function TemplateDetails() {
     const [isPreviewOpen, setIsPreviewOpen] = useState(false);
@@ -28,6 +29,9 @@ export default function TemplateDetails() {
         }
     };
 
+    const setPreviewFalse = () => {
+        setIsPreviewOpen(false)
+    }
 
     return (
         <div className={styles.container}>
@@ -86,22 +90,6 @@ export default function TemplateDetails() {
                 }}>
                     Preveiw
                 </button>
-                {isPreviewOpen && (
-                    <>
-                        <div className={styles.backdrop} onClick={() => setIsPreviewOpen(false)} />
-                        {!isLoading && (
-                            <div className={styles.templatePreview}>
-                                <div className={styles.iframeContainer}>
-                                    <iframe
-                                        className={styles.iframe}
-                                        sandbox="allow-scripts allow-same-origin"
-                                        srcDoc={wrapperIframeData(`${content.full_html_template}`, content.bodyClass)}
-                                    />
-                                </div>
-                            </div>
-                        )}
-                    </>
-                )}
                 <button className={styles.navButtonPrimary} >
                     Export
                 </button>
@@ -109,6 +97,9 @@ export default function TemplateDetails() {
                     Add to Kirka
                 </button>
             </div>
+            {isPreviewOpen && (
+                <PreveiwModal isLoading={isLoading} content={content} setPreviewFalse={setPreviewFalse} />
+            )}
         </div>
     );
 }
