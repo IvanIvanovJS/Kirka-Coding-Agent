@@ -6,20 +6,31 @@ export default function PreveiwModal({
     content,
     setPreviewFalse
 }) {
+
+        
     return (
         <>
-            <div
+            {/** biome-ignore lint/a11y/useSemanticElements: stfu*/}
+<div
+                role='button'
+                tabIndex={0}
                 className={styles.backdrop}
-                onClick={() => setPreviewFalse()}
+                onKeyDown={(e)=>{
+                    if(e.key === 'Enter' || e.key === ' '){
+                        setPreviewFalse()
+                    }
+                }}
+                onClick ={() => setPreviewFalse()}
             />
             {!isLoading && (
                 <div className={styles.templatePreview}>
                     <div className={styles.modalHeader}>
                         <div className={styles.modalActions}>
-                            <button className={styles.modalButton}>Export</button>
-                            <button className={styles.modalButton}>Add to app</button>
+                            <button type='button' className={styles.modalButton}>Export</button>
+                            <button type='button' className={styles.modalButton}>Add to app</button>
                         </div>
                         <button
+                            type='button'
                             className={styles.closeButton}
                             onClick={() => setPreviewFalse()}
                         >
@@ -28,6 +39,7 @@ export default function PreveiwModal({
                     </div>
                     <div className={styles.iframeContainer}>
                         <iframe
+                            title={content.name}
                             className={styles.iframe}
                             sandbox="allow-scripts allow-same-origin"
                             srcDoc={wrapperIframeData(

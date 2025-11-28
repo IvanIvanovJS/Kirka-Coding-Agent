@@ -6,6 +6,8 @@ import SectionCard from './sectionCard/SectionCard';
 import ColorCard from './colorCard/ColorCard';
 import { useEffect, useState } from 'react';
 import PreveiwModal from './previewModal/previewModal';
+import exportAsHtml from '../../../utils/exportAsHtml';
+
 
 export default function TemplateDetails() {
     const [isPreviewOpen, setIsPreviewOpen] = useState(false);
@@ -59,6 +61,7 @@ export default function TemplateDetails() {
                 {isLoading ? <div className={styles.skeletonHero} />
                     :
                     <iframe
+                        title={content?.name}
                         className={styles.heroFrame}
                         sandbox="allow-scripts allow-same-origin"
                         srcDoc={wrapperIframeData(`${content.sections?.header}\n${content.sections?.hero}`, content.bodyClass)}
@@ -73,7 +76,7 @@ export default function TemplateDetails() {
             <div className={styles.sectionsContainer} id="sections">
                 <h2 className={styles.sectionTitle}>See the highlights of this website</h2>
                 <div className={styles.sectionsGrid}>
-                    {isLoading ? <></> : Object.entries(content.sections)?.map(section => <SectionCard key={section?.[0]} temp={content} section={section} />)}
+                    {!isLoading && Object.entries(content.sections)?.map(section => <SectionCard key={section?.[0]} temp={content} section={section} />)}
 
                 </div>
             </div>
@@ -83,29 +86,31 @@ export default function TemplateDetails() {
                 <div className={styles.colorPalette}>
 
                     {/**ColorCard */}
-                    {isLoading ? <></> : Object.entries(content.config?.colors)?.map(color => <ColorCard key={color?.[0]} color={color} />)}
+                    {!isLoading && Object.entries(content.config?.colors)?.map(color => <ColorCard key={color?.[0]} color={color} />)}
                 </div>
             </div>
 
             <div className={styles.fixedNav}>
-                <button className={styles.navButton} onClick={() => scrollToSectionHandler('thumbnail')}>
+                <button type={'button'} className={styles.navButton} onClick={() => scrollToSectionHandler('thumbnail')}>
                     Thumbnail
                 </button>
-                <button className={styles.navButton} onClick={() => scrollToSectionHandler('sections')}>
+                <button type={'button'} className={styles.navButton} onClick={() => scrollToSectionHandler('sections')}>
                     Sections
                 </button>
-                <button className={styles.navButton} onClick={() => scrollToSectionHandler('colors')}>
+                <button type={'button'} className={styles.navButton} onClick={() => scrollToSectionHandler('colors')}>
                     Colors
                 </button>
-                <button className={styles.navButtonPrimary} onClick={() => {
+                <button type={'button'} className={styles.navButtonPrimary} onClick={() => {
                     setIsPreviewOpen(true)
                 }}>
                     Preview
                 </button>
-                <button className={styles.navButtonPrimary} >
-                    Export
+                <button type={'button'} className={styles.navButtonPrimary} onClick={()=>{
+                    exportAsHtml(content?.full_html_template,content?.name)
+                }}>
+                    Download
                 </button>
-                <button className={styles.navButtonAccent} >
+                <button type={'button'} className={styles.navButtonAccent} >
                     Add to App
                 </button>
             </div>
