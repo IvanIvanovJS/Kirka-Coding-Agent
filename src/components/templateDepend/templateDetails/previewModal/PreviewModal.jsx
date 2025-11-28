@@ -1,3 +1,4 @@
+import exportAsHtml from '../../../../utils/exportAsHtml'
 import wrapperIframeData from '../../../../utils/wrapperIframeData'
 import styles from './PreviewModal.module.css'
 
@@ -26,7 +27,10 @@ export default function PreveiwModal({
                 <div className={styles.templatePreview}>
                     <div className={styles.modalHeader}>
                         <div className={styles.modalActions}>
-                            <button type='button' className={styles.modalButton}>Export</button>
+                            <button type='button' className={styles.modalButton} onClick={()=>{
+                                exportAsHtml(content.full_html_template, content.name)
+                            }}>
+                                Download</button>
                             <button type='button' className={styles.modalButton}>Add to app</button>
                         </div>
                         <button
