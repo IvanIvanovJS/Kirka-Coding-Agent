@@ -15,6 +15,7 @@ export default function TemplateDetails() {
 	const { data, isLoading, error } = useFetch(
 		`http://localhost:3030/jsonstore/templates/${templateId}`,
 		null,
+		"GET",
 	);
 
 	useEffect(() => {

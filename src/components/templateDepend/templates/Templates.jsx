@@ -8,6 +8,7 @@ export default function Templates() {
 	const { data, isLoading, error } = useFetch(
 		"http://localhost:3030/jsonstore/templates",
 		null,
+		"GET",
 	);
 
 	const templates = data ? Object.values(data) : [];
@@ -18,6 +19,7 @@ export default function Templates() {
 		content = Array(SKELETON_COUNT)
 			.fill(null)
 			.map((_, index) => (
+				// biome-ignore lint/suspicious/noArrayIndexKey: <Array length is a constant>
 				<TemplateCard key={index} temp={null} isLoading={true} />
 			));
 	} else if (error) {
