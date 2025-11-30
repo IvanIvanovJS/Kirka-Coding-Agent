@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function useForm(callback, initialValues) {
 	const [values, setValues] = useState(initialValues);
-
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const onChangeHandler = (e) => {
 		setValues((state) => ({
 			...state,
@@ -21,6 +21,7 @@ export default function useForm(callback, initialValues) {
 	const formAction = async (formData) => {
 		try {
 			await callback(values, formData);
+			setIsSubmitting(true);
 		} catch (error) {
 			console.error("Form submission failed:", error.message);
 		}
@@ -32,5 +33,7 @@ export default function useForm(callback, initialValues) {
 		onChangeHandler,
 		formAction,
 		setValues,
+		isSubmitting,
+		setIsSubmitting,
 	};
 }

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export default function useFetch(url, initialDataState, method, headers, body) {
 	const [data, setData] = useState(initialDataState);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const safeMethod = method ? method.toUpperCase() : "GET";
 
