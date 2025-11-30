@@ -1,10 +1,10 @@
 import { AlertCircle } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
+import UserContext from "../../../contexts/UserContext";
 import useFetch from "../../../hooks/useFetch";
 import useForm from "../../../hooks/useForm";
 import styles from "./Register.module.css";
-import UserContext from "../../../contexts/UserContext";
 
 const initialValues = {
 	email: "",

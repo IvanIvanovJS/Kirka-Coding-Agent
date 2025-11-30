@@ -1,42 +1,40 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router";
-import useForm from "../../../hooks/useForm";
+import { Link, useNavigate } from "react-router";
+import { useContext, useEffect, useState } from "react";
+import { AlertCircle } from "lucide-react";
+import UserContext from "../../../contexts/UserContext";
 import useFetch from "../../../hooks/useFetch";
+import useForm from "../../../hooks/useForm";
 import styles from "./Login.module.css";
+
+const initialValues = {
+	email: "",
+	password: "",
+};
 
 export default function Login() {
 	const [userData, setUserData] = useState(null);
 	const [clientErrors, setClientErrors] = useState(null);
+	const { setAuthenticatedUser } = useContext(UserContext);
 
 	const navigate = useNavigate();
 
 	const { input, formAction, setValues, isSubmitting, setIsSubmitting } =
-		useForm(registerHandler, initialValues);
+		useForm(loginHandler, initialValues);
 
 	const {
 		data: user,
 		error: serverError,
 		setError,
-	} = useFetch(
-		"http://localhost:3030/users/register",
-		{},
-		"POST",
-		{},
-		userData,
-	);
+	} = useFetch("http://localhost:3030/users/login", {}, "POST", {}, userData);
 
-	function registerHandler(values) {
-		const { email, password, confirmPassword } = values;
+	function loginHandler(values) {
+		const { email, password } = values;
 		const clientErros = {};
 		if (!email) {
 			clientErros.email = "Email is required!";
 		}
 		if (!password) {
 			clientErros.password = "Password is required!";
-		}
-
-		if (password !== confirmPassword) {
-			clientErros.confirmPassword = "Password does not match!";
 		}
 
 		if (Object.keys(clientErros).length > 0) {
@@ -66,7 +64,7 @@ export default function Login() {
 
 	return (
 		<div className={styles.loginContainer}>
-			<form className={styles.loginForm}>
+			<form className={styles.loginForm} action={formAction}>
 				<h2 className={styles.formTitle}>Login</h2>
 
 				<div className={styles.inputGroup}>
@@ -77,9 +75,15 @@ export default function Login() {
 						type="email"
 						id="email"
 						className={styles.input}
-						name="email"
+						{...input("email")}
 						placeholder="Enter your email"
 					/>
+					{clientErrors?.email && (
+						<p className={styles.errorMessage}>
+							<AlertCircle size={14} />
+							{clientErrors.password}
+						</p>
+					)}
 				</div>
 
 				<div className={styles.inputGroup}>
@@ -89,14 +93,20 @@ export default function Login() {
 					<input
 						type="password"
 						id="password"
-						name="password"
+						{...input("password")}
 						className={styles.input}
 						placeholder="Enter your password"
 					/>
+					{clientErrors?.password && (
+						<p className={styles.errorMessage}>
+							<AlertCircle size={14} />
+							{clientErrors.password}
+						</p>
+					)}
 				</div>
 
 				<button type="submit" className={styles.submitBtn}>
-					Login
+					{isSubmitting ? "Please wait..." : "Login"}
 				</button>
 
 				<p className={styles.formLink}>
