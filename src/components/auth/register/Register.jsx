@@ -111,8 +111,8 @@ export default function Register({ setAuthenticatedUser }) {
 					{clientErrors && <p>{clientErrors.confirmPassword}</p>}
 				</div>
 				{serverError && <p>{serverError}</p>}
-				<button type="submit" className={styles.submitBtn}>
-					Register
+				<button type="submit" className={styles.submitBtn} disabled={isLoading}>
+					{isLoading ? "Please wait..." : "Register"}
 				</button>
 
 				<p className={styles.formLink}>

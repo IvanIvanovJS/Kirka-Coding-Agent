@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export default function useFetch(url, initialDataState, method, headers, body) {
 	const [data, setData] = useState(initialDataState);
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const safeMethod = method ? method.toUpperCase() : "GET";
 
@@ -13,9 +13,6 @@ export default function useFetch(url, initialDataState, method, headers, body) {
 		const controller = new AbortController();
 
 		const fetchData = async () => {
-			setIsLoading(true);
-			setError(null);
-
 			if (
 				safeMethod !== "GET" &&
 				safeMethod !== "HEAD" &&
@@ -25,6 +22,8 @@ export default function useFetch(url, initialDataState, method, headers, body) {
 				return;
 			}
 
+			setIsLoading(true);
+			setError(null);
 			try {
 				const options = {
 					method: safeMethod,
