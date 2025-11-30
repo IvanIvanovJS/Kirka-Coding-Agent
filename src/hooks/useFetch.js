@@ -81,5 +81,6 @@ export default function useFetch(url, initialDataState, method, headers, body) {
 		data,
 		isLoading,
 		error,
+		setError,
 	};
 }

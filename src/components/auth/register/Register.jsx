@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router";
 import useFetch from "../../../hooks/useFetch";
 import useForm from "../../../hooks/useForm";
 import styles from "./Register.module.css";
-import UserContext from "../../../contexts/UserContext";
 
 const initialValues = {
 	email: "",
@@ -13,14 +12,18 @@ const initialValues = {
 
 export default function Register({ setAuthenticatedUser }) {
 	const [userData, setUserData] = useState(null);
-	const [errors, setErrors] = useState(null);
+	const [clientErrors, setClientErrors] = useState(null);
 	const navigate = useNavigate();
 
-	const { input, formAction } = useForm(registerHandler, initialValues);
+	const { input, formAction, setValues } = useForm(
+		registerHandler,
+		initialValues,
+	);
 	const {
 		data: user,
 		isLoading,
-		error,
+		error: serverError,
+		setError,
 	} = useFetch(
 		"http://localhost:3030/users/register",
 		{},
@@ -31,45 +34,35 @@ export default function Register({ setAuthenticatedUser }) {
 
 	function registerHandler(values) {
 		const { email, password, confirmPassword } = values;
-
+		const clientErros = {};
 		if (!email) {
-			const errorMessage = "Email is required!";
-			setErrors(errorMessage);
-			throw new Error(errorMessage);
+			clientErros.email = "Email is required!";
 		}
 		if (!password) {
-			const errorMessage = "Password is required!";
-			setErrors(errorMessage);
-			throw new Error(errorMessage);
+			clientErros.password = "Password is required!";
 		}
 
 		if (password !== confirmPassword) {
-			const errorMessage = "Passwords does not match!";
-			setErrors(errorMessage);
-			throw new Error(errorMessage);
+			clientErros.confirmPassword = "Password does not match!";
 		}
 
+		if (Object.keys(clientErros).length > 0) {
+			setClientErrors(clientErros);
+			setError(null);
+			throw new Error("Input validation error!");
+		}
+
+		setClientErrors(null);
 		setUserData({ email, password });
 	}
 
 	useEffect(() => {
-		if (error) {
-			setErrors(error);
-		}
-	}, [error]);
-
-	useEffect(() => {
-		if (errors) {
-			return alert(errors);
-		}
-	}, [errors]);
-
-	useEffect(() => {
 		if (user.accessToken) {
+			setValues(initialValues);
 			setAuthenticatedUser(user);
 			navigate("/");
 		}
-	}, [setAuthenticatedUser, navigate, user]);
+	}, [setAuthenticatedUser, navigate, user, setValues]);
 
 	return (
 		<div className={styles.registerContainer}>
@@ -87,6 +80,7 @@ export default function Register({ setAuthenticatedUser }) {
 						className={styles.input}
 						placeholder="Enter your email"
 					/>
+					{clientErrors && <p>{clientErrors.email}</p>}
 				</div>
 
 				<div className={styles.inputGroup}>
@@ -100,6 +94,7 @@ export default function Register({ setAuthenticatedUser }) {
 						className={styles.input}
 						placeholder="Enter your password"
 					/>
+					{clientErrors && <p>{clientErrors.password}</p>}
 				</div>
 
 				<div className={styles.inputGroup}>
@@ -113,8 +108,9 @@ export default function Register({ setAuthenticatedUser }) {
 						className={styles.input}
 						placeholder="Confirm your password"
 					/>
+					{clientErrors && <p>{clientErrors.confirmPassword}</p>}
 				</div>
-
+				{serverError && <p>{serverError}</p>}
 				<button type="submit" className={styles.submitBtn}>
 					Register
 				</button>

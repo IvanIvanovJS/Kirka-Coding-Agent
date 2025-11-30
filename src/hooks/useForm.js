@@ -19,8 +19,11 @@ export default function useForm(callback, initialValues) {
 	};
 
 	const formAction = async (formData) => {
-		await callback(values, formData);
-		setValues(initialValues);
+		try {
+			await callback(values, formData);
+		} catch (error) {
+			console.error("Form submission failed:", error.message);
+		}
 	};
 
 	return {
@@ -28,5 +31,6 @@ export default function useForm(callback, initialValues) {
 		values,
 		onChangeHandler,
 		formAction,
+		setValues,
 	};
 }
