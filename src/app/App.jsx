@@ -27,6 +27,7 @@ function App() {
 	const userContextValues = {
 		user,
 		isAuthenticated: !!user.accessToken,
+		setAuthenticatedUser,
 	};
 
 	return (
@@ -52,12 +53,7 @@ function App() {
 
 							<Route path="/auth">
 								<Route path="login" element={<Login />} />
-								<Route
-									path="register"
-									element={
-										<Register setAuthenticatedUser={setAuthenticatedUser} />
-									}
-								/>
+								<Route path="register" element={<Register />} />
 							</Route>
 						</Routes>
 					</main>

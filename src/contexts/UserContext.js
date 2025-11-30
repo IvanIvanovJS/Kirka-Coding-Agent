@@ -9,6 +9,7 @@ const UserContext = createContext({
 		_id: "",
 	},
 	isAuthenticated: false,
+	setAuthenticatedUser() {},
 });
 
 export default UserContext;
