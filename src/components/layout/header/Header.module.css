@@ -10,8 +10,9 @@
 	justify-content: space-between;
 	align-items: center;
 	padding: 1rem 2rem;
+	height: 80px;
 	backdrop-filter: blur(var(--blur-sm));
-	background: var(--fg-primary);
+	background: var(--bg-secondary-semiglass);
 	border-bottom: 1px solid var(--fg-border);
 	border-radius: 0 0 1rem 1rem;
 	max-width: 1480px;
@@ -22,14 +23,14 @@
 	display: flex;
 	align-items: center;
 	gap: 0.75rem;
-	font-size: 1.25rem;
+	font-size: 1.5rem;
 	font-weight: 700;
 	color: var(--color-primary);
 }
 
 .logo svg {
-	width: 2rem;
-	height: 2rem;
+	width: 2.5rem;
+	height: 2.5rem;
 	color: var(--accent-primary);
 }
 
@@ -39,7 +40,7 @@
 
 .navDesktop {
 	display: flex;
-	gap: 3rem;
+	gap: 2.5rem;
 	align-items: center;
 	margin-right: 2rem;
 }
@@ -54,6 +55,7 @@
 	font-weight: 400;
 	transition: all 0.3s ease;
 	position: relative;
+	font-size: 1.125rem;
 }
 
 .navLink:hover {
@@ -63,7 +65,7 @@
 .navLink::after {
 	content: "";
 	position: absolute;
-	bottom: -4px;
+	bottom: 0;
 	left: 0;
 	width: 0;
 	height: 2px;
@@ -106,6 +108,8 @@
 @media (max-width: 768px) {
 	.header {
 		padding: 1rem 1.5rem;
+		border-radius: 0;
+		height: 60px;
 	}
 
 	.navDesktop {
@@ -120,7 +124,7 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		background: var(--fg-primary);
+		background: var(--bg-secondary-semiglass);
 		backdrop-filter: blur(var(--blur-sm));
 		border-bottom: 1px solid var(--fg-border);
 		padding: 0;
@@ -136,10 +140,14 @@
 
 	.navMobileOpen {
 		display: flex;
-		max-height: 300px;
+		height: calc(100vh - 60px);
+		max-height: 100vh;
 		opacity: 1;
 		padding: 1rem;
-		gap: 1rem;
+		justify-content: space-evenly;
+	}
+	.navLink {
+		font-size: 2rem;
 	}
 
 	.menuIcon {

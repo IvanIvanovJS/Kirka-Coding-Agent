@@ -47,38 +47,49 @@ const Header = () => {
 				</nav>
 
 				{/* Mobile Menu Icon */}
-				<Link
-					to={"/"}
+				<div
 					className={`${styles.menuIcon} ${isMenuOpen ? styles.menuIconOpen : ""}`}
 					onClick={toggleMenu}
 				>
 					<span></span>
 					<span></span>
 					<span></span>
-				</Link>
+				</div>
 			</header>
 
 			{/* Mobile Navigation */}
 			<nav
 				className={`${styles.navMobile} ${isMenuOpen ? styles.navMobileOpen : ""}`}
 			>
-				<Link to="/" className={styles.navLink}>
+				<Link to="/" onClick={toggleMenu} className={styles.navLink}>
 					Home
 				</Link>
-				<Link to="/templates" className={styles.navLink}>
+				<Link to="/templates" onClick={toggleMenu} className={styles.navLink}>
 					Templates
 				</Link>
 				{isAuthenticated ? (
 					<>
-						<Link to="/my-templates" className={styles.navLink}>
+						<Link
+							to="/my-templates"
+							onClick={toggleMenu}
+							className={styles.navLink}
+						>
 							My Templates
 						</Link>
-						<Link to="/auth/logout" className={styles.navLink}>
+						<Link
+							to="/auth/logout"
+							onClick={toggleMenu}
+							className={styles.navLink}
+						>
 							Logout
 						</Link>
 					</>
 				) : (
-					<Link to="/auth/login" className={styles.navLink}>
+					<Link
+						to="/auth/login"
+						onClick={toggleMenu}
+						className={styles.navLink}
+					>
 						Login
 					</Link>
 				)}
