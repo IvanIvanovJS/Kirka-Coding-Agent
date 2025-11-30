@@ -10,11 +10,21 @@ export default function useForm(callback, initialValues) {
 		}));
 	};
 
+	const input = (fieldName) => {
+		return {
+			name: fieldName,
+			onChange: onChangeHandler,
+			value: values[fieldName],
+		};
+	};
+
 	const formAction = async (formData) => {
 		await callback(values, formData);
+		setValues(initialValues);
 	};
 
 	return {
+		input,
 		values,
 		onChangeHandler,
 		formAction,

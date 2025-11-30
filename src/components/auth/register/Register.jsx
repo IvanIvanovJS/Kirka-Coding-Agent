@@ -1,8 +1,9 @@
-import { useState } from "react";
-import { Link } from "react-router";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router";
 import useFetch from "../../../hooks/useFetch";
 import useForm from "../../../hooks/useForm";
 import styles from "./Register.module.css";
+import UserContext from "../../../contexts/UserContext";
 
 const initialValues = {
 	email: "",
@@ -10,36 +11,66 @@ const initialValues = {
 	confirmPassword: "",
 };
 
-export default function Register() {
-	const [user, setUser] = useState(null);
+export default function Register({ setAuthenticatedUser }) {
+	const [userData, setUserData] = useState(null);
+	const [errors, setErrors] = useState(null);
+	const navigate = useNavigate();
 
-	const { values, onChangeHandler, formAction } = useForm(
-		registerHandler,
-		initialValues,
-	);
+	const { input, formAction } = useForm(registerHandler, initialValues);
 	const {
-		data: userData,
+		data: user,
 		isLoading,
 		error,
-	} = useFetch("http://localhost:3030/users/register", {}, "POST", {}, user);
+	} = useFetch(
+		"http://localhost:3030/users/register",
+		{},
+		"POST",
+		{},
+		userData,
+	);
 
 	function registerHandler(values) {
 		const { email, password, confirmPassword } = values;
 
 		if (!email) {
-			throw new Error("Email is required!");
+			const errorMessage = "Email is required!";
+			setErrors(errorMessage);
+			throw new Error(errorMessage);
 		}
 		if (!password) {
-			throw new Error("Password is required!");
+			const errorMessage = "Password is required!";
+			setErrors(errorMessage);
+			throw new Error(errorMessage);
 		}
 
 		if (password !== confirmPassword) {
-			throw new Error("Passwords does not match!");
+			const errorMessage = "Passwords does not match!";
+			setErrors(errorMessage);
+			throw new Error(errorMessage);
 		}
 
-		setUser({ email, password });
+		setUserData({ email, password });
 	}
-	console.log(userData);
+
+	useEffect(() => {
+		if (error) {
+			setErrors(error);
+		}
+	}, [error]);
+
+	useEffect(() => {
+		if (errors) {
+			return alert(errors);
+		}
+	}, [errors]);
+
+	useEffect(() => {
+		if (user.accessToken) {
+			setAuthenticatedUser(user);
+			navigate("/");
+		}
+	}, [setAuthenticatedUser, navigate, user]);
+
 	return (
 		<div className={styles.registerContainer}>
 			<form className={styles.registerForm} action={formAction}>
@@ -52,9 +83,7 @@ export default function Register() {
 					<input
 						type="email"
 						id="email"
-						name="email"
-						value={values.email}
-						onChange={onChangeHandler}
+						{...input("email")}
 						className={styles.input}
 						placeholder="Enter your email"
 					/>
@@ -67,9 +96,7 @@ export default function Register() {
 					<input
 						type="password"
 						id="password"
-						name="password"
-						value={values.password}
-						onChange={onChangeHandler}
+						{...input("password")}
 						className={styles.input}
 						placeholder="Enter your password"
 					/>
@@ -82,9 +109,7 @@ export default function Register() {
 					<input
 						type="password"
 						id="confirmPassword"
-						name="confirmPassword"
-						value={values.confirmPassword}
-						onChange={onChangeHandler}
+						{...input("confirmPassword")}
 						className={styles.input}
 						placeholder="Confirm your password"
 					/>

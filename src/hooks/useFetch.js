@@ -51,9 +51,10 @@ export default function useFetch(url, initialDataState, method, headers, body) {
 				const res = await fetch(url, options);
 
 				if (!res.ok) {
-					const errorMessage = await res.text();
-					setError(errorMessage);
-					throw new Error(errorMessage);
+					const error = await res.text();
+					const result = JSON.parse(error);
+					setError(result.message);
+					throw new Error(result.message);
 				}
 
 				const result = await res.json();
