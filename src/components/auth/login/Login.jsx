@@ -104,7 +104,12 @@ export default function Login() {
 						</p>
 					)}
 				</div>
-
+				{serverError && (
+					<p className={styles.errorMessage}>
+						<AlertCircle size={14} />
+						{serverError}
+					</p>
+				)}
 				<button type="submit" className={styles.submitBtn}>
 					{isSubmitting ? "Please wait..." : "Login"}
 				</button>
