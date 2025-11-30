@@ -1,7 +1,8 @@
-import { useState } from "react";
-import styles from "./Header.module.css";
-import GhostIcon from "../../UI/ghostIcon/GhostIcon";
+import { useContext, useState } from "react";
 import { Link } from "react-router";
+import UserContext from "../../../contexts/UserContext";
+import GhostIcon from "../../UI/ghostIcon/GhostIcon";
+import styles from "./Header.module.css";
 
 const Header = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,14 +11,16 @@ const Header = () => {
 		setIsMenuOpen(!isMenuOpen);
 	};
 
+	const { isAuthenticated } = useContext(UserContext);
+	console.log(isAuthenticated);
 	return (
 		<div className={styles.headerWrapper}>
 			<header className={styles.header}>
 				{/* Logo Section */}
-				<div className={styles.logo}>
+				<Link to={"/"} className={styles.logo}>
 					<GhostIcon />
 					<span className={styles.siteName}>Kirka</span>
-				</div>
+				</Link>
 
 				{/* Desktop Navigation */}
 				<nav className={styles.navDesktop}>
@@ -27,23 +30,32 @@ const Header = () => {
 					<Link to="/templates" className={styles.navLink}>
 						Templates
 					</Link>
-					<Link to="/my-templates" className={styles.navLink}>
-						My Templates
-					</Link>
-					<Link to="/auth/login" className={styles.navLink}>
-						Login
-					</Link>
+					{isAuthenticated ? (
+						<>
+							<Link to="/my-templates" className={styles.navLink}>
+								My Templates
+							</Link>
+							<Link to="/auth/logout" className={styles.navLink}>
+								Logout
+							</Link>
+						</>
+					) : (
+						<Link to="/auth/login" className={styles.navLink}>
+							Login
+						</Link>
+					)}
 				</nav>
 
 				{/* Mobile Menu Icon */}
-				<div
+				<Link
+					to={"/"}
 					className={`${styles.menuIcon} ${isMenuOpen ? styles.menuIconOpen : ""}`}
 					onClick={toggleMenu}
 				>
 					<span></span>
 					<span></span>
 					<span></span>
-				</div>
+				</Link>
 			</header>
 
 			{/* Mobile Navigation */}
@@ -56,12 +68,20 @@ const Header = () => {
 				<Link to="/templates" className={styles.navLink}>
 					Templates
 				</Link>
-				<Link to="/my-templates" className={styles.navLink}>
-					My Templates
-				</Link>
-				<Link to="/login" className={styles.navLink}>
-					Login
-				</Link>
+				{isAuthenticated ? (
+					<>
+						<Link to="/my-templates" className={styles.navLink}>
+							My Templates
+						</Link>
+						<Link to="/auth/logout" className={styles.navLink}>
+							Logout
+						</Link>
+					</>
+				) : (
+					<Link to="/auth/login" className={styles.navLink}>
+						Login
+					</Link>
+				)}
 			</nav>
 		</div>
 	);
