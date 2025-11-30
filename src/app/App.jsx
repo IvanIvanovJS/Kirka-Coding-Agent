@@ -7,8 +7,11 @@ import Login from "../components/auth/login/Login";
 import Register from "../components/auth/register/Register";
 import Templates from "../components/templateDepend/templates/Templates";
 import TemplateDetails from "../components/templateDepend/templateDetails/TemplateDetails";
+import { useState } from "react";
+import UserContext from "../contexts/UserContext";
 
 function App() {
+	const [user, setUser] = useState({});
 	const location = useLocation();
 
 	const isDetails =
@@ -17,8 +20,17 @@ function App() {
 
 	const shouldRenderLayout = !isDetails;
 
+	const setAuthenticatedUser = (user) => {
+		setUser(user);
+	};
+
+	const userContextValues = {
+		user,
+		isAuthenticated: !!user.accessToken,
+	};
+
 	return (
-		<>
+		<UserContext.Provider value={userContextValues}>
 			{isDetails && (
 				<Routes>
 					<Route
@@ -40,7 +52,12 @@ function App() {
 
 							<Route path="/auth">
 								<Route path="login" element={<Login />} />
-								<Route path="register" element={<Register />} />
+								<Route
+									path="register"
+									element={
+										<Register setAuthenticatedUser={setAuthenticatedUser} />
+									}
+								/>
 							</Route>
 						</Routes>
 					</main>
@@ -48,7 +65,7 @@ function App() {
 					<Footer />
 				</div>
 			)}
-		</>
+		</UserContext.Provider>
 	);
 }
 
