@@ -106,6 +106,15 @@
 	text-decoration: underline;
 }
 
+.errorMessage {
+	font-size: 0.875rem;
+	font-weight: 400;
+	color: var(--error-color);
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+}
+
 @media (max-width: 768px) {
 	.registerContainer {
 		padding: var(--spacing-md);

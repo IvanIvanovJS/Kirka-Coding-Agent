@@ -12,7 +12,6 @@ const Header = () => {
 	};
 
 	const { isAuthenticated } = useContext(UserContext);
-	console.log(isAuthenticated);
 	return (
 		<div className={styles.headerWrapper}>
 			<header className={styles.header}>

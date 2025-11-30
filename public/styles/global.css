@@ -47,7 +47,7 @@
 	--shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 
 	/* Error */
-	--error-color: rgb(255, 0, 0);
+	--error-color: rgb(255, 68, 68);
 	--error-bg: rgba(255, 0, 0, 0.1);
 }
 

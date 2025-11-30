@@ -1,3 +1,4 @@
+import { AlertCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import useFetch from "../../../hooks/useFetch";
@@ -13,15 +14,14 @@ const initialValues = {
 export default function Register({ setAuthenticatedUser }) {
 	const [userData, setUserData] = useState(null);
 	const [clientErrors, setClientErrors] = useState(null);
+
 	const navigate = useNavigate();
 
-	const { input, formAction, setValues } = useForm(
-		registerHandler,
-		initialValues,
-	);
+	const { input, formAction, setValues, isSubmitting, setIsSubmitting } =
+		useForm(registerHandler, initialValues);
+
 	const {
 		data: user,
-		isLoading,
 		error: serverError,
 		setError,
 	} = useFetch(
@@ -57,12 +57,19 @@ export default function Register({ setAuthenticatedUser }) {
 	}
 
 	useEffect(() => {
+		if (serverError) {
+			setIsSubmitting(false);
+		}
+	}, [serverError, setIsSubmitting]);
+
+	useEffect(() => {
 		if (user.accessToken) {
 			setValues(initialValues);
 			setAuthenticatedUser(user);
+			setIsSubmitting(false);
 			navigate("/");
 		}
-	}, [setAuthenticatedUser, navigate, user, setValues]);
+	}, [setAuthenticatedUser, navigate, user, setValues, setIsSubmitting]);
 
 	return (
 		<div className={styles.registerContainer}>
@@ -80,7 +87,12 @@ export default function Register({ setAuthenticatedUser }) {
 						className={styles.input}
 						placeholder="Enter your email"
 					/>
-					{clientErrors && <p>{clientErrors.email}</p>}
+					{clientErrors?.email && (
+						<p className={styles.errorMessage}>
+							<AlertCircle size={14} />
+							{clientErrors.email}
+						</p>
+					)}
 				</div>
 
 				<div className={styles.inputGroup}>
@@ -94,7 +106,12 @@ export default function Register({ setAuthenticatedUser }) {
 						className={styles.input}
 						placeholder="Enter your password"
 					/>
-					{clientErrors && <p>{clientErrors.password}</p>}
+					{clientErrors?.password && (
+						<p className={styles.errorMessage}>
+							<AlertCircle size={14} />
+							{clientErrors.password}
+						</p>
+					)}
 				</div>
 
 				<div className={styles.inputGroup}>
@@ -108,11 +125,25 @@ export default function Register({ setAuthenticatedUser }) {
 						className={styles.input}
 						placeholder="Confirm your password"
 					/>
-					{clientErrors && <p>{clientErrors.confirmPassword}</p>}
+					{clientErrors?.confirmPassword && (
+						<p className={styles.errorMessage}>
+							<AlertCircle size={14} />
+							{clientErrors.confirmPassword}
+						</p>
+					)}
 				</div>
-				{serverError && <p>{serverError}</p>}
-				<button type="submit" className={styles.submitBtn} disabled={isLoading}>
-					{isLoading ? "Please wait..." : "Register"}
+				{serverError && (
+					<p className={styles.errorMessage}>
+						<AlertCircle size={14} />
+						{serverError}
+					</p>
+				)}
+				<button
+					type="submit"
+					className={styles.submitBtn}
+					disabled={isSubmitting}
+				>
+					{isSubmitting ? "Please wait..." : "Register"}
 				</button>
 
 				<p className={styles.formLink}>
