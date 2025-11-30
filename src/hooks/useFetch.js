@@ -4,6 +4,10 @@ export default function useFetch(url, initialDataState, method, headers, body) {
 	const [data, setData] = useState(initialDataState);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const safeMethod = method ? method.toUpperCase() : "GET";
+
+	const stringifiedBody = JSON.stringify(body);
+	const stringifiedHeaders = JSON.stringify(headers);
 
 	useEffect(() => {
 		const controller = new AbortController();
@@ -11,21 +15,39 @@ export default function useFetch(url, initialDataState, method, headers, body) {
 		const fetchData = async () => {
 			setIsLoading(true);
 			setError(null);
-			method.toUpperCase();
+
+			if (
+				safeMethod !== "GET" &&
+				safeMethod !== "HEAD" &&
+				stringifiedBody === "null"
+			) {
+				setIsLoading(false);
+				return;
+			}
+
 			try {
 				const options = {
-					method,
-					headers,
+					method: safeMethod,
+					headers: {},
 					signal: controller.signal,
 				};
 
-				if (body && method !== "GET" && method !== "HEAD") {
-					options.body = JSON.stringify(body);
+				const parsedHeaders = stringifiedHeaders
+					? JSON.parse(stringifiedHeaders)
+					: {};
+
+				if (
+					stringifiedBody !== "null" &&
+					safeMethod !== "GET" &&
+					safeMethod !== "HEAD"
+				) {
+					options.body = stringifiedBody;
 					options.headers = {
+						...parsedHeaders,
 						"Content-Type": "application/json",
-						...headers,
 					};
 				}
+
 				const res = await fetch(url, options);
 
 				if (!res.ok) {
@@ -36,6 +58,7 @@ export default function useFetch(url, initialDataState, method, headers, body) {
 
 				const result = await res.json();
 				setData(result);
+
 				requestAnimationFrame(() => {
 					setIsLoading(false);
 				});
@@ -51,7 +74,7 @@ export default function useFetch(url, initialDataState, method, headers, body) {
 		fetchData();
 
 		return () => controller.abort();
-	}, [url, body, headers, method]);
+	}, [url, stringifiedHeaders, stringifiedBody, safeMethod]);
 
 	return {
 		data,
