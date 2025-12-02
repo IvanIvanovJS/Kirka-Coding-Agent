@@ -7,6 +7,7 @@ import Login from "../components/auth/login/Login";
 import Register from "../components/auth/register/Register";
 import Templates from "../components/templateDepend/templates/Templates";
 import TemplateDetails from "../components/templateDepend/templateDetails/TemplateDetails";
+import Logout from "../components/auth/logout/Logout";
 
 function App() {
 	const location = useLocation();
@@ -41,6 +42,7 @@ function App() {
 							<Route path="/auth">
 								<Route path="login" element={<Login />} />
 								<Route path="register" element={<Register />} />
+								<Route path="logout" element={<Logout />} />
 							</Route>
 						</Routes>
 					</main>

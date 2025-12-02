@@ -1,14 +1,14 @@
-import { Link, useNavigate } from "react-router";
-import { useContext, useEffect, useState } from "react";
-import { AlertCircle } from "lucide-react";
-import { UserContext } from "../../../contexts/UserContext";
-import useFetch from "../../../hooks/useFetch";
-import useForm from "../../../hooks/useForm";
-import styles from "./Login.module.css";
+import { Link, useNavigate } from 'react-router';
+import { useContext, useEffect, useState } from 'react';
+import { AlertCircle } from 'lucide-react';
+import { UserContext } from '../../../contexts/UserContext';
+import useFetch from '../../../hooks/useFetch';
+import useForm from '../../../hooks/useForm';
+import styles from './Login.module.css';
 
 const initialValues = {
-	email: "",
-	password: "",
+	email: '',
+	password: '',
 };
 
 export default function Login() {
@@ -25,22 +25,22 @@ export default function Login() {
 		data: user,
 		error: serverError,
 		setError,
-	} = useFetch("http://localhost:3030/users/login", {}, "POST", {}, userData);
+	} = useFetch('http://localhost:3030/users/login', {}, 'POST', {}, userData);
 
 	function loginHandler(values) {
 		const { email, password } = values;
 		const clientErros = {};
 		if (!email) {
-			clientErros.email = "Email is required!";
+			clientErros.email = 'Email is required!';
 		}
 		if (!password) {
-			clientErros.password = "Password is required!";
+			clientErros.password = 'Password is required!';
 		}
 
 		if (Object.keys(clientErros).length > 0) {
 			setClientErrors(clientErros);
 			setError(null);
-			throw new Error("Input validation error!");
+			throw new Error('Input validation error!');
 		}
 
 		setClientErrors(null);
@@ -58,7 +58,7 @@ export default function Login() {
 			setValues(initialValues);
 			setAuthenticatedUser(user);
 			setIsSubmitting(false);
-			navigate("/");
+			navigate('/');
 		}
 	}, [setAuthenticatedUser, navigate, user, setValues, setIsSubmitting]);
 
@@ -75,7 +75,7 @@ export default function Login() {
 						type="email"
 						id="email"
 						className={styles.input}
-						{...input("email")}
+						{...input('email')}
 						placeholder="Enter your email"
 					/>
 					{clientErrors?.email && (
@@ -93,7 +93,7 @@ export default function Login() {
 					<input
 						type="password"
 						id="password"
-						{...input("password")}
+						{...input('password')}
 						className={styles.input}
 						placeholder="Enter your password"
 					/>
@@ -111,11 +111,11 @@ export default function Login() {
 					</p>
 				)}
 				<button type="submit" className={styles.submitBtn}>
-					{isSubmitting ? "Please wait..." : "Login"}
+					{isSubmitting ? 'Please wait...' : 'Login'}
 				</button>
 
 				<p className={styles.formLink}>
-					Don't have an account?{" "}
+					Don't have an account?{' '}
 					<Link to="/auth/register" className={styles.link}>
 						Register
 					</Link>

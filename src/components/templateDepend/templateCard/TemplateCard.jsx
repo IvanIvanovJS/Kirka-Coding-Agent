@@ -7,6 +7,7 @@ export default function TemplateCard({ temp, isLoading }) {
 		<>
 			<div className={styles.previewWrapper}>
 				<iframe
+					title={temp.name}
 					className={styles.previewFrame}
 					sandbox="allow-scripts allow-same-origin"
 					srcDoc={wrapperIframeData(temp?.thumbnail, temp?.bodyClass)}
@@ -27,7 +28,9 @@ export default function TemplateCard({ temp, isLoading }) {
 		return (
 			<>
 				<div className={styles.cardSkeleton} />
-				<button className={styles.detailsButton}>Loading...</button>
+				<button type="button" className={styles.detailsButton}>
+					Loading...
+				</button>
 			</>
 		);
 	};
