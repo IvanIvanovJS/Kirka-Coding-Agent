@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const UserContext = createContext({
 	user: {
@@ -13,15 +14,14 @@ const UserContext = createContext({
 });
 
 function UserProvider({ children }) {
-	const [user, setUser] = useState({});
-
+	const [user, setUser] = useLocalStorage(null, "user");
 	const setAuthenticatedUser = (user) => {
 		setUser(user);
 	};
 
 	const userContextValues = {
 		user,
-		isAuthenticated: !!user.accessToken,
+		isAuthenticated: !!user && !!user.accessToken,
 		setAuthenticatedUser,
 	};
 
