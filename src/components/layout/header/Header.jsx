@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router";
-import UserContext from "../../../contexts/UserContext";
+import { UserContext } from "../../../contexts/UserContext";
 import GhostIcon from "../../UI/ghostIcon/GhostIcon";
 import styles from "./Header.module.css";
 

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router";
 import { useContext, useEffect, useState } from "react";
 import { AlertCircle } from "lucide-react";
-import UserContext from "../../../contexts/UserContext";
+import { UserContext } from "../../../contexts/UserContext";
 import useFetch from "../../../hooks/useFetch";
 import useForm from "../../../hooks/useForm";
 import styles from "./Login.module.css";
