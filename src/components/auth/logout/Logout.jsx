@@ -8,7 +8,9 @@ export default function Logout() {
 	const hasLoggedOut = useRef(false);
 
 	useEffect(() => {
-		if (hasLoggedOut.current) return;
+		if (hasLoggedOut.current) {
+			return navigate('/');
+		}
 		hasLoggedOut.current = true;
 
 		const logout = async () => {
