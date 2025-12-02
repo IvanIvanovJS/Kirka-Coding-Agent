@@ -1,12 +1,16 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { UserContext } from '../../../contexts/UserContext';
 import { useNavigate } from 'react-router';
 
 export default function Logout() {
 	const navigate = useNavigate();
 	const { setAuthenticatedUser, user } = useContext(UserContext);
+	const hasLoggedOut = useRef(false);
 
 	useEffect(() => {
+		if (hasLoggedOut.current) return;
+		hasLoggedOut.current = true;
+
 		const logout = async () => {
 			try {
 				if (user?.accessToken) {
