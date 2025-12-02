@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 export default function useLocalStorage(initialState, key) {
 	const [state, setState] = useState(() => {
@@ -9,17 +9,21 @@ export default function useLocalStorage(initialState, key) {
 				return JSON.parse(storageData);
 			}
 		} catch (error) {
-			console.error("Error reading from localStorage:", error);
+			console.error('Error reading from localStorage:', error);
 		}
 
-		return typeof initialState === "function" ? initialState() : initialState;
+		return typeof initialState === 'function' ? initialState() : initialState;
 	});
 
 	useEffect(() => {
 		try {
-			localStorage.setItem(key, JSON.stringify(state));
+			if (state === null || state === undefined) {
+				localStorage.removeItem(key);
+			} else {
+				localStorage.setItem(key, JSON.stringify(state));
+			}
 		} catch (error) {
-			console.error("Error writing to localStorage:", error);
+			console.error('Error writing to localStorage:', error);
 		}
 	}, [state, key]);
 
