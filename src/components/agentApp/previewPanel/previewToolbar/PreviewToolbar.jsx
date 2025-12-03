@@ -44,7 +44,11 @@ export default function PreviewToolbar() {
 			</div>
 
 			<div className={styles.actions}>
-				<button className={styles.actionButton} aria-label="Export as HTML">
+				<button
+					type="button"
+					className={styles.actionButton}
+					aria-label="Export as HTML"
+				>
 					<svg
 						width="18"
 						height="18"
