@@ -6,10 +6,12 @@ export default function TemplatesSidebar() {
 	return (
 		<div className={styles.sidebar}>
 			<div className={styles.sidebarHeader}>
-				<Link to={'/'} className={styles.logoContainer}>
-					<GhostIcon size={40} className={styles.ghostIcon} />
+				<div className={styles.logoContainer}>
+					<Link to={'/'}>
+						<GhostIcon size={40} className={styles.ghostIcon} />
+					</Link>
 					<h3 className={styles.title}>Templates</h3>
-				</Link>
+				</div>
 				<button
 					type="button"
 					className={styles.toggleButton}
