@@ -1,5 +1,6 @@
-import styles from "./Hero.module.css";
-import GhostIcon from "../UI/ghostIcon/GhostIcon";
+import styles from './Hero.module.css';
+import GhostIcon from '../UI/ghostIcon/GhostIcon';
+import { Link } from 'react-router';
 
 export default function Hero() {
 	return (
@@ -16,9 +17,13 @@ export default function Hero() {
 					</p>
 
 					<div className={styles.ctaButtons}>
-						<button className={styles.primaryBtn}>Launch App</button>
+						<Link to={'/agent-app'} type="button" className={styles.primaryBtn}>
+							Launch App
+						</Link>
 
-						<button className={styles.secondaryBtn}>Learn More</button>
+						<button type="button" className={styles.secondaryBtn}>
+							Learn More
+						</button>
 					</div>
 				</div>
 

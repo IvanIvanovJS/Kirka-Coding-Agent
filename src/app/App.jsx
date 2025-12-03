@@ -10,24 +10,27 @@ import TemplateDetails from '../components/templateDepend/templateDetails/Templa
 import Logout from '../components/auth/logout/Logout';
 import AuthGuard from '../routeGuards/AuthGuard';
 import GuestGuard from '../routeGuards/GuestGuard';
+import AgentApp from '../components/agentApp/AgentApp';
 
 function App() {
 	const location = useLocation();
 
-	const isDetails =
-		location.pathname.includes('/templates/') &&
-		location.pathname.endsWith('/details');
+	const isLayoutless =
+		(location.pathname.includes('/templates/') &&
+			location.pathname.endsWith('/details')) ||
+		location.pathname.includes('/agent-app');
 
-	const shouldRenderLayout = !isDetails;
+	const shouldRenderLayout = !isLayoutless;
 
 	return (
 		<>
-			{isDetails && (
+			{isLayoutless && (
 				<Routes>
 					<Route
 						path="/templates/:templateId/details"
 						element={<TemplateDetails />}
 					/>
+					<Route path="/agent-app" element={<AgentApp />} />
 				</Routes>
 			)}
 
