@@ -19,7 +19,9 @@ export default function TemplatesSidebar() {
 				</button>
 			</div>
 
-			<div className={styles.templateList}></div>
+			<div className={styles.templateList}>
+				<p className={styles.emptyState}>Loading templates...</p>
+			</div>
 		</div>
 	);
 }
