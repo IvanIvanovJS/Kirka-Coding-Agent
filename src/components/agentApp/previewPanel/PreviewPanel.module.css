@@ -1,0 +1,24 @@
+.previewPanel {
+	width: 50%;
+	height: 100%;
+	background: var(--bg-secondary);
+	transition: width 0.3s ease;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	font-family: "Lato", sans-serif;
+}
+
+.previewPanel.previewPanelExpanded {
+	width: calc(70% - 48px);
+}
+
+@media (max-width: 1177px) {
+	.previewPanel,
+	.previewPanel.previewPanelExpanded {
+		width: 100%;
+		height: auto;
+		flex: 1;
+		min-height: 100vh;
+	}
+}
