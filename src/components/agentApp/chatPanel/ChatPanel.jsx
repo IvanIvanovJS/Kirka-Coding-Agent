@@ -1,3 +1,4 @@
+import ChatInput from './chatInput/ChatInput';
 import styles from './ChatPanel.module.css';
 
 export default function ChatPanel() {
@@ -13,7 +14,7 @@ export default function ChatPanel() {
 				</div>
 			</div>
 
-			{/* <ChatInput /> */}
+			<ChatInput />
 		</div>
 	);
 }
