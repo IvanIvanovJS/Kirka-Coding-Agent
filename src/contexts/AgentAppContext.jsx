@@ -1,5 +1,6 @@
-import { createContext, useState } from 'react';
+import { createContext,  useState } from 'react';
 import useFetch from '../hooks/useFetch';
+
 
 const AgentAppContext = createContext({
 	isSidebarVisible: true,
@@ -11,9 +12,11 @@ const AgentAppContext = createContext({
 	setCurrentTemplate() {},
 });
 
+
 function AgentAppProvider({ children }) {
 	const [isSidebarVisible, setIsSidebarVisible] = useState(true);
-	const [currentTemplate, setCurrentTemplate] = useState(null);
+	const [currentTemplate, setCurrentTemplate] = useState(null)
+	
 	const {
 		data: templates,
 		isLoading,

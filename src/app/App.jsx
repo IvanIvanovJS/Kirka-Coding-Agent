@@ -15,6 +15,7 @@ import { AgentAppProvider } from '../contexts/AgentAppContext';
 
 function App() {
 	const location = useLocation();
+	
 
 	const isLayoutless =
 		(location.pathname.includes('/templates/') &&
@@ -25,8 +26,11 @@ function App() {
 
 	return (
 		<>
-		<AgentAppProvider>
+		
 			{isLayoutless && (
+				
+				<AgentAppProvider>
+					{/**Without global state for now */}
 				<Routes>
 					<Route
 						path="/templates/:templateId/details"
@@ -42,8 +46,9 @@ function App() {
 						}
 					/>
 				</Routes>
+				</AgentAppProvider>
 			)}
-		</AgentAppProvider>
+		
 			{shouldRenderLayout && (
 				<div className={styles.layoutWrapper}>
 					<Header />

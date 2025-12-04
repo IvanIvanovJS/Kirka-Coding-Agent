@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import styles from "./TemplateDetails.module.css";
 import useFetch from "../../../hooks/useFetch";
 import wrapperIframeData from "../../../utils/wrapperIframeData";
@@ -7,11 +7,14 @@ import ColorCard from "./colorCard/ColorCard";
 import { useEffect, useState } from "react";
 import PreveiwModal from "./previewModal/PreviewModal";
 import exportAsHtml from "../../../utils/exportAsHtml";
+import { useAgentApp } from "../../../contexts";
 
 
 export default function TemplateDetails() {
 	const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 	const { templateId } = useParams("templateId");
+	const {setCurrentTemplate}= useAgentApp()
+	const navigate = useNavigate()
 
 	const { data, isLoading, error } = useFetch(
 		`http://localhost:3030/data/templates/${templateId}`,
@@ -109,6 +112,8 @@ export default function TemplateDetails() {
 				</div>
 			</div>
 
+			
+
 			<div className={styles.fixedNav}>
 				<button
 					type={"button"}
@@ -149,7 +154,10 @@ export default function TemplateDetails() {
 				>
 					Download
 				</button>
-				<button type={"button"} className={styles.navButtonAccent}>
+				<button type={"button"} className={styles.navButtonAccent} onClick={()=>{
+					setCurrentTemplate(content)
+					navigate('/agent-app')
+				}}>
 					Add to App
 				</button>
 			</div>
