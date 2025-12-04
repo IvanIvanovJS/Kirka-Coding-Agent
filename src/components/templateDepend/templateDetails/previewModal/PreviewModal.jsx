@@ -1,6 +1,6 @@
-import exportAsHtml from "../../../../utils/exportAsHtml";
-import wrapperIframeData from "../../../../utils/wrapperIframeData";
-import styles from "./PreviewModal.module.css";
+import exportAsHtml from '../../../../utils/exportAsHtml';
+import wrapperIframeData from '../../../../utils/wrapperIframeData';
+import styles from './PreviewModal.module.css';
 
 export default function PreveiwModal({ isLoading, content, setPreviewFalse }) {
 	return (
@@ -11,7 +11,7 @@ export default function PreveiwModal({ isLoading, content, setPreviewFalse }) {
 				tabIndex={0}
 				className={styles.backdrop}
 				onKeyDown={(e) => {
-					if (e.key === "Enter" || e.key === " ") {
+					if (e.key === 'Enter' || e.key === ' ') {
 						setPreviewFalse();
 					}
 				}}
@@ -39,7 +39,7 @@ export default function PreveiwModal({ isLoading, content, setPreviewFalse }) {
 							className={styles.closeButton}
 							onClick={() => setPreviewFalse()}
 						>
-							🗙
+							<span>🗙</span>
 						</button>
 					</div>
 					<div className={styles.iframeContainer}>
