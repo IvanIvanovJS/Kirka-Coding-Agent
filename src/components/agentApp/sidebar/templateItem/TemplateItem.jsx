@@ -28,7 +28,7 @@ export default function TemplateItem({ template }) {
 					type="button"
 					className={`${styles.actionButton} ${styles.addButton}`}
 				>
-					Add
+					Add to Chat
 				</button>
 			</div>
 			{isPreviewOpen && (

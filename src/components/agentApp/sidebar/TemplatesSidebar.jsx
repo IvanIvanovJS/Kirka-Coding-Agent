@@ -4,8 +4,9 @@ import styles from './TemplatesSidebar.module.css';
 import TemplateItem from './templateItem/TemplateItem';
 import { useAgentApp } from '../../../contexts';
 
-export default function TemplatesSidebar({ templates, isLoading, error }) {
-	const { isSidebarVisible, toggleSidebar } = useAgentApp();
+export default function TemplatesSidebar() {
+	const { isSidebarVisible, toggleSidebar, templates, isLoading, serverError } =
+		useAgentApp();
 
 	if (!isSidebarVisible) {
 		return (
@@ -50,7 +51,7 @@ export default function TemplatesSidebar({ templates, isLoading, error }) {
 					templates.map((template) => (
 						<TemplateItem key={template._id} template={template} />
 					))}
-				{error && (
+				{serverError && (
 					<p className={styles.error}>
 						Unable to fetch templates. Please try again later.
 					</p>
