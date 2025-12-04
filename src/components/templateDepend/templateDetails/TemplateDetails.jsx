@@ -5,7 +5,7 @@ import wrapperIframeData from "../../../utils/wrapperIframeData";
 import SectionCard from "./sectionCard/SectionCard";
 import ColorCard from "./colorCard/ColorCard";
 import { useEffect, useState } from "react";
-import PreveiwModal from "./previewModal/previewModal";
+import PreveiwModal from "./previewModal/PreviewModal";
 import exportAsHtml from "../../../utils/exportAsHtml";
 
 export default function TemplateDetails() {

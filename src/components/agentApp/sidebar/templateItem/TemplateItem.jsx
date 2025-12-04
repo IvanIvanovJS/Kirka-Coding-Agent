@@ -1,8 +1,13 @@
+import { useState } from 'react';
+import PreviewModalPortal from '../../../../portals/PreviewModalPortal';
+import PreveiwModal from '../../../templateDepend/templateDetails/previewModal/PreviewModal';
 import styles from './TemplateItem.module.css';
 
-export default function TemplateItem({
-	template
-}) {
+export default function TemplateItem({ template }) {
+	const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+	const setPreviewFalse = () => {
+		setIsPreviewOpen(false);
+	};
 	return (
 		<div className={styles.templateItem}>
 			<div className={styles.templateInfo}>
@@ -12,6 +17,9 @@ export default function TemplateItem({
 			<div className={styles.templateActions}>
 				<button
 					type="button"
+					onClick={() => {
+						setIsPreviewOpen(true);
+					}}
 					className={`${styles.actionButton} ${styles.previewButton}`}
 				>
 					Preview
@@ -23,6 +31,15 @@ export default function TemplateItem({
 					Add
 				</button>
 			</div>
+			{isPreviewOpen && (
+				<PreviewModalPortal>
+					<PreveiwModal
+						isLoading={false}
+						content={template}
+						setPreviewFalse={setPreviewFalse}
+					/>
+				</PreviewModalPortal>
+			)}
 		</div>
 	);
 }
