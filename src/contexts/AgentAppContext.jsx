@@ -27,7 +27,6 @@ function AgentAppProvider({ children }) {
 	};
 
 	
-
 	const agentAppContextValues = {
 		isSidebarVisible,
 		toggleSidebar,
