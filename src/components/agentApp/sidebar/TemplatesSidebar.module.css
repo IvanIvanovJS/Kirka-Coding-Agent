@@ -115,6 +115,22 @@
 	font-size: 0.875rem;
 }
 
+.templateList::-webkit-scrollbar {
+	width: 6px;
+}
+
+.templateList::-webkit-scrollbar-track {
+	background: var(--fg-primary);
+}
+
+.templateList::-webkit-scrollbar-thumb {
+	background: var(--fg-border);
+	border-radius: 3px;
+}
+
+.templateList::-webkit-scrollbar-thumb:hover {
+	background: var(--accent-glow);
+}
 @media (max-width: 1177px) {
 	.sidebar {
 		width: 100%;

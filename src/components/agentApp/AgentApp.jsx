@@ -1,7 +1,8 @@
 import styles from './AgentApp.module.css';
 import ChatPanel from './chatPanel/ChatPanel';
 import PreviewPanel from './previewPanel/PreviewPanel';
-import TemplatesSidebar from './templatesSideBar/templatesSidebar';
+import TemplatesSidebar from './sidebar/TemplatesSidebar';
+
 
 export default function AgentApp() {
 	return (
