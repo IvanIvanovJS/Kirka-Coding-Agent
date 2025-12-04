@@ -1,7 +1,11 @@
+import { useAgentApp } from '../../../../contexts';
+import wrapperIframeData from '../../../../utils/wrapperIframeData';
 import styles from './PreviewFrame.module.css';
 
 export default function PreviewFrame() {
-	return (
+	const { currentTemplate } = useAgentApp();
+	if(!currentTemplate){
+		return (
 		<div className={styles.frameContainer}>
 			<div className={styles.emptyState}>
 				<svg
@@ -24,4 +28,22 @@ export default function PreviewFrame() {
 			</div>
 		</div>
 	);
+	}
+
+	return(
+		 <div className={styles.frameContainer}>
+      <div 
+        className={`${styles.frameWrapper}`}
+      >
+        <iframe
+          
+          className={styles.iframe}
+          title={currentTemplate.name}
+          sandbox="allow-scripts allow-same-origin"
+		  srcDoc={wrapperIframeData(currentTemplate.full_html_template)}
+        />
+      </div>
+    </div>
+	)
+		
 }

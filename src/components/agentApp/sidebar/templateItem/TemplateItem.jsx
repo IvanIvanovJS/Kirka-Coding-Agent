@@ -2,12 +2,15 @@ import { useState } from 'react';
 import PreviewModalPortal from '../../../../portals/PreviewModalPortal';
 import PreveiwModal from '../../../templateDepend/templateDetails/previewModal/PreviewModal';
 import styles from './TemplateItem.module.css';
+import { useAgentApp } from '../../../../contexts';
 
 export default function TemplateItem({ template }) {
 	const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+	const {setCurrentTemplate} = useAgentApp();
 	const setPreviewFalse = () => {
 		setIsPreviewOpen(false);
 	};
+
 	return (
 		<div className={styles.templateItem}>
 			<div className={styles.templateInfo}>
@@ -27,6 +30,7 @@ export default function TemplateItem({ template }) {
 				<button
 					type="button"
 					className={`${styles.actionButton} ${styles.addButton}`}
+					onClick={() => setCurrentTemplate(template)}
 				>
 					Add to Chat
 				</button>

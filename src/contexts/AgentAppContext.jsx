@@ -7,10 +7,13 @@ const AgentAppContext = createContext({
 	templates: [],
 	isLoading: true,
 	serverError: null,
+	currentTemplate: null,
+	setCurrentTemplate() {},
 });
 
 function AgentAppProvider({ children }) {
 	const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+	const [currentTemplate, setCurrentTemplate] = useState(null);
 	const {
 		data: templates,
 		isLoading,
@@ -20,12 +23,16 @@ function AgentAppProvider({ children }) {
 		setIsSidebarVisible((state) => !state);
 	};
 
+	
+
 	const agentAppContextValues = {
 		isSidebarVisible,
 		toggleSidebar,
 		templates,
 		isLoading,
 		serverError,
+		currentTemplate,
+		setCurrentTemplate,
 	};
 
 	return (
