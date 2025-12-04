@@ -11,6 +11,7 @@ import Logout from '../components/auth/logout/Logout';
 import AuthGuard from '../routeGuards/AuthGuard';
 import GuestGuard from '../routeGuards/GuestGuard';
 import AgentApp from '../components/agentApp/AgentApp';
+import { AgentAppProvider } from '../contexts/AgentAppContext';
 
 function App() {
 	const location = useLocation();
@@ -30,7 +31,9 @@ function App() {
 						path="/templates/:templateId/details"
 						element={<TemplateDetails />}
 					/>
-					<Route path="/agent-app" element={<AgentApp />} />
+					<AgentAppProvider>
+						<Route path="/agent-app" element={<AgentApp />} />
+					</AgentAppProvider>
 				</Routes>
 			)}
 

@@ -2,8 +2,14 @@ import { Link } from 'react-router';
 import GhostIcon from '../../UI/ghostIcon/GhostIcon';
 import styles from './TemplatesSidebar.module.css';
 import TemplateItem from './templateItem/TemplateItem';
+import { useAgentApp } from '../../../contexts';
 
 export default function TemplatesSidebar({ templates, isLoading, error }) {
+	const { isSidebarVisible, toggleSidebar } = useAgentApp();
+
+	if (!isSidebarVisible) {
+		return;
+	}
 	return (
 		<div className={styles.sidebar}>
 			<div className={styles.sidebarHeader}>
