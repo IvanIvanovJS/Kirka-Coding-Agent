@@ -25,6 +25,7 @@ function App() {
 
 	return (
 		<>
+		<AgentAppProvider>
 			{isLayoutless && (
 				<Routes>
 					<Route
@@ -35,14 +36,14 @@ function App() {
 					<Route
 						path="/agent-app"
 						element={
-							<AgentAppProvider>
+							
 								<AgentApp />
-							</AgentAppProvider>
+						
 						}
 					/>
 				</Routes>
 			)}
-
+		</AgentAppProvider>
 			{shouldRenderLayout && (
 				<div className={styles.layoutWrapper}>
 					<Header />

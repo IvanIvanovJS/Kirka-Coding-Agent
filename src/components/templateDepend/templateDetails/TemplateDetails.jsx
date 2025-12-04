@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import PreveiwModal from "./previewModal/PreviewModal";
 import exportAsHtml from "../../../utils/exportAsHtml";
 
+
 export default function TemplateDetails() {
 	const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 	const { templateId } = useParams("templateId");
@@ -153,11 +154,13 @@ export default function TemplateDetails() {
 				</button>
 			</div>
 			{isPreviewOpen && (
+				
 				<PreveiwModal
 					isLoading={isLoading}
 					content={content}
 					setPreviewFalse={setPreviewFalse}
 				/>
+				
 			)}
 		</div>
 	);

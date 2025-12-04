@@ -1,8 +1,12 @@
+import { useNavigate } from 'react-router';
+import { useAgentApp } from '../../../../contexts';
 import exportAsHtml from '../../../../utils/exportAsHtml';
 import wrapperIframeData from '../../../../utils/wrapperIframeData';
 import styles from './PreviewModal.module.css';
 
 export default function PreveiwModal({ isLoading, content, setPreviewFalse }) {
+	const {setCurrentTemplate} = useAgentApp()
+	const navigate = useNavigate();
 	return (
 		<>
 			{/** biome-ignore lint/a11y/useSemanticElements: stfu*/}
@@ -30,7 +34,12 @@ export default function PreveiwModal({ isLoading, content, setPreviewFalse }) {
 							>
 								Download
 							</button>
-							<button type="button" className={styles.modalButton}>
+							<button type="button" className={styles.modalButton} onClick={()=>{
+								setCurrentTemplate(content);
+								navigate('/agent-app')
+								setPreviewFalse()
+														
+							}}>
 								Add to app
 							</button>
 						</div>
