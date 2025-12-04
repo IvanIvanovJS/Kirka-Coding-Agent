@@ -6,7 +6,7 @@ const SKELETON_COUNT = 4;
 
 export default function Templates() {
 	const { data, isLoading, error } = useFetch(
-		"http://localhost:3030/jsonstore/templates",
+		"http://localhost:3030/data/templates",
 		null,
 		"GET",
 	);

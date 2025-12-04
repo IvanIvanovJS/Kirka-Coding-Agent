@@ -13,7 +13,7 @@ export default function TemplateDetails() {
 	const { templateId } = useParams("templateId");
 
 	const { data, isLoading, error } = useFetch(
-		`http://localhost:3030/jsonstore/templates/${templateId}`,
+		`http://localhost:3030/data/templates/${templateId}`,
 		null,
 		"GET",
 	);
