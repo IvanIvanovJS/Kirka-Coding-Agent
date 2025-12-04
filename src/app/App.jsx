@@ -31,9 +31,15 @@ function App() {
 						path="/templates/:templateId/details"
 						element={<TemplateDetails />}
 					/>
-					<AgentAppProvider>
-						<Route path="/agent-app" element={<AgentApp />} />
-					</AgentAppProvider>
+
+					<Route
+						path="/agent-app"
+						element={
+							<AgentAppProvider>
+								<AgentApp />
+							</AgentAppProvider>
+						}
+					/>
 				</Routes>
 			)}
 

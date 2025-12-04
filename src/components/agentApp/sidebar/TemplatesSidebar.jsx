@@ -8,7 +8,18 @@ export default function TemplatesSidebar({ templates, isLoading, error }) {
 	const { isSidebarVisible, toggleSidebar } = useAgentApp();
 
 	if (!isSidebarVisible) {
-		return;
+		return (
+			<div className={styles.sidebarToggleCollapsed}>
+				<button
+					type="button"
+					className={styles.toggleButtonCollapsed}
+					onClick={toggleSidebar}
+					aria-label="Show sidebar"
+				>
+					▶
+				</button>
+			</div>
+		);
 	}
 	return (
 		<div className={styles.sidebar}>
@@ -23,6 +34,7 @@ export default function TemplatesSidebar({ templates, isLoading, error }) {
 					type="button"
 					className={styles.toggleButton}
 					aria-label="Hide sidebar"
+					onClick={toggleSidebar}
 				>
 					◀
 				</button>
