@@ -4,7 +4,13 @@ import styles from './TemplatesSidebar.module.css';
 import TemplateItem from './templateItem/TemplateItem';
 
 
-export default function TemplatesSidebar() {
+export default function TemplatesSidebar({
+	templates,
+	isLoading,
+	error
+}) {
+
+	console.log(templates)
 	return (
 		<div className={styles.sidebar}>
 			<div className={styles.sidebarHeader}>
@@ -24,8 +30,14 @@ export default function TemplatesSidebar() {
 			</div>
 
 			<div className={styles.templateList}>
-				<p className={styles.emptyState}>Loading templates...</p>
-				<TemplateItem />
+				{isLoading && <p className={styles.emptyState}>Loading templates...</p>}
+				{templates.length === 0 && <p className={styles.emptyState}>No templates found.</p>}
+				{!isLoading && templates.length > 0 && templates.map(template => <TemplateItem key={template._id} template={template}/>) }
+				{error && <p className={styles.error}>
+								Unable to fetch templates. Please try again later.
+							</p>}
+				
+				
 			</div>
 		</div>
 	);
