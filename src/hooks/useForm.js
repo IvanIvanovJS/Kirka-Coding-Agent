@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export default function useForm(callback, initialValues) {
 	const [values, setValues] = useState(initialValues);
@@ -23,7 +23,7 @@ export default function useForm(callback, initialValues) {
 			await callback(values, formData);
 			setIsSubmitting(true);
 		} catch (error) {
-			console.error("Form submission failed:", error.message);
+			console.error('Form submission failed:', error.message);
 		}
 	};
 
