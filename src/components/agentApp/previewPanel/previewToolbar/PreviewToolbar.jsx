@@ -1,6 +1,8 @@
+import { useAgentApp } from '../../../../contexts';
 import styles from './PreviewToolbar.module.css';
 
 export default function PreviewToolbar() {
+	const { handleSetPreviewMode } = useAgentApp();
 	return (
 		<div className={styles.toolbar}>
 			<div className={styles.modeToggle}>
@@ -8,6 +10,7 @@ export default function PreviewToolbar() {
 					className={styles.modeButton}
 					type="button"
 					aria-label="Desktop preview mode"
+					onClick={() => handleSetPreviewMode('desktop')}
 				>
 					<svg
 						width="20"
@@ -27,6 +30,7 @@ export default function PreviewToolbar() {
 					type="button"
 					className={styles.modeButton}
 					aria-label="Mobile preview mode"
+					onClick={() => handleSetPreviewMode('mobile')}
 				>
 					<svg
 						width="20"
