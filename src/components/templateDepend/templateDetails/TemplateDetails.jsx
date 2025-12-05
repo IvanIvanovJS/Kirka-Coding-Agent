@@ -56,18 +56,6 @@ export default function TemplateDetails() {
 		};
 	}, [isPreviewOpen]);
 
-	// Temporary
-	if (error) {
-		console.log(error);
-	}
-
-	let content = {};
-	if (isLoading) {
-		console.log('Loading');
-	} else {
-		content = data;
-	}
-
 	const scrollToSectionHandler = (sectionId) => {
 		const element = document.getElementById(sectionId);
 		if (element) {
@@ -78,7 +66,24 @@ export default function TemplateDetails() {
 	const setPreviewFalse = () => {
 		setIsPreviewOpen(false);
 	};
-	console.log(comments);
+
+	let content = {};
+	if (!isLoading) {
+		content = data;
+	}
+
+	if (error) {
+		return (
+			<div className={styles.container}>
+				<Link to={'/templates'} className={styles.backButton}>
+					← Templates
+				</Link>
+
+				<p className={styles.error}>{error}: Please try again later!</p>
+			</div>
+		);
+	}
+
 	return (
 		<div className={styles.container}>
 			<Link to={'/templates'} className={styles.backButton}>
@@ -138,6 +143,8 @@ export default function TemplateDetails() {
 				comments={comments}
 				templateId={templateId}
 				addCommentHandler={addCommentHandler}
+				isLoadingComments={isLoadingComments}
+				commentsError={commentsError}
 			/>
 
 			<div className={styles.fixedNav}>

@@ -9,6 +9,8 @@ export default function CommentsSection({
 	comments,
 	templateId,
 	addCommentHandler,
+	isLoadingComments,
+	commentsError,
 }) {
 	const { user, isAuthenticated } = useUser();
 	const [error, setError] = useState(null);
@@ -56,8 +58,16 @@ export default function CommentsSection({
 	const { input, formAction, setIsSubmitting, isSubmitting, setValues } =
 		useForm(messagesHandler, '');
 
-	if (error) {
-		return <p className={styles.error}>{error}</p>;
+	if (error || commentsError) {
+		const errorMessage = error ? error : commentsError;
+		return <p className={styles.error}>{errorMessage}</p>;
+	}
+	if (isLoadingComments) {
+		return (
+			<div className={styles.noComments}>
+				<p>Loading comments data...</p>
+			</div>
+		);
 	}
 
 	return (

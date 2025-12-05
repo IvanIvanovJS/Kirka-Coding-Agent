@@ -131,6 +131,18 @@
 	gap: var(--spacing-xl);
 }
 
+.error {
+	position: relative;
+	padding: 1rem;
+	border-radius: 0.5rem;
+	color: var(--error-color);
+	align-self: center;
+	justify-self: center;
+	font-size: 1.25rem;
+	background: var(--error-bg);
+	backdrop-filter: blur(var(--blur-md));
+}
+
 @media (min-width: 768px) {
 	.sectionsGrid {
 		grid-template-columns: repeat(2, 1fr);
