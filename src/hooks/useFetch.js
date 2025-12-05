@@ -1,22 +1,36 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-export default function useFetch(url, initialDataState, method, headers, body) {
+export default function useFetch(
+	url,
+	initialDataState,
+	method,
+	headers,
+	body,
+	autoFetch = true,
+) {
 	const [data, setData] = useState(initialDataState);
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(autoFetch);
 	const [error, setError] = useState(null);
 	const safeMethod = method ? method.toUpperCase() : 'GET';
 
 	const stringifiedBody = JSON.stringify(body);
 	const stringifiedHeaders = JSON.stringify(headers);
 
-	useEffect(() => {
-		const controller = new AbortController();
+	const executeFetch = useCallback(
+		async (customBody = null, customHeaders = null) => {
+			const controller = new AbortController();
 
-		const fetchData = async () => {
+			const bodyToUse =
+				customBody !== null ? JSON.stringify(customBody) : stringifiedBody;
+			const headersToUse =
+				customHeaders !== null
+					? JSON.stringify(customHeaders)
+					: stringifiedHeaders;
+
 			if (
 				safeMethod !== 'GET' &&
 				safeMethod !== 'HEAD' &&
-				stringifiedBody === 'null'
+				bodyToUse === 'null'
 			) {
 				setIsLoading(false);
 				return;
@@ -32,17 +46,17 @@ export default function useFetch(url, initialDataState, method, headers, body) {
 				};
 
 				const parsedHeaders =
-					stringifiedHeaders && stringifiedHeaders !== 'null'
-						? JSON.parse(stringifiedHeaders)
+					headersToUse && headersToUse !== 'null'
+						? JSON.parse(headersToUse)
 						: {};
 
 				if (
-					stringifiedHeaders !== 'null' &&
-					stringifiedBody !== 'null' &&
+					headersToUse !== 'null' &&
+					bodyToUse !== 'null' &&
 					safeMethod !== 'GET' &&
 					safeMethod !== 'HEAD'
 				) {
-					options.body = stringifiedBody;
+					options.body = bodyToUse;
 					options.headers = {
 						...parsedHeaders,
 						'Content-Type': 'application/json',
@@ -65,6 +79,7 @@ export default function useFetch(url, initialDataState, method, headers, body) {
 					throw new Error(result.message);
 				}
 				if (res.status === 204) {
+					setIsLoading(false);
 					return res;
 				}
 				const result = await res.json();
@@ -73,24 +88,33 @@ export default function useFetch(url, initialDataState, method, headers, body) {
 				requestAnimationFrame(() => {
 					setIsLoading(false);
 				});
+
+				return result;
 			} catch (error) {
 				if (error.name === 'AbortError') return;
 				setError(error.message);
 				requestAnimationFrame(() => {
 					setIsLoading(false);
 				});
+				throw error;
 			}
-		};
+		},
+		[url, stringifiedHeaders, stringifiedBody, safeMethod],
+	);
 
-		fetchData();
+	useEffect(() => {
+		if (!autoFetch) return;
 
+		const controller = new AbortController();
+		executeFetch();
 		return () => controller.abort();
-	}, [url, stringifiedHeaders, stringifiedBody, safeMethod]);
+	}, [autoFetch, executeFetch]);
 
 	return {
 		data,
 		isLoading,
 		error,
 		setError,
+		refetch: executeFetch,
 	};
 }
