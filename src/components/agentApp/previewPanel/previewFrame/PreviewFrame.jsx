@@ -5,9 +5,6 @@ import styles from './PreviewFrame.module.css';
 export default function PreviewFrame() {
 	const { currentTemplate, previewMode } = useAgentApp();
 
-	const showFullHtml =
-		currentTemplate && Object.hasOwn(currentTemplate, 'full_html_template');
-
 	if (!currentTemplate) {
 		return (
 			<div className={styles.frameContainer}>
@@ -43,11 +40,7 @@ export default function PreviewFrame() {
 					className={styles.iframe}
 					title={currentTemplate.name}
 					sandbox="allow-scripts allow-same-origin"
-					srcDoc={
-						showFullHtml
-							? wrapperIframeData(currentTemplate.full_html_template)
-							: currentTemplate.template
-					}
+					srcDoc={wrapperIframeData(currentTemplate.full_html_template)}
 				/>
 			</div>
 		</div>
