@@ -1,8 +1,10 @@
 import { useAgentApp } from '../../../../contexts';
+import exportAsHtml from '../../../../utils/exportAsHtml';
 import styles from './PreviewToolbar.module.css';
 
 export default function PreviewToolbar() {
-	const { handleSetPreviewMode } = useAgentApp();
+	const { handleSetPreviewMode, currentTemplate } = useAgentApp();
+
 	return (
 		<div className={styles.toolbar}>
 			<div className={styles.modeToggle}>
@@ -52,6 +54,13 @@ export default function PreviewToolbar() {
 					type="button"
 					className={styles.actionButton}
 					aria-label="Export as HTML"
+					disabled={!currentTemplate}
+					onClick={() =>
+						exportAsHtml(
+							currentTemplate.full_html_template,
+							currentTemplate.name,
+						)
+					}
 				>
 					<svg
 						width="18"
@@ -71,6 +80,7 @@ export default function PreviewToolbar() {
 					type="button"
 					className={styles.actionButton}
 					aria-label="Save template"
+					disabled={!currentTemplate}
 				>
 					<svg
 						width="18"

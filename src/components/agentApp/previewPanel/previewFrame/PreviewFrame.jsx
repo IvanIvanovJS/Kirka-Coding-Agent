@@ -46,7 +46,7 @@ export default function PreviewFrame() {
 					srcDoc={
 						showFullHtml
 							? wrapperIframeData(currentTemplate.full_html_template)
-							: currentTemplate
+							: currentTemplate.template
 					}
 				/>
 			</div>

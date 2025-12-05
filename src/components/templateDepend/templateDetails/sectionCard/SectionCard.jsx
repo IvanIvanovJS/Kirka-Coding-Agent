@@ -1,18 +1,18 @@
-import { useNavigate } from "react-router";
-import { useAgentApp } from "../../../../contexts";
-import exportAsHtml from "../../../../utils/exportAsHtml";
-import toPascalCase from "../../../../utils/toPascalCase";
-import wrapperIframeData from "../../../../utils/wrapperIframeData";
-import styles from "./SectionCard.module.css";
+import { useNavigate } from 'react-router';
+import { useAgentApp } from '../../../../contexts';
+import exportAsHtml from '../../../../utils/exportAsHtml';
+import toPascalCase from '../../../../utils/toPascalCase';
+import wrapperIframeData from '../../../../utils/wrapperIframeData';
+import styles from './SectionCard.module.css';
 
 export default function SectionCard({ temp, section }) {
-	
-	const {setCurrentTemplate} = useAgentApp()
-	const navigate = useNavigate()
+	const { setCurrentTemplate } = useAgentApp();
+	const navigate = useNavigate();
 	const sectionData = wrapperIframeData(`${section.at(1)}`, temp.bodyClass);
 	const sectionName = toPascalCase(section.at(0));
-	if (section[0].includes("javascript")) return;
-	
+	const fullSectionName = `${temp.name} - ${sectionName}`;
+	if (section[0].includes('javascript')) return;
+
 	return (
 		<div className={styles.sectionCard}>
 			<div className={styles.sectionPreview}>
@@ -30,15 +30,22 @@ export default function SectionCard({ temp, section }) {
 						type="button"
 						className={styles.actionButton}
 						onClick={() => {
-							exportAsHtml(sectionData, `${temp.name} - ${sectionName}`);
+							exportAsHtml(sectionData, fullSectionName);
 						}}
 					>
 						Download Section
 					</button>
-					<button type="button" className={styles.actionButton} onClick={()=>{
-						setCurrentTemplate(sectionData)
-						navigate('/agent-app')
-					}}>
+					<button
+						type="button"
+						className={styles.actionButton}
+						onClick={() => {
+							setCurrentTemplate({
+								full_html_template: sectionData,
+								name: fullSectionName,
+							});
+							navigate('/agent-app');
+						}}
+					>
 						Add to App
 					</button>
 				</div>
