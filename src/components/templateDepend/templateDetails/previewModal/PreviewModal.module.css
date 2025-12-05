@@ -91,7 +91,6 @@
 .closeButton:hover {
 	background: var(--fg-secondary);
 	border-color: var(--accent-glow);
-	transform: rotate(90deg);
 }
 
 .iframeContainer {
