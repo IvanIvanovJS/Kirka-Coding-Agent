@@ -12,6 +12,7 @@ import CommentsSection from './commentsSection/CommentsSection';
 
 export default function TemplateDetails() {
 	const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+	const [comments, setComments] = useState(null);
 	const { templateId } = useParams('templateId');
 	const { setCurrentTemplate } = useAgentApp();
 	const navigate = useNavigate();
@@ -21,6 +22,27 @@ export default function TemplateDetails() {
 		null,
 		'GET',
 	);
+
+	const {
+		data: commentsData,
+		isLoading: isLoadingComments,
+		error: commentsError,
+	} = useFetch(
+		`http://localhost:3030/data/comments?where=templateId%3D%22${templateId}%22`,
+		null,
+		'GET',
+	);
+
+	useEffect(() => {
+		setComments(commentsData);
+	}, [commentsData]);
+
+	const addCommentHandler = (newCommentObject) => {
+		setComments((prevComments) => {
+			const currentComments = Array.isArray(prevComments) ? prevComments : [];
+			return [...currentComments, newCommentObject];
+		});
+	};
 
 	useEffect(() => {
 		if (isPreviewOpen) {
@@ -56,7 +78,7 @@ export default function TemplateDetails() {
 	const setPreviewFalse = () => {
 		setIsPreviewOpen(false);
 	};
-
+	console.log(comments);
 	return (
 		<div className={styles.container}>
 			<Link to={'/templates'} className={styles.backButton}>
@@ -112,7 +134,11 @@ export default function TemplateDetails() {
 				</div>
 			</div>
 
-			<CommentsSection />
+			<CommentsSection
+				comments={comments}
+				templateId={templateId}
+				addCommentHandler={addCommentHandler}
+			/>
 
 			<div className={styles.fixedNav}>
 				<button
@@ -135,6 +161,13 @@ export default function TemplateDetails() {
 					onClick={() => scrollToSectionHandler('colors')}
 				>
 					Colors
+				</button>
+				<button
+					type={'button'}
+					className={styles.navButton}
+					onClick={() => scrollToSectionHandler('comments')}
+				>
+					Comments
 				</button>
 				<button
 					type={'button'}
