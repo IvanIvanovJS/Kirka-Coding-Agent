@@ -1,36 +1,36 @@
-import { Link, useNavigate, useParams } from "react-router";
-import styles from "./TemplateDetails.module.css";
-import useFetch from "../../../hooks/useFetch";
-import wrapperIframeData from "../../../utils/wrapperIframeData";
-import SectionCard from "./sectionCard/SectionCard";
-import ColorCard from "./colorCard/ColorCard";
-import { useEffect, useState } from "react";
-import PreveiwModal from "./previewModal/PreviewModal";
-import exportAsHtml from "../../../utils/exportAsHtml";
-import { useAgentApp } from "../../../contexts";
-
+import { Link, useNavigate, useParams } from 'react-router';
+import styles from './TemplateDetails.module.css';
+import useFetch from '../../../hooks/useFetch';
+import wrapperIframeData from '../../../utils/wrapperIframeData';
+import SectionCard from './sectionCard/SectionCard';
+import ColorCard from './colorCard/ColorCard';
+import { useEffect, useState } from 'react';
+import PreveiwModal from './previewModal/PreviewModal';
+import exportAsHtml from '../../../utils/exportAsHtml';
+import { useAgentApp } from '../../../contexts';
+import CommentsSection from './commentsSection/CommentsSection';
 
 export default function TemplateDetails() {
 	const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-	const { templateId } = useParams("templateId");
-	const {setCurrentTemplate}= useAgentApp()
-	const navigate = useNavigate()
+	const { templateId } = useParams('templateId');
+	const { setCurrentTemplate } = useAgentApp();
+	const navigate = useNavigate();
 
 	const { data, isLoading, error } = useFetch(
 		`http://localhost:3030/data/templates/${templateId}`,
 		null,
-		"GET",
+		'GET',
 	);
 
 	useEffect(() => {
 		if (isPreviewOpen) {
-			document.body.style.overflow = "hidden";
+			document.body.style.overflow = 'hidden';
 		} else {
-			document.body.style.overflow = "unset";
+			document.body.style.overflow = 'unset';
 		}
 
 		return () => {
-			document.body.style.overflow = "unset";
+			document.body.style.overflow = 'unset';
 		};
 	}, [isPreviewOpen]);
 
@@ -41,7 +41,7 @@ export default function TemplateDetails() {
 
 	let content = {};
 	if (isLoading) {
-		console.log("Loading");
+		console.log('Loading');
 	} else {
 		content = data;
 	}
@@ -49,7 +49,7 @@ export default function TemplateDetails() {
 	const scrollToSectionHandler = (sectionId) => {
 		const element = document.getElementById(sectionId);
 		if (element) {
-			element.scrollIntoView({ behavior: "smooth", block: "start" });
+			element.scrollIntoView({ behavior: 'smooth', block: 'start' });
 		}
 	};
 
@@ -59,7 +59,7 @@ export default function TemplateDetails() {
 
 	return (
 		<div className={styles.container}>
-			<Link to={"/templates"} className={styles.backButton}>
+			<Link to={'/templates'} className={styles.backButton}>
 				← Templates
 			</Link>
 
@@ -112,32 +112,32 @@ export default function TemplateDetails() {
 				</div>
 			</div>
 
-			
+			<CommentsSection />
 
 			<div className={styles.fixedNav}>
 				<button
-					type={"button"}
+					type={'button'}
 					className={styles.navButton}
-					onClick={() => scrollToSectionHandler("thumbnail")}
+					onClick={() => scrollToSectionHandler('thumbnail')}
 				>
 					Thumbnail
 				</button>
 				<button
-					type={"button"}
+					type={'button'}
 					className={styles.navButton}
-					onClick={() => scrollToSectionHandler("sections")}
+					onClick={() => scrollToSectionHandler('sections')}
 				>
 					Sections
 				</button>
 				<button
-					type={"button"}
+					type={'button'}
 					className={styles.navButton}
-					onClick={() => scrollToSectionHandler("colors")}
+					onClick={() => scrollToSectionHandler('colors')}
 				>
 					Colors
 				</button>
 				<button
-					type={"button"}
+					type={'button'}
 					className={styles.navButtonPrimary}
 					onClick={() => {
 						setIsPreviewOpen(true);
@@ -146,7 +146,7 @@ export default function TemplateDetails() {
 					Preview
 				</button>
 				<button
-					type={"button"}
+					type={'button'}
 					className={styles.navButtonPrimary}
 					onClick={() => {
 						exportAsHtml(content?.full_html_template, content?.name);
@@ -154,21 +154,23 @@ export default function TemplateDetails() {
 				>
 					Download
 				</button>
-				<button type={"button"} className={styles.navButtonAccent} onClick={()=>{
-					setCurrentTemplate(content)
-					navigate('/agent-app')
-				}}>
+				<button
+					type={'button'}
+					className={styles.navButtonAccent}
+					onClick={() => {
+						setCurrentTemplate(content);
+						navigate('/agent-app');
+					}}
+				>
 					Add to App
 				</button>
 			</div>
 			{isPreviewOpen && (
-				
 				<PreveiwModal
 					isLoading={isLoading}
 					content={content}
 					setPreviewFalse={setPreviewFalse}
 				/>
-				
 			)}
 		</div>
 	);
