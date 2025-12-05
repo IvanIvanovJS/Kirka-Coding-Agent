@@ -1,16 +1,20 @@
+import { Link } from 'react-router';
 import { useUser } from '../../../../contexts';
 import useForm from '../../../../hooks/useForm';
 import formatEpoch from '../../../../utils/epochConverter';
 import styles from './CommentsSection.module.css';
+import { useState } from 'react';
 
 export default function CommentsSection({
 	comments,
 	templateId,
 	addCommentHandler,
 }) {
-	const { user } = useUser();
+	const { user, isAuthenticated } = useUser();
+	const [error, setError] = useState(null);
 	const postComment = async (comment) => {
 		let newComment = null;
+
 		if (!user || !comment) return;
 		try {
 			const response = await fetch('http://localhost:3030/data/comments', {
@@ -19,6 +23,7 @@ export default function CommentsSection({
 					'Content-Type': 'application/json',
 					'X-Authorization': user.accessToken,
 				},
+
 				body: JSON.stringify({
 					comment,
 					templateId: templateId,
@@ -34,6 +39,7 @@ export default function CommentsSection({
 
 			newComment = data;
 		} catch (error) {
+			setError('Error:', error.message);
 			console.error('Error posting comment:', error);
 		} finally {
 			addCommentHandler(newComment);
@@ -49,6 +55,10 @@ export default function CommentsSection({
 
 	const { input, formAction, setIsSubmitting, isSubmitting, setValues } =
 		useForm(messagesHandler, '');
+
+	if (error) {
+		return <p className={styles.error}>{error}</p>;
+	}
 
 	return (
 		<div className={styles.commentsContainer} id="comments">
@@ -83,22 +93,28 @@ export default function CommentsSection({
 						</div>
 					))}
 			</div>
-			<form className={styles.commentForm} action={formAction}>
-				<textarea
-					{...input('comment')}
-					className={styles.commentTextarea}
-					disabled={isSubmitting}
-					placeholder="Share your thoughts about this template..."
-					rows={4}
-				/>
-				<button
-					type="submit"
-					disabled={isSubmitting}
-					className={styles.commentSubmitButton}
-				>
-					Post Comment
-				</button>
-			</form>
+			{isAuthenticated ? (
+				<form className={styles.commentForm} action={formAction}>
+					<textarea
+						{...input('comment')}
+						className={styles.commentTextarea}
+						disabled={isSubmitting}
+						placeholder="Share your thoughts about this template..."
+						rows={4}
+					/>
+					<button
+						type="submit"
+						disabled={isSubmitting}
+						className={styles.commentSubmitButton}
+					>
+						Post Comment
+					</button>
+				</form>
+			) : (
+				<p className={styles.notAuthenticated}>
+					<Link to={'/auth/login'}>Login</Link> to post a comment.
+				</p>
+			)}
 		</div>
 	);
 }
