@@ -1,6 +1,5 @@
-import { createContext,  useState } from 'react';
+import { createContext, useState } from 'react';
 import useFetch from '../hooks/useFetch';
-
 
 const AgentAppContext = createContext({
 	isSidebarVisible: true,
@@ -10,13 +9,15 @@ const AgentAppContext = createContext({
 	serverError: null,
 	currentTemplate: null,
 	setCurrentTemplate() {},
+	previewMode: 'desktop',
+	handleSetPreviewMode() {},
 });
-
 
 function AgentAppProvider({ children }) {
 	const [isSidebarVisible, setIsSidebarVisible] = useState(true);
-	const [currentTemplate, setCurrentTemplate] = useState(null)
-	
+	const [currentTemplate, setCurrentTemplate] = useState(null);
+	const [previewMode, setPreviewMode] = useState('desktop');
+
 	const {
 		data: templates,
 		isLoading,
@@ -26,7 +27,10 @@ function AgentAppProvider({ children }) {
 		setIsSidebarVisible((state) => !state);
 	};
 
-	
+	const handleSetPreviewMode = (mode) => {
+		setPreviewMode(mode);
+	};
+
 	const agentAppContextValues = {
 		isSidebarVisible,
 		toggleSidebar,
@@ -35,6 +39,8 @@ function AgentAppProvider({ children }) {
 		serverError,
 		currentTemplate,
 		setCurrentTemplate,
+		previewMode,
+		handleSetPreviewMode,
 	};
 
 	return (
