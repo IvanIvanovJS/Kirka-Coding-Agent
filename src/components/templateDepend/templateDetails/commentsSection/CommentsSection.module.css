@@ -181,8 +181,7 @@
 	align-items: center;
 }
 
-.editButton,
-.deleteButton {
+.editButton {
 	padding: var(--spacing-sm);
 	background: var(--fg-secondary);
 	border: 1px solid var(--fg-border);
@@ -199,13 +198,6 @@
 	background: var(--accent-primary);
 	color: var(--color-primary);
 	border-color: var(--accent-glow);
-	transform: translateY(-2px);
-}
-
-.deleteButton:hover {
-	background: var(--error-bg);
-	color: var(--error-color);
-	border-color: var(--error-color);
 	transform: translateY(-2px);
 }
 
