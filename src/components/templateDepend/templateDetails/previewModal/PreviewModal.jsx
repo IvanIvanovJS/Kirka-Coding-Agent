@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router';
-import { useAgentApp } from '../../../../contexts';
+import { useAgentApp, useUser } from '../../../../contexts';
 import exportAsHtml from '../../../../utils/exportAsHtml';
 import wrapperIframeData from '../../../../utils/wrapperIframeData';
 import styles from './PreviewModal.module.css';
@@ -7,6 +7,7 @@ import styles from './PreviewModal.module.css';
 export default function PreveiwModal({ isLoading, content, setPreviewFalse }) {
 	const { setCurrentTemplate } = useAgentApp();
 	const navigate = useNavigate();
+	const { isAuthenticated } = useUser();
 	return (
 		<>
 			{/** biome-ignore lint/a11y/useSemanticElements: stfu*/}
@@ -28,6 +29,10 @@ export default function PreveiwModal({ isLoading, content, setPreviewFalse }) {
 							<button
 								type="button"
 								className={styles.modalButton}
+								title={
+									isAuthenticated ? 'Download as HTML' : 'Login for access'
+								}
+								disabled={!isAuthenticated}
 								onClick={() => {
 									exportAsHtml(content.full_html_template, content.name);
 								}}
@@ -37,6 +42,10 @@ export default function PreveiwModal({ isLoading, content, setPreviewFalse }) {
 							<button
 								type="button"
 								className={styles.modalButton}
+								title={
+									isAuthenticated ? 'Modify with Kirka' : 'Login for access'
+								}
+								disabled={!isAuthenticated}
 								onClick={() => {
 									setCurrentTemplate(content);
 									navigate('/agent-app');

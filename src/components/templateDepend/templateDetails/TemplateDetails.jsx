@@ -7,7 +7,7 @@ import ColorCard from './colorCard/ColorCard';
 import { useCallback, useEffect, useState } from 'react';
 import PreveiwModal from './previewModal/PreviewModal';
 import exportAsHtml from '../../../utils/exportAsHtml';
-import { useAgentApp } from '../../../contexts';
+import { useAgentApp, useUser } from '../../../contexts';
 import CommentsSection from './commentsSection/CommentsSection';
 
 export default function TemplateDetails() {
@@ -15,6 +15,7 @@ export default function TemplateDetails() {
 	const [comments, setComments] = useState(null);
 	const { templateId } = useParams('templateId');
 	const { setCurrentTemplate } = useAgentApp();
+	const { isAuthenticated } = useUser();
 	const navigate = useNavigate();
 
 	const { data, isLoading, error } = useFetch(
@@ -209,6 +210,8 @@ export default function TemplateDetails() {
 					onClick={() => {
 						exportAsHtml(content?.full_html_template, content?.name);
 					}}
+					title={isAuthenticated ? 'Download as HTML' : 'Login for access'}
+					disabled={!isAuthenticated}
 				>
 					Download
 				</button>
@@ -219,6 +222,8 @@ export default function TemplateDetails() {
 						setCurrentTemplate(content);
 						navigate('/agent-app');
 					}}
+					title={isAuthenticated ? 'Modify with Kirka' : 'Login for access'}
+					disabled={!isAuthenticated}
 				>
 					Add to App
 				</button>
