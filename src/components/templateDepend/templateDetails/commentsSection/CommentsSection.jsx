@@ -27,9 +27,12 @@ export default function CommentsSection({
 		null,
 		false,
 	);
+	const { input, formAction, setIsSubmitting, isSubmitting, setValues } =
+		useForm(messagesHandler, '');
 
-	const messagesHandler = (values) => {
+	function messagesHandler(values) {
 		const { comment } = values;
+
 		refetch(
 			{
 				comment,
@@ -38,9 +41,7 @@ export default function CommentsSection({
 			},
 			{ 'X-Authorization': user?.accessToken },
 		);
-	};
-	const { input, formAction, setIsSubmitting, isSubmitting, setValues } =
-		useForm(messagesHandler, '');
+	}
 
 	useEffect(() => {
 		if (data && !isLoading && !error) {
@@ -166,12 +167,13 @@ export default function CommentsSection({
 						placeholder="Share your thoughts about this template..."
 						rows={4}
 					/>
+
 					<button
 						type="submit"
-						disabled={isSubmitting}
+						disabled={isSubmitting || !input('comment').value?.trim()}
 						className={styles.commentSubmitButton}
 					>
-						Post Comment
+						{isSubmitting ? 'Commenting...' : 'Post Comment'}
 					</button>
 				</form>
 			) : (
