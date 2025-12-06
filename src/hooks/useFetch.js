@@ -30,6 +30,7 @@ export default function useFetch(
 			if (
 				safeMethod !== 'GET' &&
 				safeMethod !== 'HEAD' &&
+				safeMethod !== 'DELETE' &&
 				bodyToUse === 'null'
 			) {
 				setIsLoading(false);

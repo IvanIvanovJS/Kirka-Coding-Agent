@@ -37,21 +37,28 @@ export default function TemplateDetails() {
 		setComments(commentsData);
 	}, [commentsData]);
 
-	const addCommentHandler = useCallback((newCommentObject) => {
-		setComments((prevComments) => {
-			const currentComments = Array.isArray(prevComments) ? prevComments : [];
+	const updateCommentHandler = useCallback((action) => {
+		setComments((prev) => {
+			const current = Array.isArray(prev) ? prev : [];
 
-			const existingIndex = currentComments.findIndex(
-				(comment) => comment._id === newCommentObject._id,
-			);
+			switch (action.type) {
+				case 'add': {
+					return [...current, action.payload];
+				}
 
-			if (existingIndex !== -1) {
-				const updatedComments = [...currentComments];
-				updatedComments[existingIndex] = newCommentObject;
-				return updatedComments;
+				case 'update': {
+					return current.map((c) =>
+						c._id === action.payload._id ? action.payload : c,
+					);
+				}
+
+				case 'delete': {
+					return current.filter((c) => c._id !== action.payload);
+				}
+
+				default:
+					return current;
 			}
-
-			return [...currentComments, newCommentObject];
 		});
 	}, []);
 
@@ -153,7 +160,7 @@ export default function TemplateDetails() {
 			<CommentsSection
 				comments={comments}
 				templateId={templateId}
-				addCommentHandler={addCommentHandler}
+				updateCommentHandler={updateCommentHandler}
 				isLoadingComments={isLoadingComments}
 				commentsError={commentsError}
 			/>
