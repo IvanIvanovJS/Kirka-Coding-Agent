@@ -60,10 +60,16 @@
 	cursor: pointer;
 }
 
-.modalButton:hover {
+.modalButton:hover:not(:disabled) {
 	background: var(--accent-hover);
 	box-shadow: var(--glow);
 	transform: translateY(-2px);
+}
+
+.modalButton:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	pointer-events: visible;
 }
 
 .closeButton {

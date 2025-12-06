@@ -213,7 +213,7 @@
 	transition: all 0.3s ease;
 }
 
-.navButtonPrimary:hover {
+.navButtonPrimary:hover:not(:disabled) {
 	background: var(--accent-hover);
 	box-shadow: var(--glow);
 	transform: translateY(-2px);
@@ -235,9 +235,17 @@
 	box-shadow: var(--glow);
 }
 
-.navButtonAccent:hover {
+.navButtonAccent:hover:not(:disabled) {
 	transform: translateY(-2px) scale(1.05);
 	box-shadow: 0 0 30px rgba(167, 139, 250, 0.7);
+}
+
+.navButtonPrimary:disabled,
+.navButtonAccent:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	pointer-events: visible;
+	box-shadow: none;
 }
 
 .loading,
