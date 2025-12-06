@@ -15,6 +15,7 @@ export default function CommentsSection({
 	commentsError,
 }) {
 	const [editingCommentId, setEditingCommentId] = useState(null);
+	const [commentText, setCommentText] = useState(null);
 	const { user, isAuthenticated } = useUser();
 
 	const { data, isLoading, refetch, error } = useFetch(
@@ -36,7 +37,6 @@ export default function CommentsSection({
 			},
 			{ 'X-Authorization': user?.accessToken },
 		);
-		// postComment(comment);
 	};
 	const { input, formAction, setIsSubmitting, isSubmitting, setValues } =
 		useForm(messagesHandler, '');
@@ -47,7 +47,12 @@ export default function CommentsSection({
 			setIsSubmitting(false);
 			setValues('');
 		}
-	}, [data, setIsSubmitting, setValues, isLoading, error]);
+	}, [data, setIsSubmitting, setValues, isLoading, error, addCommentHandler]);
+
+	const editCommentHandler = (comment) => {
+		setEditingCommentId(comment._id);
+		setCommentText(comment.comment);
+	};
 
 	if (error || commentsError) {
 		const errorMessage = error ? error : commentsError;
@@ -74,27 +79,30 @@ export default function CommentsSection({
 
 				{comments?.length > 0 &&
 					comments.map((comment) => (
-						<div key={comment?._id} className={styles.commentCard}>
+						<div key={comment._id} className={styles.commentCard}>
 							<div className={styles.commentHeader}>
 								<div className={styles.commentAuthor}>
 									<div className={styles.authorAvatar}>
-										{comment?.email?.at(0).toUpperCase()}
+										{comment.email?.at(0).toUpperCase()}
 									</div>
 									<div className={styles.authorInfo}>
 										<span className={styles.authorName}>
-											{comment?.email?.split('@').at(0).toUpperCase()}
+											{comment.email?.split('@').at(0).toUpperCase()}
 										</span>
 										<span className={styles.commentDate}>
-											{formatEpoch(comment?._createdOn)}
+											{formatEpoch(comment._createdOn)}
 										</span>
 									</div>
 								</div>
-								{isAuthenticated && user.email === comment?.email && (
+								{isAuthenticated && user.email === comment.email && (
 									<div className={styles.commentActions}>
 										<button
 											type="button"
 											className={styles.editButton}
 											title="Edit comment"
+											onClick={() => {
+												editCommentHandler(comment);
+											}}
 										>
 											<svg
 												width="18"
@@ -144,7 +152,12 @@ export default function CommentsSection({
 								)}
 							</div>
 							{editingCommentId === comment?._id ? (
-								<EditComment comment={comment} />
+								<EditComment
+									commentData={comment}
+									commentText={commentText}
+									setEditingCommentId={setEditingCommentId}
+									setCommentText={setCommentText}
+								/>
 							) : (
 								<p className={styles.commentText}>{comment?.comment}</p>
 							)}
