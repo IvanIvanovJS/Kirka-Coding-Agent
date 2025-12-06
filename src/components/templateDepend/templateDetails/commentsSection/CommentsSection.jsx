@@ -6,7 +6,7 @@ import styles from './CommentsSection.module.css';
 import { useEffect, useState } from 'react';
 import EditComment from './EditComment';
 import useFetch from '../../../../hooks/useFetch';
-import DeleteComment from './DeleteComment';
+import DeleteComment from './deleteComment/DeleteComment';
 
 export default function CommentsSection({
 	comments,
