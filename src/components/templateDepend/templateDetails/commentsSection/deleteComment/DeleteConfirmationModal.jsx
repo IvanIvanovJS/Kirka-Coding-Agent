@@ -3,6 +3,7 @@ import styles from './DeleteComment.module.css';
 export default function DeleteConfirmationModal({
 	handleCancelDelete,
 	handleConfirmDelete,
+	isSubmitting,
 }) {
 	return (
 		<div className={styles.confirmOverlay} onClick={handleCancelDelete}>
@@ -40,8 +41,9 @@ export default function DeleteConfirmationModal({
 						type="button"
 						className={styles.confirmDeleteButton}
 						onClick={handleConfirmDelete}
+						disabled={isSubmitting}
 					>
-						Delete
+						{isSubmitting ? 'Deleting...' : 'Delete'}
 					</button>
 				</div>
 			</div>
