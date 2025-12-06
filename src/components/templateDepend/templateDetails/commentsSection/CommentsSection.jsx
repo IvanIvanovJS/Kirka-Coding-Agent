@@ -3,7 +3,9 @@ import { useUser } from '../../../../contexts';
 import useForm from '../../../../hooks/useForm';
 import formatEpoch from '../../../../utils/epochConverter';
 import styles from './CommentsSection.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import EditComment from './EditComment';
+import useFetch from '../../../../hooks/useFetch';
 
 export default function CommentsSection({
 	comments,
@@ -12,51 +14,40 @@ export default function CommentsSection({
 	isLoadingComments,
 	commentsError,
 }) {
+	const [editingCommentId, setEditingCommentId] = useState(null);
 	const { user, isAuthenticated } = useUser();
-	const [error, setError] = useState(null);
-	const postComment = async (comment) => {
-		let newComment = null;
 
-		if (!user || !comment) return;
-		try {
-			const response = await fetch('http://localhost:3030/data/comments', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					'X-Authorization': user.accessToken,
-				},
-
-				body: JSON.stringify({
-					comment,
-					templateId: templateId,
-					email: user.email,
-				}),
-			});
-
-			if (!response.ok) {
-				throw new Error(`Server responded with status: ${response.status}`);
-			}
-
-			const data = await response.json();
-
-			newComment = data;
-		} catch (error) {
-			setError('Error:', error.message);
-			console.error('Error posting comment:', error);
-		} finally {
-			addCommentHandler(newComment);
-			setValues('');
-			setIsSubmitting(false);
-		}
-	};
+	const { data, isLoading, refetch, error } = useFetch(
+		'http://localhost:3030/data/comments',
+		null,
+		'POST',
+		null,
+		null,
+		false,
+	);
 
 	const messagesHandler = (values) => {
 		const { comment } = values;
-		postComment(comment);
+		refetch(
+			{
+				comment,
+				templateId: templateId,
+				email: user?.email,
+			},
+			{ 'X-Authorization': user?.accessToken },
+		);
+		// postComment(comment);
 	};
-
 	const { input, formAction, setIsSubmitting, isSubmitting, setValues } =
 		useForm(messagesHandler, '');
+
+	useEffect(() => {
+		if (data && !isLoading && !error) {
+			addCommentHandler(data);
+			setIsSubmitting(false);
+			setValues('');
+		}
+	}, [data, setIsSubmitting, setValues, isLoading, error]);
 
 	if (error || commentsError) {
 		const errorMessage = error ? error : commentsError;
@@ -83,26 +74,84 @@ export default function CommentsSection({
 
 				{comments?.length > 0 &&
 					comments.map((comment) => (
-						<div key={comment._id} className={styles.commentCard}>
+						<div key={comment?._id} className={styles.commentCard}>
 							<div className={styles.commentHeader}>
 								<div className={styles.commentAuthor}>
 									<div className={styles.authorAvatar}>
-										{comment.email.at(0).toUpperCase()}
+										{comment?.email?.at(0).toUpperCase()}
 									</div>
 									<div className={styles.authorInfo}>
 										<span className={styles.authorName}>
-											{comment.email.split('@').at(0).toUpperCase()}
+											{comment?.email?.split('@').at(0).toUpperCase()}
 										</span>
 										<span className={styles.commentDate}>
-											{formatEpoch(comment._createdOn)}
+											{formatEpoch(comment?._createdOn)}
 										</span>
 									</div>
 								</div>
+								{isAuthenticated && user.email === comment?.email && (
+									<div className={styles.commentActions}>
+										<button
+											type="button"
+											className={styles.editButton}
+											title="Edit comment"
+										>
+											<svg
+												width="18"
+												height="18"
+												viewBox="0 0 24 24"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+													stroke="currentColor"
+													strokeWidth="2"
+													strokeLinecap="round"
+													strokeLinejoin="round"
+												/>
+												<path
+													d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+													stroke="currentColor"
+													strokeWidth="2"
+													strokeLinecap="round"
+													strokeLinejoin="round"
+												/>
+											</svg>
+										</button>
+										<button
+											type="button"
+											className={styles.deleteButton}
+											title="Delete comment"
+										>
+											<svg
+												width="18"
+												height="18"
+												viewBox="0 0 24 24"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"
+													stroke="currentColor"
+													strokeWidth="2"
+													strokeLinecap="round"
+													strokeLinejoin="round"
+												/>
+											</svg>
+										</button>
+									</div>
+								)}
 							</div>
-							<p className={styles.commentText}>{comment.comment}</p>
+							{editingCommentId === comment?._id ? (
+								<EditComment comment={comment} />
+							) : (
+								<p className={styles.commentText}>{comment?.comment}</p>
+							)}
 						</div>
 					))}
 			</div>
+
 			{isAuthenticated ? (
 				<form className={styles.commentForm} action={formAction}>
 					<textarea
