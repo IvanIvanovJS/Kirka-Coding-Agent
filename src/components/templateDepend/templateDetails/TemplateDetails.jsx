@@ -40,6 +40,17 @@ export default function TemplateDetails() {
 	const addCommentHandler = useCallback((newCommentObject) => {
 		setComments((prevComments) => {
 			const currentComments = Array.isArray(prevComments) ? prevComments : [];
+
+			const existingIndex = currentComments.findIndex(
+				(comment) => comment._id === newCommentObject._id,
+			);
+
+			if (existingIndex !== -1) {
+				const updatedComments = [...currentComments];
+				updatedComments[existingIndex] = newCommentObject;
+				return updatedComments;
+			}
+
 			return [...currentComments, newCommentObject];
 		});
 	}, []);
