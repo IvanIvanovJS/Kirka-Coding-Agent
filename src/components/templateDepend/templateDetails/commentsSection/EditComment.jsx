@@ -10,7 +10,7 @@ export default function EditComment({
 	commentText,
 	setEditingCommentId,
 	setCommentText,
-	updatedCommentHandler,
+	updateCommentHandler,
 }) {
 	const { user } = useUser();
 	const { formAction, input, isSubmitting, setIsSubmitting } = useForm(
@@ -44,14 +44,14 @@ export default function EditComment({
 			setEditingCommentId(null);
 			setCommentText(null);
 			setIsSubmitting(false);
-			updatedCommentHandler(data);
+			updateCommentHandler({ type: 'update', payload: data });
 		}
 	}, [
 		data,
 		setIsSubmitting,
 		setEditingCommentId,
 		setCommentText,
-		updatedCommentHandler,
+		updateCommentHandler,
 	]);
 
 	return (
