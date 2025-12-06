@@ -92,7 +92,7 @@ export default function TemplateDetails() {
 
 	if (error) {
 		return (
-			<div className={styles.container}>
+			<div className={styles.container} id="details">
 				<Link to={'/templates'} className={styles.backButton}>
 					← Templates
 				</Link>
@@ -103,7 +103,7 @@ export default function TemplateDetails() {
 	}
 
 	return (
-		<div className={styles.container}>
+		<div className={styles.container} id="details">
 			<Link to={'/templates'} className={styles.backButton}>
 				← Templates
 			</Link>
