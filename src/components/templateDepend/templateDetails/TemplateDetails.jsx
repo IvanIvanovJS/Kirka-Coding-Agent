@@ -4,7 +4,7 @@ import useFetch from '../../../hooks/useFetch';
 import wrapperIframeData from '../../../utils/wrapperIframeData';
 import SectionCard from './sectionCard/SectionCard';
 import ColorCard from './colorCard/ColorCard';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import PreveiwModal from './previewModal/PreviewModal';
 import exportAsHtml from '../../../utils/exportAsHtml';
 import { useAgentApp } from '../../../contexts';
@@ -37,12 +37,12 @@ export default function TemplateDetails() {
 		setComments(commentsData);
 	}, [commentsData]);
 
-	const addCommentHandler = (newCommentObject) => {
+	const addCommentHandler = useCallback((newCommentObject) => {
 		setComments((prevComments) => {
 			const currentComments = Array.isArray(prevComments) ? prevComments : [];
 			return [...currentComments, newCommentObject];
 		});
-	};
+	}, []);
 
 	useEffect(() => {
 		if (isPreviewOpen) {
