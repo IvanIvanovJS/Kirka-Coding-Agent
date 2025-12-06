@@ -54,6 +54,10 @@ export default function CommentsSection({
 		setCommentText(comment.comment);
 	};
 
+	const updatedCommentHandler = (updatedComment) => {
+		addCommentHandler(updatedComment);
+	};
+
 	if (error || commentsError) {
 		const errorMessage = error ? error : commentsError;
 		return <p className={styles.error}>{errorMessage}</p>;
@@ -157,6 +161,7 @@ export default function CommentsSection({
 									commentText={commentText}
 									setEditingCommentId={setEditingCommentId}
 									setCommentText={setCommentText}
+									updatedCommentHandler={updatedCommentHandler}
 								/>
 							) : (
 								<p className={styles.commentText}>{comment?.comment}</p>

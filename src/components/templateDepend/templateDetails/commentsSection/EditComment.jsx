@@ -3,12 +3,14 @@ import useForm from '../../../../hooks/useForm';
 import styles from './CommentsSection.module.css';
 import { useUser } from '../../../../contexts';
 import { useEffect } from 'react';
+import { Loader } from 'lucide-react';
 
 export default function EditComment({
 	commentData,
 	commentText,
 	setEditingCommentId,
 	setCommentText,
+	updatedCommentHandler,
 }) {
 	const { user } = useUser();
 	const { formAction, input, isSubmitting, setIsSubmitting } = useForm(
@@ -42,8 +44,15 @@ export default function EditComment({
 			setEditingCommentId(null);
 			setCommentText(null);
 			setIsSubmitting(false);
+			updatedCommentHandler(data);
 		}
-	}, [data, setIsSubmitting, setEditingCommentId, setCommentText]);
+	}, [
+		data,
+		setIsSubmitting,
+		setEditingCommentId,
+		setCommentText,
+		updatedCommentHandler,
+	]);
 
 	return (
 		<form className={styles.editForm} action={formAction}>
@@ -59,7 +68,7 @@ export default function EditComment({
 					className={styles.saveButton}
 					disabled={isSubmitting}
 				>
-					Save
+					{isSubmitting ? <Loader size={20} /> : 'Save'}
 				</button>
 				<button
 					type="button"
