@@ -50,3 +50,35 @@ const validateUserRequest = (userRequest) => {
 
 	return userRequest;
 };
+
+const extractJSON = (text) => {
+	const jsonMatch = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+	return jsonMatch ? jsonMatch[1].trim() : text.trim();
+};
+
+const parseResponse = (responseText) => {
+	if (!responseText) {
+		throw new Error('AI returned empty response');
+	}
+
+	try {
+		const jsonText = extractJSON(responseText);
+		const parsed = JSON.parse(jsonText);
+
+		if (!parsed.modifiedTemplate || !parsed.message) {
+			throw new Error('AI response missing required fields');
+		}
+
+		return {
+			modifiedTemplate: parsed.modifiedTemplate,
+			message: parsed.message,
+			changedSections: parsed.changedSections || [],
+		};
+	} catch {
+		console.error(
+			'Failed to parse AI response:',
+			responseText.substring(0, 500),
+		);
+		throw new Error('AI returned invalid JSON response');
+	}
+};
