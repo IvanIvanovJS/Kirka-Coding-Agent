@@ -4,18 +4,19 @@ import styles from './ChatInput.module.css';
 import { Send } from 'lucide-react';
 export default function ChatInput() {
 	const { sendMessage, isAiProcessing, currentTemplate } = useAgentApp();
-	const { input, formAction, setValues, values } = useForm(sendHandler, {
+	const { input, formAction, setValues } = useForm(sendHandler, {
 		message: '',
 	});
 
-	async function sendHandler() {
-		if (!values.message?.trim()) {
+	async function sendHandler(value) {
+		const { message } = value;
+
+		if (!message.trim()) {
 			return;
 		}
 
-		await sendMessage(values);
-
-		setValues('');
+		sendMessage(message);
+		setValues(null);
 	}
 
 	return (
@@ -42,7 +43,6 @@ export default function ChatInput() {
 					'Sending...'
 				) : (
 					<>
-						{' '}
 						<Send size={18} />
 						<span>Send</span>
 					</>
