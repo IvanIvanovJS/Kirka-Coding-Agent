@@ -1,3 +1,5 @@
+import { AI_RULES } from '../config/aiRules';
+
 const validateTemplate = (template) => {
 	if (!template || typeof template !== 'object') {
 		throw new Error('Invalid template: must be an object');
@@ -50,6 +52,17 @@ const validateUserRequest = (userRequest) => {
 
 	return userRequest;
 };
+
+const buildPrompt = (template, userRequest) => `${AI_RULES}
+
+## USER REQUEST:
+${userRequest}
+
+## CURRENT TEMPLATE:
+${JSON.stringify(template, null, 2)}
+
+## YOUR RESPONSE:
+Provide ONLY the JSON response as specified in the rules above. No additional text or markdown.`;
 
 const extractJSON = (text) => {
 	const jsonMatch = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
@@ -149,4 +162,5 @@ export {
 	parseResponse,
 	validateModifiedTemplate,
 	handleError,
+	buildPrompt,
 };
