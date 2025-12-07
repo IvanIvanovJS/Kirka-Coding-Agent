@@ -82,3 +82,71 @@ const parseResponse = (responseText) => {
 		throw new Error('AI returned invalid JSON response');
 	}
 };
+
+const validateModifiedTemplate = (modifiedTemplate, originalTemplate) => {
+	validateTemplate(modifiedTemplate);
+
+	const immutableFields = ['id'];
+
+	immutableFields.forEach((field) => {
+		if (modifiedTemplate[field] !== originalTemplate[field]) {
+			console.warn(
+				`Warning: AI modified immutable field '${field}', restoring original`,
+			);
+			modifiedTemplate[field] = originalTemplate[field];
+		}
+	});
+
+	return modifiedTemplate;
+};
+
+const handleError = (error) => {
+	if (error.name === 'AbortError') {
+		return new Error('Request timed out. Please try again');
+	}
+
+	if (
+		error.message?.includes('Failed to fetch') ||
+		error.message?.includes('NetworkError')
+	) {
+		return new Error(
+			'Unable to connect to AI service. Check your internet connection',
+		);
+	}
+
+	if (
+		error.message?.includes('API_KEY_INVALID') ||
+		error.message?.includes('invalid API key')
+	) {
+		return new Error('API key is invalid or unauthorized');
+	}
+
+	if (
+		error.message?.includes('RESOURCE_EXHAUSTED') ||
+		error.message?.includes('429')
+	) {
+		return new Error('Too many requests. Please wait a moment and try again');
+	}
+
+	if (
+		error.message?.includes('UNAVAILABLE') ||
+		error.message?.includes('503')
+	) {
+		return new Error(
+			'AI service is temporarily unavailable. Please try again later',
+		);
+	}
+
+	return error instanceof Error
+		? error
+		: new Error('An unexpected error occurred. Please try again');
+};
+
+export {
+	validateTemplate,
+	validateUserRequest,
+	extractJSON,
+	parseResponse,
+	validateModifiedTemplate,
+	handleError,
+};
