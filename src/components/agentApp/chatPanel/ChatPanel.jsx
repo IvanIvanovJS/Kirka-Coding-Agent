@@ -35,7 +35,7 @@ export default function ChatPanel() {
 					<ChatMessage key={message.id} message={message} />
 				))}
 
-				{!isAiProcessing && (
+				{isAiProcessing && (
 					<div className={styles.loadingState}>
 						<GhostIcon size={60} isWorking={true} />
 						<p>Kirka AI is working... It may take few minutes</p>

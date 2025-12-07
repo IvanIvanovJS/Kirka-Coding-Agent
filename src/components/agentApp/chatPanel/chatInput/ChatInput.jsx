@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useAgentApp } from '../../../../contexts';
 import useForm from '../../../../hooks/useForm';
 import styles from './ChatInput.module.css';
@@ -16,8 +17,15 @@ export default function ChatInput() {
 		}
 
 		sendMessage(message);
-		setValues(null);
 	}
+
+	useEffect(() => {
+		if (isAiProcessing) {
+			setValues({
+				message: '',
+			});
+		}
+	}, [setValues, isAiProcessing]);
 
 	return (
 		<form className={styles.chatInput} action={formAction}>
