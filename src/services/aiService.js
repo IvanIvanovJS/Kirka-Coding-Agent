@@ -6,7 +6,7 @@ import {
 	validateModifiedTemplate,
 	validateTemplate,
 	validateUserRequest,
-} from './aiValidators';
+} from '../validators/aiValidators';
 
 class AIService {
 	constructor(apiKey) {
