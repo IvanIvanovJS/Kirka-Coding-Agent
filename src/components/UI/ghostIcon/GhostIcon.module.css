@@ -1,0 +1,46 @@
+
+@keyframes idle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes workingPickaxe {
+  0%,
+  100% {
+    transform: translate(46px, 28px) scale(1) rotate(0deg);
+  }
+  25% {
+    transform: translate(46px, 28px) scale(1) rotate(-20deg);
+  }
+  75% {
+    transform: translate(46px, 28px) scale(1) rotate(20deg);
+  }
+}
+
+.ghostIcon {
+  position: relative;
+  display: inline-block;
+  transition: all 0.3s ease-in-out;
+  overflow: visible; 
+  filter: drop-shadow(var(--glow));
+ 
+}
+.pickaxe{
+overflow: visible; 
+
+}
+
+.idle {
+  animation: idle 3s ease-in-out infinite;
+}
+
+.working :global(.pickaxe) {
+  transform-origin: -3px 10px;
+  animation: workingPickaxe 0.7s ease-in-out infinite;
+  }
+

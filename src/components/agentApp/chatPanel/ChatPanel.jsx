@@ -26,7 +26,7 @@ export default function ChatPanel() {
 			<div className={styles.messageList} ref={messageListRef}>
 				{messages.length === 0 && !isAiProcessing && (
 					<div className={styles.emptyState}>
-						<GhostIcon size={100} />
+						<GhostIcon size={100} onApp />
 						<p>Start a conversation with Kirka AI assistant</p>
 					</div>
 				)}
@@ -35,9 +35,9 @@ export default function ChatPanel() {
 					<ChatMessage key={message.id} message={message} />
 				))}
 
-				{isAiProcessing && (
+				{!isAiProcessing && (
 					<div className={styles.loadingState}>
-						<GhostIcon size={44} />
+						<GhostIcon size={60} isWorking={true} />
 						<p>Kirka AI is working... It may take few minutes</p>
 					</div>
 				)}
