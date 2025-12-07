@@ -4,6 +4,7 @@ import ChatInput from './chatInput/ChatInput';
 import styles from './ChatPanel.module.css';
 import ChatMessage from './chatMessage/ChatMessage';
 import { AlertCircle } from 'lucide-react';
+import GhostIcon from '../../UI/ghostIcon/GhostIcon';
 
 export default function ChatPanel() {
 	const { messages, isAiProcessing, aiError } = useAgentApp();
@@ -25,7 +26,7 @@ export default function ChatPanel() {
 			<div className={styles.messageList} ref={messageListRef}>
 				{messages.length === 0 && !isAiProcessing && (
 					<div className={styles.emptyState}>
-						<GhostIcon size={64} />
+						<GhostIcon size={100} />
 						<p>Start a conversation with Kirka AI assistant</p>
 					</div>
 				)}
@@ -44,7 +45,7 @@ export default function ChatPanel() {
 				{aiError && !isAiProcessing && (
 					<div className={styles.errorState}>
 						<p className={styles.errorMessage}>
-							<AlertCircle size={16} /> {aiError.message}
+							<AlertCircle size={18} /> {aiError.message}
 						</p>
 					</div>
 				)}
