@@ -1,5 +1,6 @@
 import { createContext, useState } from 'react';
 import useFetch from '../hooks/useFetch';
+import AIService from '../services/aiService';
 
 const AgentAppContext = createContext({
 	isSidebarVisible: true,
@@ -11,12 +12,19 @@ const AgentAppContext = createContext({
 	setCurrentTemplate() {},
 	previewMode: 'desktop',
 	handleSetPreviewMode() {},
+	messages: [],
+	isAiProcessing: false,
+	sendMessage: async () => {},
+	aiError: null,
 });
 
 function AgentAppProvider({ children }) {
 	const [isSidebarVisible, setIsSidebarVisible] = useState(true);
 	const [currentTemplate, setCurrentTemplate] = useState(null);
 	const [previewMode, setPreviewMode] = useState('desktop');
+	const [messages, setMessages] = useState([]);
+	const [isAiProcessing, setIsAiProcessing] = useState(false);
+	const [aiError, setAiError] = useState(null);
 
 	const {
 		data: templates,
@@ -31,6 +39,68 @@ function AgentAppProvider({ children }) {
 		setPreviewMode(mode);
 	};
 
+	const sendMessage = async (content) => {
+		if (!currentTemplate) {
+			setAiError(new Error('Please select a template first'));
+			return;
+		}
+
+		if (!content || content.trim().length === 0) {
+			return;
+		}
+
+		if (isAiProcessing) {
+			return;
+		}
+
+		try {
+			setAiError(null);
+			setIsAiProcessing(true);
+
+			const userMessage = {
+				id: `user-${Date.now()}`,
+				content: content.trim(),
+				isUser: true,
+				timestamp: Date.now(),
+			};
+
+			setMessages((prev) => [...prev, userMessage]);
+
+			const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+			if (!apiKey) {
+				throw new Error('API key is not configured');
+			}
+
+			const aiService = new AIService(apiKey);
+
+			const result = await aiService.editTemplate(currentTemplate, content);
+			setCurrentTemplate(result.modifiedTemplate);
+
+			const aiMessage = {
+				id: `ai-${Date.now()}`,
+				content: result.message,
+				isUser: false,
+				timestamp: Date.now(),
+				templateSnapshot: result.modifiedTemplate,
+			};
+
+			setMessages((prev) => [...prev, aiMessage]);
+		} catch (error) {
+			setAiError(error);
+
+			const errorMessage = {
+				id: `error-${Date.now()}`,
+				content: `Error: ${error.message}`,
+				isUser: false,
+				timestamp: Date.now(),
+				isError: true,
+			};
+			setMessages((prev) => [...prev, errorMessage]);
+		} finally {
+			setIsAiProcessing(false);
+		}
+	};
+
 	const agentAppContextValues = {
 		isSidebarVisible,
 		toggleSidebar,
@@ -41,6 +111,10 @@ function AgentAppProvider({ children }) {
 		setCurrentTemplate,
 		previewMode,
 		handleSetPreviewMode,
+		messages,
+		isAiProcessing,
+		sendMessage,
+		aiError,
 	};
 
 	return (
