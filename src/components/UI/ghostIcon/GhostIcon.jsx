@@ -1,4 +1,4 @@
-import styles from './GhostIcon.module.css';
+import styles from './GhostIcon.module.scss';
 
 export default function GhostIcon({
 	className = '',
