@@ -4,6 +4,7 @@ export default function DeleteConfirmationModal({
 	handleCancelDelete,
 	handleConfirmDelete,
 	isSubmitting,
+	isMyTemplates,
 }) {
 	return (
 		<div className={styles.confirmOverlay} onClick={handleCancelDelete}>
@@ -23,10 +24,13 @@ export default function DeleteConfirmationModal({
 							strokeLinejoin="round"
 						/>
 					</svg>
-					<h3 className={styles.confirmTitle}>Delete Comment?</h3>
+					<h3 className={styles.confirmTitle}>
+						Delete {isMyTemplates ? ' Template?' : ' Comment?'}
+					</h3>
 				</div>
 				<p className={styles.confirmMessage}>
-					Are you sure you want to delete this comment? This action cannot be
+					Are you sure you want to delete this{' '}
+					{isMyTemplates ? ' template?' : ' comment?'} This action cannot be
 					undone.
 				</p>
 				<div className={styles.confirmActions}>

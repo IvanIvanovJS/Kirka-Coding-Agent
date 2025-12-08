@@ -9,9 +9,13 @@ import PreveiwModal from './previewModal/PreviewModal';
 import exportAsHtml from '../../../utils/exportAsHtml';
 import { useAgentApp, useUser } from '../../../contexts';
 import CommentsSection from './commentsSection/CommentsSection';
+import DeleteConfirmationModalPortal from '../../../portals/DeleteConfirmationModalProtal';
+import DeleteConfirmationModal from './commentsSection/deleteComment/DeleteConfirmationModal';
 
 export default function TemplateDetails() {
 	const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+	const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+	const [isDeleting, setIsDeleting] = useState(false);
 	const [comments, setComments] = useState(null);
 	const { templateId } = useParams('templateId');
 	const { setCurrentTemplate } = useAgentApp();
@@ -66,9 +70,16 @@ export default function TemplateDetails() {
 	}, [errorOnDelete]);
 
 	const handleDelete = async () => {
-		refetchOnDelete(null, {
+		setIsDeleting(true);
+		await refetchOnDelete(null, {
 			'X-Authorization': user?.accessToken,
 		});
+		setIsDeleting(false);
+		setShowDeleteConfirm(false);
+	};
+
+	const handleCancelDelete = () => {
+		setShowDeleteConfirm(false);
 	};
 
 	const updateCommentHandler = useCallback((action) => {
@@ -266,9 +277,7 @@ export default function TemplateDetails() {
 					<button
 						type={'button'}
 						className={styles.deleteButton}
-						onClick={() => {
-							handleDelete();
-						}}
+						onClick={() => setShowDeleteConfirm(true)}
 						title={'Permanently deleting template'}
 						disabled={!isAuthenticated}
 					>
@@ -282,6 +291,16 @@ export default function TemplateDetails() {
 					content={content}
 					setPreviewFalse={setPreviewFalse}
 				/>
+			)}
+			{showDeleteConfirm && (
+				<DeleteConfirmationModalPortal>
+					<DeleteConfirmationModal
+						handleCancelDelete={handleCancelDelete}
+						handleConfirmDelete={handleDelete}
+						isSubmitting={isDeleting}
+						isMyTemplates={isMyTemplates}
+					/>
+				</DeleteConfirmationModalPortal>
 			)}
 		</div>
 	);
