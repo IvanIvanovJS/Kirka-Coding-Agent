@@ -1,6 +1,7 @@
 import { createContext, useState } from 'react';
 import useFetch from '../hooks/useFetch';
 import AIService from '../services/aiService';
+import { useUser } from '.';
 
 const AgentAppContext = createContext({
 	isSidebarVisible: true,
@@ -16,6 +17,7 @@ const AgentAppContext = createContext({
 	isAiProcessing: false,
 	sendMessage: async () => {},
 	aiError: null,
+	isOwner: false,
 });
 
 function AgentAppProvider({ children }) {
@@ -25,7 +27,9 @@ function AgentAppProvider({ children }) {
 	const [messages, setMessages] = useState([]);
 	const [isAiProcessing, setIsAiProcessing] = useState(false);
 	const [aiError, setAiError] = useState(null);
-
+	const [isOwner, setIsOwner] = useState(false);
+	const { user } = useUser();
+	setIsOwner(user?._id === currentTemplate?._ownerId);
 	const {
 		data: templates,
 		isLoading,
@@ -115,6 +119,7 @@ function AgentAppProvider({ children }) {
 		isAiProcessing,
 		sendMessage,
 		aiError,
+		isOwner,
 	};
 
 	return (
