@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import useFetch from '../../../hooks/useFetch';
 import TemplateCard from '../templateCard/TemplateCard';
 import styles from './Templates.module.css';
@@ -27,7 +27,14 @@ export default function Templates() {
 				<TemplateCard key={index} temp={null} isLoading={true} />
 			));
 	} else if (error) {
-		content = (
+		content = isMyTemplates ? (
+			<p className={styles.noContent}>
+				Templates not found? <span>Browse from our</span>
+				<Link to={'/templates'}>collection</Link>{' '}
+				<span>or visit the website </span>
+				<Link to={'/agent-app'}>builder</Link>.
+			</p>
+		) : (
 			<p className={styles.error}>
 				Unable to fetch templates info. Please try again later.
 			</p>
@@ -37,7 +44,7 @@ export default function Templates() {
 			<TemplateCard temp={temp} url={url} key={temp._id} isLoading={false} />
 		));
 	} else {
-		content = <p>No templates found.</p>;
+		content = <p className={styles.noContent}>No templates found.</p>;
 	}
 
 	return (

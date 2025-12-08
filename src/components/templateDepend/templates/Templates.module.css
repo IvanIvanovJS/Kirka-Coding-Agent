@@ -32,6 +32,22 @@
 	backdrop-filter: blur(var(--blur-md));
 }
 
+.noContent {
+	position: absolute;
+	padding: var(--spacing-md);
+	font-size: 1.2rem;
+	align-self: center;
+	justify-self: center;
+	span {
+		margin-left: 0.2rem;
+	}
+	a {
+		margin-left: 0.2rem;
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+}
+
 @media (min-width: 769px) {
 	.templatesGrid {
 		grid-template-columns: repeat(2, 1fr);
