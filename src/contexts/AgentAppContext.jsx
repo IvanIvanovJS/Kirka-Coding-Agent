@@ -27,9 +27,9 @@ function AgentAppProvider({ children }) {
 	const [messages, setMessages] = useState([]);
 	const [isAiProcessing, setIsAiProcessing] = useState(false);
 	const [aiError, setAiError] = useState(null);
-	const [isOwner, setIsOwner] = useState(false);
 	const { user } = useUser();
-	setIsOwner(user?._id === currentTemplate?._ownerId);
+	const isOwner = user?._id === currentTemplate?._ownerId;
+
 	const {
 		data: templates,
 		isLoading,

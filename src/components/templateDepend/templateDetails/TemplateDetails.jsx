@@ -228,8 +228,22 @@ export default function TemplateDetails() {
 					title={isAuthenticated ? 'Modify with Kirka' : 'Login for access'}
 					disabled={!isAuthenticated}
 				>
-					Add to App
+					{isMyTemplates ? 'Edit in App' : 'Add to App'}
 				</button>
+				{isMyTemplates && (
+					<button
+						type={'button'}
+						className={styles.deleteButton}
+						onClick={() => {
+							setCurrentTemplate(content);
+							navigate('/agent-app');
+						}}
+						title={isAuthenticated ? 'Modify with Kirka' : 'Login for access'}
+						disabled={!isAuthenticated}
+					>
+						Delete
+					</button>
+				)}
 			</div>
 			{isPreviewOpen && (
 				<PreveiwModal
