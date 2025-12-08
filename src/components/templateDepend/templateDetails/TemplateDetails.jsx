@@ -39,6 +39,38 @@ export default function TemplateDetails() {
 		setComments(commentsData);
 	}, [commentsData]);
 
+	const {
+		data: dataOnDelete,
+		error: errorOnDelete,
+		refetch: refetchOnDelete,
+	} = useFetch(
+		`http://localhost:3030/data/user-${user._id}/${templateId}`,
+		null,
+		'DELETE',
+		null,
+		null,
+		false,
+	);
+
+	useEffect(() => {
+		if (dataOnDelete) {
+			console.log(dataOnDelete);
+			navigate('/my-templates');
+		}
+	}, [dataOnDelete, navigate]);
+
+	useEffect(() => {
+		if (errorOnDelete) {
+			console.log(errorOnDelete);
+		}
+	}, [errorOnDelete]);
+
+	const handleDelete = async () => {
+		refetchOnDelete(null, {
+			'X-Authorization': user?.accessToken,
+		});
+	};
+
 	const updateCommentHandler = useCallback((action) => {
 		setComments((prev) => {
 			const current = Array.isArray(prev) ? prev : [];
@@ -230,15 +262,14 @@ export default function TemplateDetails() {
 				>
 					{isMyTemplates ? 'Edit in App' : 'Add to App'}
 				</button>
-				{isMyTemplates && (
+				{isMyTemplates && isAuthenticated && (
 					<button
 						type={'button'}
 						className={styles.deleteButton}
 						onClick={() => {
-							setCurrentTemplate(content);
-							navigate('/agent-app');
+							handleDelete();
 						}}
-						title={isAuthenticated ? 'Modify with Kirka' : 'Login for access'}
+						title={'Permanently deleting template'}
 						disabled={!isAuthenticated}
 					>
 						Delete
