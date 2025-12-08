@@ -29,7 +29,7 @@ export default function Templates() {
 	} else if (error) {
 		content = isMyTemplates ? (
 			<p className={styles.noContent}>
-				Templates not found? <span>Browse from our</span>
+				No templates yet? <span>Browse from our</span>
 				<Link to={'/templates'}>collection</Link>{' '}
 				<span>or visit the website </span>
 				<Link to={'/agent-app'}>builder</Link>.
@@ -44,12 +44,21 @@ export default function Templates() {
 			<TemplateCard temp={temp} url={url} key={temp._id} isLoading={false} />
 		));
 	} else {
-		content = <p className={styles.noContent}>No templates found.</p>;
+		content = isMyTemplates ? (
+			<p className={styles.noContent}>
+				No templates yet? <span>Browse from our</span>
+				<Link to={'/templates'}>collection</Link>{' '}
+				<span>or visit the website </span>
+				<Link to={'/agent-app'}>builder</Link>.
+			</p>
+		) : (
+			<p className={styles.noContent}> No templates found.</p>
+		);
 	}
 
 	return (
 		<div className={styles.templatesContainer}>
-			<h2 className={styles.title}>Templates</h2>
+			<h2 className={styles.title}>{isMyTemplates && 'My '}Templates</h2>
 
 			<div className={styles.templatesGrid}>{content}</div>
 		</div>
