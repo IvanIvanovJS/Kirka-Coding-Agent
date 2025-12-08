@@ -1,15 +1,21 @@
+import { useLocation } from 'react-router';
 import useFetch from '../../../hooks/useFetch';
 import TemplateCard from '../templateCard/TemplateCard';
 import styles from './Templates.module.css';
+import { useUser } from '../../../contexts';
 
 const SKELETON_COUNT = 4;
 
 export default function Templates() {
-	const { data, isLoading, error } = useFetch(
-		'http://localhost:3030/data/templates',
-		null,
-		'GET',
-	);
+	const location = useLocation();
+	const isMyTemplates = location.pathname.includes('/my-templates');
+	const { user, isAuthenticated } = useUser();
+	const url =
+		isMyTemplates && isAuthenticated
+			? `http://localhost:3030/data/user-${user._id}`
+			: 'http://localhost:3030/data/templates';
+
+	const { data, isLoading, error } = useFetch(url, null, 'GET');
 
 	const templates = data ? Object.values(data) : [];
 	let content;
