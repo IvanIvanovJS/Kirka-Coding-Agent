@@ -1,13 +1,9 @@
-import { useNavigate } from 'react-router';
-import { useAgentApp } from '../../../../contexts';
 import exportAsHtml from '../../../../utils/exportAsHtml';
 import toPascalCase from '../../../../utils/toPascalCase';
 import wrapperIframeData from '../../../../utils/wrapperIframeData';
 import styles from './SectionCard.module.css';
 
 export default function SectionCard({ temp, section }) {
-	const { setCurrentTemplate } = useAgentApp();
-	const navigate = useNavigate();
 	const sectionData = wrapperIframeData(`${section.at(1)}`, temp.bodyClass);
 	const sectionName = toPascalCase(section.at(0));
 	const fullSectionName = `${temp.name} - ${sectionName}`;
@@ -34,19 +30,6 @@ export default function SectionCard({ temp, section }) {
 						}}
 					>
 						Download Section
-					</button>
-					<button
-						type="button"
-						className={styles.actionButton}
-						onClick={() => {
-							setCurrentTemplate({
-								full_html_template: sectionData,
-								name: fullSectionName,
-							});
-							navigate('/agent-app');
-						}}
-					>
-						Add to App
 					</button>
 				</div>
 			</div>
