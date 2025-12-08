@@ -58,7 +58,7 @@ You MUST respond with ONLY a valid JSON object in this exact format:
 
 ### 5. Modification Guidelines
 - Make ONLY the changes requested by the user
-- If a request is unclear, make your best interpretation and mention it in the message
+- IMPORTANT!!!: If a request is unclear, make your best interpretation and mention it in the message and return the original template!
 - Keep the overall design aesthetic consistent
 - Maintain the template's professional quality
 - If asked to change colors, update both the HTML classes AND the config.colors if appropriate
@@ -67,7 +67,7 @@ You MUST respond with ONLY a valid JSON object in this exact format:
 - If adding a new section, include it in the "sections" object and "full_html_template"
 - If removing a section, remove it from the "sections" object and "full_html_template"
 - If changing the primary color, update the HTML classes and config.colors.primary if appropriate
-- If changing the background color, update the HTML classes and config.colors.background if appropriate
+- IMPORTANT!!!If changing the background color, update the HTML classes and config.colors.background and bodyClass if appropriate
 - If changing the bodyClass, update the bodyClass field in the modifiedTemplate
 - If changing the category, update the category field in the modifiedTemplate
 - If changing the name, update the name field in the modifiedTemplate
@@ -78,7 +78,7 @@ You MUST respond with ONLY a valid JSON object in this exact format:
 ### 6. Error Handling
 - If a request cannot be fulfilled, still return the original template unchanged
 - Explain in the "message" field why the request couldn't be completed
-- Never return invalid JSON or incomplete templates
+-IMPORTANT!!!: Never return invalid JSON or incomplete templates
 
 
 ## EXAMPLES OF VALID REQUESTS:

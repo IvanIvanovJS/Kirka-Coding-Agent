@@ -36,7 +36,7 @@ function App() {
 							element={<TemplateDetails />}
 						/>
 						<Route
-							path={`/user-${user._id}/:templateId/details`}
+							path={`/user-${user?._id}/:templateId/details`}
 							element={<TemplateDetails />}
 						/>
 

@@ -99,7 +99,7 @@ const parseResponse = (responseText) => {
 const validateModifiedTemplate = (modifiedTemplate, originalTemplate) => {
 	validateTemplate(modifiedTemplate);
 
-	const immutableFields = ['id'];
+	const immutableFields = ['_id', '_ownerId'];
 
 	immutableFields.forEach((field) => {
 		if (modifiedTemplate[field] !== originalTemplate[field]) {
