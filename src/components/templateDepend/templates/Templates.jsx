@@ -5,17 +5,16 @@ import styles from './Templates.module.css';
 import { useUser } from '../../../contexts';
 
 const SKELETON_COUNT = 4;
+const BASE_URL = 'http://localhost:3030/data';
 
 export default function Templates() {
 	const location = useLocation();
 	const isMyTemplates = location.pathname.includes('/my-templates');
 	const { user, isAuthenticated } = useUser();
 	const url =
-		isMyTemplates && isAuthenticated
-			? `http://localhost:3030/data/user-${user._id}`
-			: 'http://localhost:3030/data/templates';
-
-	const { data, isLoading, error } = useFetch(url, null, 'GET');
+		isMyTemplates && isAuthenticated ? `/user-${user._id}` : '/templates';
+	const fullUrl = BASE_URL + url;
+	const { data, isLoading, error } = useFetch(fullUrl, null, 'GET');
 
 	const templates = data ? Object.values(data) : [];
 	let content;
@@ -35,7 +34,7 @@ export default function Templates() {
 		);
 	} else if (templates.length > 0) {
 		content = templates.map((temp) => (
-			<TemplateCard temp={temp} key={temp.id} isLoading={false} />
+			<TemplateCard temp={temp} url={url} key={temp._id} isLoading={false} />
 		));
 	} else {
 		content = <p>No templates found.</p>;

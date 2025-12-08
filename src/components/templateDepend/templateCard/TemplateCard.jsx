@@ -1,8 +1,8 @@
-import { Link } from "react-router";
-import wrapperIframeData from "../../../utils/wrapperIframeData";
-import styles from "./TemplateCard.module.css";
+import { Link } from 'react-router';
+import wrapperIframeData from '../../../utils/wrapperIframeData';
+import styles from './TemplateCard.module.css';
 
-export default function TemplateCard({ temp, isLoading }) {
+export default function TemplateCard({ temp, url, isLoading }) {
 	const cardIframe = () => (
 		<>
 			<div className={styles.previewWrapper}>
@@ -15,10 +15,7 @@ export default function TemplateCard({ temp, isLoading }) {
 			</div>
 			<h3 className={styles.cardTitle}>{temp?.name}</h3>
 			<p className={styles.cardDescription}>{temp?.description}</p>
-			<Link
-				to={`/templates/${temp?.id}/details`}
-				className={styles.detailsButton}
-			>
+			<Link to={`${url}/${temp?._id}/details`} className={styles.detailsButton}>
 				Details
 			</Link>
 		</>

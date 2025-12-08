@@ -12,14 +12,16 @@ import AuthGuard from '../routeGuards/AuthGuard';
 import GuestGuard from '../routeGuards/GuestGuard';
 import AgentApp from '../components/agentApp/AgentApp';
 import { AgentAppProvider } from '../contexts/AgentAppContext';
+import { useUser } from '../contexts';
 
 function App() {
 	const location = useLocation();
-
+	const { user } = useUser();
 	const isLayoutless =
 		(location.pathname.includes('/templates/') &&
 			location.pathname.endsWith('/details')) ||
-		location.pathname.includes('/agent-app');
+		location.pathname.includes('/agent-app') ||
+		location.pathname.includes('/user-');
 
 	const shouldRenderLayout = !isLayoutless;
 
@@ -31,6 +33,10 @@ function App() {
 					<Routes>
 						<Route
 							path="/templates/:templateId/details"
+							element={<TemplateDetails />}
+						/>
+						<Route
+							path={`/user-${user._id}/:templateId/details`}
 							element={<TemplateDetails />}
 						/>
 

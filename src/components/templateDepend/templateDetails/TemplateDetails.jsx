@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from 'react-router';
+import { Link, useLocation, useNavigate, useParams } from 'react-router';
 import styles from './TemplateDetails.module.css';
 import useFetch from '../../../hooks/useFetch';
 import wrapperIframeData from '../../../utils/wrapperIframeData';
@@ -15,24 +15,25 @@ export default function TemplateDetails() {
 	const [comments, setComments] = useState(null);
 	const { templateId } = useParams('templateId');
 	const { setCurrentTemplate } = useAgentApp();
-	const { isAuthenticated } = useUser();
+	const { isAuthenticated, user } = useUser();
 	const navigate = useNavigate();
+	const location = useLocation();
+	const isMyTemplates = location.pathname.includes('user-');
+	const isHistoryOn = window.history.length > 1;
+	const url = isMyTemplates
+		? `http://localhost:3030/data/user-${user._id}/${templateId}`
+		: `http://localhost:3030/data/templates/${templateId}`;
 
-	const { data, isLoading, error } = useFetch(
-		`http://localhost:3030/data/templates/${templateId}`,
-		null,
-		'GET',
-	);
+	const commentsUrl = isMyTemplates
+		? `http://localhost:3030/data/comments/user-${user._id}?where=templateId%3D%22${templateId}%22`
+		: `http://localhost:3030/data/comments?where=templateId%3D%22${templateId}%22`;
+	const { data, isLoading, error } = useFetch(url, null, 'GET');
 
 	const {
 		data: commentsData,
 		isLoading: isLoadingComments,
 		error: commentsError,
-	} = useFetch(
-		`http://localhost:3030/data/comments?where=templateId%3D%22${templateId}%22`,
-		null,
-		'GET',
-	);
+	} = useFetch(commentsUrl, null, 'GET');
 
 	useEffect(() => {
 		setComments(commentsData);
@@ -91,12 +92,16 @@ export default function TemplateDetails() {
 		content = data;
 	}
 
+	const GoBack = (
+		<Link to={isHistoryOn ? -1 : '/'} className={styles.backButton}>
+			← Templates
+		</Link>
+	);
+
 	if (error) {
 		return (
 			<div className={styles.container} id="details">
-				<Link to={'/templates'} className={styles.backButton}>
-					← Templates
-				</Link>
+				{GoBack}
 
 				<p className={styles.error}>{error}: Please try again later!</p>
 			</div>
@@ -105,9 +110,7 @@ export default function TemplateDetails() {
 
 	return (
 		<div className={styles.container} id="details">
-			<Link to={'/templates'} className={styles.backButton}>
-				← Templates
-			</Link>
+			{GoBack}
 
 			<h1 className={styles.templateName} id="thumbnail">
 				{content?.name}
