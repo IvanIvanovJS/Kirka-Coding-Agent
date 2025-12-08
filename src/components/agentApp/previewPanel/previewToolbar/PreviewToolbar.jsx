@@ -1,9 +1,34 @@
-import { useAgentApp } from '../../../../contexts';
+import { useEffect } from 'react';
+import { useAgentApp, useUser } from '../../../../contexts';
+import useFetch from '../../../../hooks/useFetch';
 import exportAsHtml from '../../../../utils/exportAsHtml';
 import styles from './PreviewToolbar.module.css';
 
 export default function PreviewToolbar() {
 	const { handleSetPreviewMode, currentTemplate } = useAgentApp();
+	const { user, isAuthenticated } = useUser();
+
+	const { data, refetch } = useFetch(
+		`http://localhost:3030/data/user-${user?._id}`,
+		null,
+		'POST',
+		null,
+		null,
+		false,
+	);
+
+	const handleSave = () => {
+		if (!isAuthenticated) {
+			return;
+		}
+		refetch(currentTemplate, { 'X-Authorization': user?.accessToken });
+	};
+
+	useEffect(() => {
+		if (data) {
+			console.log(data);
+		}
+	});
 
 	return (
 		<div className={styles.toolbar}>
@@ -81,6 +106,9 @@ export default function PreviewToolbar() {
 					className={styles.actionButton}
 					aria-label="Save template"
 					disabled={!currentTemplate}
+					onClick={() => {
+						handleSave();
+					}}
 				>
 					<svg
 						width="18"
