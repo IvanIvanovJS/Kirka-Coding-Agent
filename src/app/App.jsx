@@ -40,7 +40,14 @@ function App() {
 							element={<TemplateDetails />}
 						/>
 
-						<Route path="/agent-app" element={<AgentApp />} />
+						<Route
+							path="/agent-app"
+							element={
+								<AuthGuard>
+									<AgentApp />
+								</AuthGuard>
+							}
+						/>
 					</Routes>
 				</AgentAppProvider>
 			)}
