@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useAgentApp, useUser } from '../../../../contexts';
 import useFetch from '../../../../hooks/useFetch';
 import exportAsHtml from '../../../../utils/exportAsHtml';
@@ -13,7 +13,7 @@ export default function PreviewToolbar() {
 	const dropdownRef = useRef(null);
 	const toastTimeoutRef = useRef(null);
 
-	const { data: postData, refetch: postRefetch } = useFetch(
+	const { error: postError, refetch: postRefetch } = useFetch(
 		`http://localhost:3030/data/user-${user?._id}`,
 		null,
 		'POST',
@@ -22,16 +22,22 @@ export default function PreviewToolbar() {
 		false,
 	);
 
-	const handleSave = () => {
+	const handleSave = async () => {
+		setIsDropdownOpen(false);
 		if (!isAuthenticated) {
 			return;
 		}
-		postRefetch(currentTemplate, { 'X-Authorization': user?.accessToken });
-		setIsDropdownOpen(false);
-		showToast('Template saved as new');
+		try {
+			await postRefetch(currentTemplate, {
+				'X-Authorization': user?.accessToken,
+			});
+			showToast('Template saved as new');
+		} catch {
+			showToast('Something went wrong, please try again later');
+		}
 	};
 
-	const { data: editedData, refetch: editRefetch } = useFetch(
+	const { refetch: editRefetch } = useFetch(
 		`http://localhost:3030/data/user-${user?._id}/${currentTemplate?._id}`,
 		null,
 		'PUT',
@@ -40,16 +46,23 @@ export default function PreviewToolbar() {
 		false,
 	);
 
-	const handleEdit = () => {
+	const handleEdit = async () => {
+		setIsDropdownOpen(false);
 		if (!isAuthenticated) {
 			return;
 		}
-		editRefetch(currentTemplate, { 'X-Authorization': user?.accessToken });
-		setIsDropdownOpen(false);
-		showToast('Template updated successfully');
+		try {
+			await editRefetch(currentTemplate, {
+				'X-Authorization': user?.accessToken,
+			});
+			setIsDropdownOpen(false);
+			showToast('Template updated successfully');
+		} catch {
+			showToast('Something went wrong, please try again later');
+		}
 	};
 
-	const showToast = (message) => {
+	const showToast = useCallback((message) => {
 		if (toastTimeoutRef.current) {
 			clearTimeout(toastTimeoutRef.current);
 		}
@@ -57,7 +70,7 @@ export default function PreviewToolbar() {
 		toastTimeoutRef.current = setTimeout(() => {
 			setToast(null);
 		}, 3500);
-	};
+	}, []);
 
 	useEffect(() => {
 		const handleClickOutside = (event) => {
@@ -76,24 +89,17 @@ export default function PreviewToolbar() {
 	}, [isDropdownOpen]);
 
 	useEffect(() => {
-		if (editedData) {
-			console.log(editedData);
-		}
-	});
-
-	useEffect(() => {
-		if (postData) {
-			console.log(postData);
-		}
-	});
-
-	useEffect(() => {
 		return () => {
 			if (toastTimeoutRef.current) {
 				clearTimeout(toastTimeoutRef.current);
 			}
 		};
 	}, []);
+	useEffect(() => {
+		if (postError) {
+			console.log(postError);
+		}
+	}, [postError]);
 
 	return (
 		<div className={styles.toolbar}>
@@ -256,17 +262,35 @@ export default function PreviewToolbar() {
 					)}
 
 					{toast && (
-						<div className={styles.toast}>
-							<svg
-								width="16"
-								height="16"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth="2"
-							>
-								<polyline points="20 6 9 17 4 12" />
-							</svg>
+						<div className={postError ? styles.toastError : styles.toast}>
+							{postError ? (
+								<svg
+									width="20"
+									height="20"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									aria-hidden="true"
+								>
+									<circle cx="12" cy="12" r="9"></circle>
+									<line x1="15" y1="9" x2="9" y2="15"></line>
+									<line x1="9" y1="9" x2="15" y2="15"></line>
+								</svg>
+							) : (
+								<svg
+									width="16"
+									height="16"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2"
+								>
+									<polyline points="20 6 9 17 4 12" />
+								</svg>
+							)}
 							<span>{toast}</span>
 						</div>
 					)}
