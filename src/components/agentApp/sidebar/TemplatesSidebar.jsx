@@ -5,8 +5,23 @@ import TemplateItem from './templateItem/TemplateItem';
 import { useAgentApp } from '../../../contexts';
 
 export default function TemplatesSidebar() {
-	const { isSidebarVisible, toggleSidebar, templates, isLoading, serverError } =
-		useAgentApp();
+	const {
+		isSidebarVisible,
+		toggleSidebar,
+		templates,
+		isLoading,
+		serverError,
+		templateViewMode,
+		handleSetTemplateViewMode,
+		myTemplates,
+		isLoadingMyTemplates,
+		myTemplatesError,
+	} = useAgentApp();
+
+	const currentTemplates =
+		templateViewMode === 'templates' ? templates : myTemplates;
+	const currentIsLoading =
+		templateViewMode === 'templates' ? isLoading : isLoadingMyTemplates;
 
 	if (!isSidebarVisible) {
 		return (
@@ -29,8 +44,8 @@ export default function TemplatesSidebar() {
 					<Link to={'/'}>
 						<GhostIcon size={48} className={styles.ghostIcon} />
 					</Link>
-					<h3 className={styles.title}>Templates</h3>
 				</div>
+
 				<button
 					type="button"
 					className={styles.toggleButton}
@@ -41,19 +56,50 @@ export default function TemplatesSidebar() {
 				</button>
 			</div>
 
+			<div className={styles.modeToggle}>
+				<button
+					className={`${styles.modeButton} ${templateViewMode === 'templates' ? styles.active : ''}`}
+					type="button"
+					aria-label="View all templates"
+					onClick={() => handleSetTemplateViewMode('templates')}
+				>
+					<span>Templates</span>
+				</button>
+				<button
+					type="button"
+					className={`${styles.modeButton} ${templateViewMode === 'myTemplates' ? styles.active : ''}`}
+					aria-label="View my templates"
+					onClick={() => handleSetTemplateViewMode('myTemplates')}
+				>
+					<span>My Templates</span>
+				</button>
+			</div>
+
 			<div className={styles.templateList}>
-				{isLoading && <p className={styles.emptyState}>Loading templates...</p>}
-				{templates.length === 0 && (
-					<p className={styles.emptyState}>No templates found.</p>
+				{currentIsLoading && (
+					<p className={styles.emptyState}>Loading templates...</p>
 				)}
-				{!isLoading &&
-					templates.length > 0 &&
-					templates.map((template) => (
+				{!currentIsLoading && currentTemplates?.length === 0 && (
+					<p className={styles.emptyState}>
+						{myTemplates
+							? 'No personal projects yet? Choose from templates to start.'
+							: 'No templates found.'}
+					</p>
+				)}
+				{!currentIsLoading &&
+					currentTemplates?.length > 0 &&
+					currentTemplates.map((template) => (
 						<TemplateItem key={template._id} template={template} />
 					))}
 				{serverError && (
 					<p className={styles.error}>
 						Unable to fetch templates. Please try again later.
+					</p>
+				)}
+
+				{myTemplatesError && (
+					<p className={styles.emptyState}>
+						No personal projects yet? Choose from templates to start.
 					</p>
 				)}
 			</div>
