@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router';
+import { Link, useNavigate, useSearchParams } from 'react-router';
 import { useContext, useEffect, useState } from 'react';
 import { AlertCircle } from 'lucide-react';
 import { UserContext } from '../../../contexts/UserContext';
@@ -15,7 +15,7 @@ export default function Login() {
 	const [userData, setUserData] = useState(null);
 	const [clientErrors, setClientErrors] = useState(null);
 	const { setAuthenticatedUser } = useContext(UserContext);
-
+	const [searchParams] = useSearchParams();
 	const navigate = useNavigate();
 
 	const { input, formAction, setValues, isSubmitting, setIsSubmitting } =
@@ -65,9 +65,19 @@ export default function Login() {
 			setValues(initialValues);
 			setAuthenticatedUser(user);
 			setIsSubmitting(false);
-			navigate('/');
+
+			const redirectPath = searchParams.get('redirectTo');
+			console.log(redirectPath);
+			navigate(redirectPath || '/');
 		}
-	}, [setAuthenticatedUser, navigate, user, setValues, setIsSubmitting]);
+	}, [
+		setAuthenticatedUser,
+		navigate,
+		user,
+		setValues,
+		setIsSubmitting,
+		searchParams,
+	]);
 
 	return (
 		<div className={styles.loginContainer}>
