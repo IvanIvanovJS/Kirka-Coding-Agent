@@ -5,14 +5,25 @@ import exportAsHtml from '../../../../utils/exportAsHtml';
 import styles from './PreviewToolbar.module.css';
 
 export default function PreviewToolbar() {
-	const { handleSetPreviewMode, currentTemplate } = useAgentApp();
+	const {
+		handleSetPreviewMode,
+		currentTemplate,
+		handleSetTemplateViewMode,
+		refechMyTemplates,
+		setCurrentTemplate,
+		myTemplates,
+	} = useAgentApp();
 	const { user, isAuthenticated } = useUser();
 	const isOwner = currentTemplate?._ownerId === user?._id;
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const [toast, setToast] = useState(null);
 	const dropdownRef = useRef(null);
 	const toastTimeoutRef = useRef(null);
-	const { error: postError, refetch: postRefetch } = useFetch(
+	const {
+		data: postData,
+		error: postError,
+		refetch: postRefetch,
+	} = useFetch(
 		`http://localhost:3030/data/user-${user?._id}`,
 		null,
 		'POST',
@@ -30,7 +41,10 @@ export default function PreviewToolbar() {
 			await postRefetch(currentTemplate, {
 				'X-Authorization': user?.accessToken,
 			});
+			await refechMyTemplates();
+
 			showToast('Template saved as new');
+			handleSetTemplateViewMode('myTemplates');
 		} catch {
 			showToast('Something went wrong, please try again later');
 		}
@@ -54,8 +68,10 @@ export default function PreviewToolbar() {
 			await editRefetch(currentTemplate, {
 				'X-Authorization': user?.accessToken,
 			});
+			await refechMyTemplates();
 			setIsDropdownOpen(false);
 			showToast('Template updated successfully');
+			handleSetTemplateViewMode('myTemplates');
 		} catch {
 			showToast('Something went wrong, please try again later');
 		}
@@ -99,6 +115,12 @@ export default function PreviewToolbar() {
 			console.log(postError);
 		}
 	}, [postError]);
+
+	useEffect(() => {
+		if (postData) {
+			setCurrentTemplate(myTemplates?.at(myTemplates?.length - 1));
+		}
+	}, [postData, myTemplates, setCurrentTemplate]);
 
 	return (
 		<div className={styles.toolbar}>

@@ -23,6 +23,7 @@ const AgentAppContext = createContext({
 	myTemplates: [],
 	isLoadingMyTemplates: true,
 	myTemplatesError: null,
+	refechMyTemplates: async () => {},
 });
 
 function AgentAppProvider({ children }) {
@@ -51,6 +52,7 @@ function AgentAppProvider({ children }) {
 		data: myTemplates,
 		isLoading: isLoadingMyTemplates,
 		error: myTemplatesError,
+		refetch: refechMyTemplates,
 	} = useFetch(myTemplatesUrl, {}, 'GET', null, null, !!myTemplatesUrl);
 
 	const toggleSidebar = () => {
@@ -147,6 +149,7 @@ function AgentAppProvider({ children }) {
 		myTemplates,
 		isLoadingMyTemplates,
 		myTemplatesError,
+		refechMyTemplates,
 	};
 
 	return (
