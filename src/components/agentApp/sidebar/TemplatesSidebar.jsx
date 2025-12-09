@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 import GhostIcon from '../../UI/ghostIcon/GhostIcon';
 import styles from './TemplatesSidebar.module.css';
 import TemplateItem from './templateItem/TemplateItem';
-import { useAgentApp } from '../../../contexts';
+import { useAgentApp, useUser } from '../../../contexts';
 
 export default function TemplatesSidebar() {
 	const {
@@ -17,6 +17,7 @@ export default function TemplatesSidebar() {
 		isLoadingMyTemplates,
 		myTemplatesError,
 	} = useAgentApp();
+	const { isAuthenticated } = useUser();
 
 	const currentTemplates =
 		templateViewMode === 'templates' ? templates : myTemplates;
@@ -40,11 +41,10 @@ export default function TemplatesSidebar() {
 	return (
 		<div className={styles.sidebar}>
 			<div className={styles.sidebarHeader}>
-				<div className={styles.logoContainer}>
-					<Link to={'/'}>
-						<GhostIcon size={48} className={styles.ghostIcon} />
-					</Link>
-				</div>
+				<Link to={'/'} className={styles.logoContainer}>
+					<GhostIcon size={48} className={styles.ghostIcon} />
+					<span className={styles.siteName}>Kirka</span>
+				</Link>
 
 				<button
 					type="button"
@@ -100,6 +100,12 @@ export default function TemplatesSidebar() {
 				{myTemplatesError && (
 					<p className={styles.emptyState}>
 						No personal projects yet? Choose from templates to start.
+					</p>
+				)}
+				{!isAuthenticated && (
+					<p className={styles.emptyState}>
+						No templates available. Please
+						<Link to={'/auth/login'}> login</Link>.
 					</p>
 				)}
 			</div>
