@@ -18,16 +18,22 @@ const AgentAppContext = createContext({
 	sendMessage: async () => {},
 	aiError: null,
 	isOwner: false,
+	templateViewMode: 'templates',
+	handleSetTemplateViewMode() {},
+	myTemplates: [],
+	isLoadingMyTemplates: true,
+	myTemplatesError: null,
 });
 
 function AgentAppProvider({ children }) {
 	const [isSidebarVisible, setIsSidebarVisible] = useState(true);
 	const [currentTemplate, setCurrentTemplate] = useState(null);
 	const [previewMode, setPreviewMode] = useState('desktop');
+	const [templateViewMode, setTemplateViewMode] = useState('templates');
 	const [messages, setMessages] = useState([]);
 	const [isAiProcessing, setIsAiProcessing] = useState(false);
 	const [aiError, setAiError] = useState(null);
-	const { user } = useUser();
+	const { user, isAuthenticated } = useUser();
 	const isOwner = user?._id === currentTemplate?._ownerId;
 
 	const {
@@ -35,12 +41,28 @@ function AgentAppProvider({ children }) {
 		isLoading,
 		error: serverError,
 	} = useFetch('http://localhost:3030/data/templates', {}, 'GET');
+
+	const myTemplatesUrl =
+		isAuthenticated && user?._id
+			? `http://localhost:3030/data/user-${user?._id}`
+			: null;
+
+	const {
+		data: myTemplates,
+		isLoading: isLoadingMyTemplates,
+		error: myTemplatesError,
+	} = useFetch(myTemplatesUrl, {}, 'GET', null, null, !!myTemplatesUrl);
+
 	const toggleSidebar = () => {
 		setIsSidebarVisible((state) => !state);
 	};
 
 	const handleSetPreviewMode = (mode) => {
 		setPreviewMode(mode);
+	};
+
+	const handleSetTemplateViewMode = (mode) => {
+		setTemplateViewMode(mode);
 	};
 
 	const sendMessage = async (content) => {
@@ -120,6 +142,11 @@ function AgentAppProvider({ children }) {
 		sendMessage,
 		aiError,
 		isOwner,
+		handleSetTemplateViewMode,
+		templateViewMode,
+		myTemplates,
+		isLoadingMyTemplates,
+		myTemplatesError,
 	};
 
 	return (
