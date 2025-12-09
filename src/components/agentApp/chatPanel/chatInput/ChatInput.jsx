@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
-import { useAgentApp } from '../../../../contexts';
+import { useAgentApp, useUser } from '../../../../contexts';
 import useForm from '../../../../hooks/useForm';
 import styles from './ChatInput.module.css';
 import { Send } from 'lucide-react';
 export default function ChatInput() {
 	const { sendMessage, isAiProcessing, currentTemplate } = useAgentApp();
+	const { isAuthenticated } = useUser();
 	const { input, formAction, setValues } = useForm(sendHandler, {
 		message: '',
 	});
@@ -37,7 +38,7 @@ export default function ChatInput() {
 						: 'Add template to chat.'
 				}
 				{...input('message')}
-				disabled={isAiProcessing || !currentTemplate}
+				disabled={!isAuthenticated || isAiProcessing || !currentTemplate}
 				className={styles.input}
 			/>
 			<button

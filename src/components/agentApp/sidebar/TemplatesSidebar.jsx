@@ -97,12 +97,12 @@ export default function TemplatesSidebar() {
 					</p>
 				)}
 
-				{myTemplatesError && (
+				{myTemplatesError && templateViewMode !== 'templates' && (
 					<p className={styles.emptyState}>
 						No personal projects yet? Choose from templates to start.
 					</p>
 				)}
-				{!isAuthenticated && (
+				{!isAuthenticated && templateViewMode !== 'templates' && (
 					<p className={styles.emptyState}>
 						No templates available. Please
 						<Link to={'/auth/login'}> login</Link>.
