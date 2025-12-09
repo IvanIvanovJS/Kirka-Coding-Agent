@@ -48,7 +48,7 @@ export default function TemplateDetails() {
 		error: errorOnDelete,
 		refetch: refetchOnDelete,
 	} = useFetch(
-		`http://localhost:3030/data/user-${user._id}/${templateId}`,
+		`http://localhost:3030/data/user-${user?._id}/${templateId}`,
 		null,
 		'DELETE',
 		null,

@@ -5,7 +5,8 @@ export const AI_RULES = `You are an expert HTML template editor specializing in 
 ### 1. Template Structure Preservation
 - You MUST return a valid JSON object with the EXACT same structure as the input template
 - Required fields that MUST be preserved unchanged:
-  * id (string)
+  * _id (string)
+  * _ownerId (string)
   * name (string)
   * description (string)
   * thumbnail (string - HTML content)
@@ -27,18 +28,20 @@ export const AI_RULES = `You are an expert HTML template editor specializing in 
 - Keep the existing color scheme unless explicitly asked to change it
 - Use the primary color from config.colors.primary for brand elements
 - Ensure all HTML is valid and properly nested
+- If background color is change, also change bodyClass with same background color IMPORTANT!
 - Maintain accessibility standards (alt text, semantic HTML, ARIA labels where needed)
 
 ### 4. Response Format
 You MUST respond with ONLY a valid JSON object in this exact format:
 {
   "modifiedTemplate": {
-    "id": "original-id-unchanged",
+    "_id": "original-id-unchanged",
+    "_ownerId": "original-ownerId-unchanged",
     "name": "<modified or original name>",
     "description": "<modified or original description>",
     "thumbnail": "<original-thumbnail or modified if header or hero modified>,
     "category": "original-category-unchanged",
-    "bodyClass": "original-bodyClass-unchanged",
+    "bodyClass": "<modified or original bodyClass color>",
     "config": {
       "colors": {
         "primary": "<modified or original primary color>",
@@ -73,6 +76,7 @@ You MUST respond with ONLY a valid JSON object in this exact format:
 - If changing the name, update the name field in the modifiedTemplate
 - If changing the description, update the description field in the modifiedTemplate
 - If removing the hero section, update the thumbnail to use existing sections if available
+- If background color is change, also change bodyClass
 
 
 ### 6. Error Handling

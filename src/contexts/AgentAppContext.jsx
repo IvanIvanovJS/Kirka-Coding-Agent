@@ -101,7 +101,11 @@ function AgentAppProvider({ children }) {
 
 			const aiService = new AIService(apiKey);
 
-			const result = await aiService.editTemplate(currentTemplate, content);
+			const result = await aiService.editTemplate(
+				{ ...currentTemplate, _ownerId: user?._id },
+				content,
+				user?._id,
+			);
 			setCurrentTemplate(result.modifiedTemplate);
 
 			const aiMessage = {

@@ -6,8 +6,9 @@ const validateTemplate = (template) => {
 	}
 
 	const requiredFields = [
-		'id',
+		'_id',
 		'name',
+		'_ownerId',
 		'description',
 		'category',
 		'bodyClass',
@@ -15,7 +16,6 @@ const validateTemplate = (template) => {
 		'sections',
 		'full_html_template',
 	];
-
 	const missingField = requiredFields.find((field) => !(field in template));
 
 	if (missingField) {
