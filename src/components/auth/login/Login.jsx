@@ -30,6 +30,7 @@ export default function Login() {
 	function loginHandler(values) {
 		const { email, password } = values;
 		const clientErros = {};
+
 		if (!email) {
 			clientErros.email = 'Email is required!';
 		}
@@ -42,7 +43,13 @@ export default function Login() {
 			setError(null);
 			throw new Error('Input validation error!');
 		}
+		if (serverError) {
+			setError(null);
+			setUserData({ ...values, ct: new Date() });
+			return;
+		}
 
+		setError(null);
 		setClientErrors(null);
 		setUserData({ email, password });
 	}
@@ -81,7 +88,7 @@ export default function Login() {
 					{clientErrors?.email && (
 						<p className={styles.errorMessage}>
 							<AlertCircle size={14} />
-							{clientErrors.password}
+							{clientErrors.email}
 						</p>
 					)}
 				</div>

@@ -1,15 +1,15 @@
-import { AlertCircle } from "lucide-react";
-import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router";
-import { UserContext } from "../../../contexts/UserContext";
-import useFetch from "../../../hooks/useFetch";
-import useForm from "../../../hooks/useForm";
-import styles from "./Register.module.css";
+import { AlertCircle } from 'lucide-react';
+import { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router';
+import { UserContext } from '../../../contexts/UserContext';
+import useFetch from '../../../hooks/useFetch';
+import useForm from '../../../hooks/useForm';
+import styles from './Register.module.css';
 
 const initialValues = {
-	email: "",
-	password: "",
-	confirmPassword: "",
+	email: '',
+	password: '',
+	confirmPassword: '',
 };
 
 export default function Register() {
@@ -26,9 +26,9 @@ export default function Register() {
 		error: serverError,
 		setError,
 	} = useFetch(
-		"http://localhost:3030/users/register",
+		'http://localhost:3030/users/register',
 		{},
-		"POST",
+		'POST',
 		{},
 		userData,
 	);
@@ -37,20 +37,26 @@ export default function Register() {
 		const { email, password, confirmPassword } = values;
 		const clientErros = {};
 		if (!email) {
-			clientErros.email = "Email is required!";
+			clientErros.email = 'Email is required!';
 		}
 		if (!password) {
-			clientErros.password = "Password is required!";
+			clientErros.password = 'Password is required!';
 		}
 
 		if (password !== confirmPassword) {
-			clientErros.confirmPassword = "Password does not match!";
+			clientErros.confirmPassword = 'Password does not match!';
 		}
 
 		if (Object.keys(clientErros).length > 0) {
 			setClientErrors(clientErros);
 			setError(null);
-			throw new Error("Input validation error!");
+			throw new Error('Input validation error!');
+		}
+
+		if (serverError) {
+			setError(null);
+			setUserData({ ...values, ct: new Date() });
+			return;
 		}
 
 		setClientErrors(null);
@@ -68,7 +74,7 @@ export default function Register() {
 			setValues(initialValues);
 			setAuthenticatedUser(user);
 			setIsSubmitting(false);
-			navigate("/");
+			navigate('/');
 		}
 	}, [setAuthenticatedUser, navigate, user, setValues, setIsSubmitting]);
 
@@ -84,7 +90,7 @@ export default function Register() {
 					<input
 						type="email"
 						id="email"
-						{...input("email")}
+						{...input('email')}
 						className={styles.input}
 						placeholder="Enter your email"
 					/>
@@ -103,7 +109,7 @@ export default function Register() {
 					<input
 						type="password"
 						id="password"
-						{...input("password")}
+						{...input('password')}
 						className={styles.input}
 						placeholder="Enter your password"
 					/>
@@ -122,7 +128,7 @@ export default function Register() {
 					<input
 						type="password"
 						id="confirmPassword"
-						{...input("confirmPassword")}
+						{...input('confirmPassword')}
 						className={styles.input}
 						placeholder="Confirm your password"
 					/>
@@ -144,11 +150,11 @@ export default function Register() {
 					className={styles.submitBtn}
 					disabled={isSubmitting}
 				>
-					{isSubmitting ? "Please wait..." : "Register"}
+					{isSubmitting ? 'Please wait...' : 'Register'}
 				</button>
 
 				<p className={styles.formLink}>
-					Already have an account?{" "}
+					Already have an account?{' '}
 					<Link to="/auth/login" className={styles.link}>
 						Login
 					</Link>
