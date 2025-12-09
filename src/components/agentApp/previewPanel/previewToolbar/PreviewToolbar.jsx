@@ -12,7 +12,6 @@ export default function PreviewToolbar() {
 	const [toast, setToast] = useState(null);
 	const dropdownRef = useRef(null);
 	const toastTimeoutRef = useRef(null);
-
 	const { error: postError, refetch: postRefetch } = useFetch(
 		`http://localhost:3030/data/user-${user?._id}`,
 		null,
@@ -150,7 +149,7 @@ export default function PreviewToolbar() {
 					type="button"
 					className={styles.actionButton}
 					aria-label="Export as HTML"
-					disabled={!currentTemplate}
+					disabled={!isAuthenticated || !currentTemplate}
 					onClick={() =>
 						exportAsHtml(
 							currentTemplate.full_html_template,
@@ -178,7 +177,7 @@ export default function PreviewToolbar() {
 						type="button"
 						className={styles.actionButton}
 						aria-label="Save template"
-						disabled={!currentTemplate}
+						disabled={!isAuthenticated || !currentTemplate}
 						onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 					>
 						<svg
