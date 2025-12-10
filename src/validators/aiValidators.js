@@ -88,10 +88,7 @@ const parseResponse = (responseText) => {
 			changedSections: parsed.changedSections || [],
 		};
 	} catch {
-		console.error(
-			'Failed to parse AI response:',
-			responseText.substring(0, 500),
-		);
+		console.error('Failed to parse AI response:', responseText);
 		throw new Error('AI returned invalid JSON response');
 	}
 };

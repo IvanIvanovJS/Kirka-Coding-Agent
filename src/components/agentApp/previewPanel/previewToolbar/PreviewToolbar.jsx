@@ -11,7 +11,7 @@ export default function PreviewToolbar() {
 		handleSetTemplateViewMode,
 		refechMyTemplates,
 		setCurrentTemplate,
-		myTemplates,
+		myTemplates = [],
 	} = useAgentApp();
 	const { user, isAuthenticated } = useUser();
 	const isOwner = currentTemplate?._ownerId === user?._id;
@@ -118,7 +118,7 @@ export default function PreviewToolbar() {
 
 	useEffect(() => {
 		if (postData) {
-			setCurrentTemplate(myTemplates?.at(myTemplates?.length - 1));
+			setCurrentTemplate(myTemplates[myTemplates?.length - 1]);
 		}
 	}, [postData, myTemplates, setCurrentTemplate]);
 
@@ -254,7 +254,7 @@ export default function PreviewToolbar() {
 									</span>
 								</div>
 							</button>
-							{isOwner && (
+							{isOwner && myTemplates.length > 0 && (
 								<button
 									type="button"
 									className={styles.dropdownItem}

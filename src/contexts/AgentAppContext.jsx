@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import useFetch from '../hooks/useFetch';
 import AIService from '../services/aiService';
 import { useUser } from '.';
@@ -29,6 +29,7 @@ const AgentAppContext = createContext({
 function AgentAppProvider({ children }) {
 	const [isSidebarVisible, setIsSidebarVisible] = useState(true);
 	const [currentTemplate, setCurrentTemplate] = useState(null);
+	const [prevTemplate, setPrevTemplate] = useState(null);
 	const [previewMode, setPreviewMode] = useState('desktop');
 	const [templateViewMode, setTemplateViewMode] = useState('templates');
 	const [messages, setMessages] = useState([]);
@@ -66,6 +67,13 @@ function AgentAppProvider({ children }) {
 	const handleSetTemplateViewMode = (mode) => {
 		setTemplateViewMode(mode);
 	};
+	useEffect(() => {
+		if (!currentTemplate) return;
+		if (currentTemplate?._id !== prevTemplate?._id) {
+			setMessages([]);
+			setPrevTemplate(currentTemplate);
+		}
+	}, [currentTemplate, prevTemplate]);
 
 	const sendMessage = async (content) => {
 		if (!currentTemplate) {
