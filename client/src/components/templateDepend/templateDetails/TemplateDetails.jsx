@@ -11,12 +11,15 @@ import { useAgentApp, useUser } from '../../../contexts';
 import CommentsSection from './commentsSection/CommentsSection';
 import DeleteConfirmationModalPortal from '../../../portals/DeleteConfirmationModalProtal';
 import DeleteConfirmationModal from './commentsSection/deleteComment/DeleteConfirmationModal';
+import Toast from '../../UI/toast/Toast';
 
 export default function TemplateDetails() {
 	const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 	const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 	const [isDeleting, setIsDeleting] = useState(false);
+	const [isPublishing, setIsPublishing] = useState(false);
 	const [comments, setComments] = useState(null);
+	const [toast, setToast] = useState(null);
 	const { templateId } = useParams('templateId');
 	const { setCurrentTemplate, refechMyTemplates, currentTemplate } =
 		useAgentApp();
@@ -57,6 +60,19 @@ export default function TemplateDetails() {
 		false,
 	);
 
+	const {
+		data: dataOnPublish,
+		error: errorOnPublish,
+		refetch: refetchOnPublish,
+	} = useFetch(
+		`http://localhost:3030/data/templates`,
+		null,
+		'POST',
+		null,
+		null,
+		false,
+	);
+
 	useEffect(() => {
 		if (dataOnDelete) {
 			console.log(dataOnDelete);
@@ -69,6 +85,24 @@ export default function TemplateDetails() {
 			console.log(errorOnDelete);
 		}
 	}, [errorOnDelete]);
+
+	useEffect(() => {
+		if (dataOnPublish) {
+			setToast({
+				message: 'Template published successfully!',
+				type: 'success',
+			});
+		}
+	}, [dataOnPublish]);
+
+	useEffect(() => {
+		if (errorOnPublish) {
+			setToast({
+				message: 'Failed to publish template. Please try again.',
+				type: 'error',
+			});
+		}
+	}, [errorOnPublish]);
 
 	const handleDelete = async () => {
 		setIsDeleting(true);
@@ -85,6 +119,15 @@ export default function TemplateDetails() {
 
 	const handleCancelDelete = () => {
 		setShowDeleteConfirm(false);
+	};
+
+	const handlePublish = async () => {
+		setIsPublishing(true);
+		await refetchOnPublish(content, {
+			'Content-Type': 'application/json',
+			'X-Authorization': user?.accessToken,
+		});
+		setIsPublishing(false);
 	};
 
 	const updateCommentHandler = useCallback((action) => {
@@ -279,15 +322,26 @@ export default function TemplateDetails() {
 					{isMyTemplates ? 'Edit in App' : 'Add to App'}
 				</button>
 				{isMyTemplates && isAuthenticated && (
-					<button
-						type={'button'}
-						className={styles.deleteButton}
-						onClick={() => setShowDeleteConfirm(true)}
-						title={'Permanently deleting template'}
-						disabled={!isAuthenticated}
-					>
-						Delete
-					</button>
+					<>
+						<button
+							type={'button'}
+							className={styles.navButtonAccent}
+							onClick={handlePublish}
+							title={'Publish template to all users'}
+							disabled={!isAuthenticated || isPublishing}
+						>
+							{isPublishing ? 'Publishing...' : 'Publish'}
+						</button>
+						<button
+							type={'button'}
+							className={styles.deleteButton}
+							onClick={() => setShowDeleteConfirm(true)}
+							title={'Permanently deleting template'}
+							disabled={!isAuthenticated}
+						>
+							Delete
+						</button>
+					</>
 				)}
 			</div>
 			{isPreviewOpen && (
@@ -306,6 +360,13 @@ export default function TemplateDetails() {
 						isMyTemplates={isMyTemplates}
 					/>
 				</DeleteConfirmationModalPortal>
+			)}
+			{toast && (
+				<Toast
+					message={toast.message}
+					type={toast.type}
+					onClose={() => setToast(null)}
+				/>
 			)}
 		</div>
 	);
