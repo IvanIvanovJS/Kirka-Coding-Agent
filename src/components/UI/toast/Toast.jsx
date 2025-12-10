@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { CheckIcon, ErrorIcon } from '../../../assets/icons';
 import styles from './Toast.module.css';
 
 export default function Toast({
@@ -19,35 +20,8 @@ export default function Toast({
 
 	return (
 		<div className={`${styles.toast} ${styles[type]}`}>
-			{type === 'success' && (
-				<svg
-					width="20"
-					height="20"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-				>
-					<polyline points="20 6 9 17 4 12" />
-				</svg>
-			)}
-			{type === 'error' && (
-				<svg
-					width="20"
-					height="20"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					aria-hidden="true"
-				>
-					<circle cx="12" cy="12" r="9"></circle>
-					<line x1="15" y1="9" x2="9" y2="15"></line>
-					<line x1="9" y1="9" x2="15" y2="15"></line>
-				</svg>
-			)}
+			{type === 'success' && <CheckIcon />}
+			{type === 'error' && <ErrorIcon aria-hidden="true" />}
 			<span>{message}</span>
 		</div>
 	);
