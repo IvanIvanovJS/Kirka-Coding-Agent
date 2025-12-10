@@ -61,14 +61,13 @@ export default function Login() {
 	}, [serverError, setIsSubmitting]);
 
 	useEffect(() => {
-		if (user.accessToken) {
+		if (user?.accessToken) {
 			setValues(initialValues);
-			setAuthenticatedUser(user);
 			setIsSubmitting(false);
 
 			const redirectPath = searchParams.get('redirectTo');
-			console.log(redirectPath);
-			navigate(redirectPath || '/');
+			navigate(redirectPath || '/', { replace: true });
+			setAuthenticatedUser(user);
 		}
 	}, [
 		setAuthenticatedUser,
