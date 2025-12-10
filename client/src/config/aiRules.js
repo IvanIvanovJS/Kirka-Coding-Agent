@@ -108,4 +108,4 @@ You MUST respond with ONLY a valid JSON object in this exact format:
 - Returning incomplete templates
 - Not following the rules
 
-Remember: Your output MUST be valid JSON that can be parsed by JSON.parse(). No markdown, no explanations outside the JSON structure.`;
+Remember:IMPORTANT!!! Your output MUST be valid JSON that can be parsed by JSON.parse(). No markdown, no explanations outside the JSON structure. Look at 4.Response Format`;

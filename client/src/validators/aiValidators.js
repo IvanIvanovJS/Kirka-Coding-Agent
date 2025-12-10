@@ -62,35 +62,60 @@ ${userRequest}
 ${JSON.stringify(template, null, 2)}
 
 ## YOUR RESPONSE:
-Provide ONLY the JSON response as specified in the rules above. No additional text or markdown.`;
+IMPORTANT: output valid JSON only. Start your response with '{' and end with '}'. Do not use Markdown code blocks.`;
 
 const extractJSON = (text) => {
-	const jsonMatch = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
-	return jsonMatch ? jsonMatch[1].trim() : text.trim();
+    if (!text) return "";
+
+	let cleanText = text.replace(/`/g, "");
+
+    const markdownMatch = cleanText.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+    if (markdownMatch) {
+        cleanText = markdownMatch[1];
+    }
+
+    const firstOpen = cleanText.indexOf('{');
+    const lastClose = cleanText.lastIndexOf('}');
+
+    if (firstOpen !== -1 && lastClose !== -1 && lastClose > firstOpen) {
+        return cleanText.substring(firstOpen, lastClose + 1);
+    }
+
+    return cleanText.trim();
 };
 
 const parseResponse = (responseText) => {
-	if (!responseText) {
-		throw new Error('AI returned empty response');
-	}
+    if (!responseText) {
+        throw new Error('AI returned empty response');
+    }
 
-	try {
-		const jsonText = extractJSON(responseText);
-		const parsed = JSON.parse(jsonText);
+    const jsonText = extractJSON(responseText);
 
-		if (!parsed.modifiedTemplate || !parsed.message) {
-			throw new Error('AI response missing required fields');
-		}
+    try {
+        const parsed = JSON.parse(jsonText);
 
-		return {
-			modifiedTemplate: parsed.modifiedTemplate,
-			message: parsed.message,
-			changedSections: parsed.changedSections || [],
-		};
-	} catch {
-		console.error('Failed to parse AI response:', responseText);
-		throw new Error('AI returned invalid JSON response');
-	}
+        if (!parsed.modifiedTemplate || !parsed.message) {
+          
+            if (parsed._id && parsed.sections) {
+                 return {
+                    modifiedTemplate: parsed,
+                    message: "Template updated successfully.",
+                    changedSections: []
+                 };
+            }
+            throw new Error('AI response structure is incorrect (missing modifiedTemplate or message)');
+        }
+
+        return {
+            modifiedTemplate: parsed.modifiedTemplate,
+            message: parsed.message,
+            changedSections: parsed.changedSections || [],
+        };
+
+    } catch  {
+        console.error('Failed to parse JSON:', jsonText.substring(0, 200) + '...');
+        throw new Error('AI returned invalid JSON format. Please try your request again.');
+    }
 };
 
 const validateModifiedTemplate = (modifiedTemplate, originalTemplate) => {
