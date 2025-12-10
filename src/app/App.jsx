@@ -36,7 +36,11 @@ function App() {
 						/>
 						<Route
 							path={`/user-${user?._id}/:templateId/details`}
-							element={<TemplateDetails />}
+							element={
+								<AuthGuard>
+									<TemplateDetails />
+								</AuthGuard>
+							}
 						/>
 
 						<Route
@@ -60,7 +64,14 @@ function App() {
 							<Route path="/templates">
 								<Route index element={<Templates />} />
 							</Route>
-							<Route path="/my-templates" element={<Templates />}></Route>
+							<Route
+								path="/my-templates"
+								element={
+									<AuthGuard>
+										<Templates />
+									</AuthGuard>
+								}
+							></Route>
 							<Route path="/auth">
 								<Route
 									path="login"
