@@ -18,6 +18,7 @@ export default function TemplatesSidebar() {
 		myTemplatesError,
 	} = useAgentApp();
 	const { isAuthenticated } = useUser();
+	const isHistoryOn = window.history.length > 1;
 
 	const currentTemplates =
 		templateViewMode === 'templates' ? templates : myTemplates;
@@ -41,19 +42,9 @@ export default function TemplatesSidebar() {
 	return (
 		<div className={styles.sidebar}>
 			<div className={styles.sidebarHeader}>
-				<Link to={'/'} className={styles.logoContainer}>
-					<GhostIcon size={48} className={styles.ghostIcon} />
-					<span className={styles.siteName}>Kirka</span>
+				<Link to={isHistoryOn ? -1 : '/'} className={styles.backButton}>
+					← Back
 				</Link>
-
-				<button
-					type="button"
-					className={styles.toggleButton}
-					aria-label="Hide sidebar"
-					onClick={toggleSidebar}
-				>
-					◀
-				</button>
 			</div>
 
 			<div className={styles.modeToggle}>
@@ -108,6 +99,21 @@ export default function TemplatesSidebar() {
 						<Link to={'/auth/login'}> login</Link>.
 					</p>
 				)}
+			</div>
+
+			<div className={styles.sidebarFooter}>
+				<Link to={'/'} className={styles.logoContainer}>
+					<GhostIcon size={48} className={styles.ghostIcon} />
+					<span className={styles.siteName}>Kirka</span>
+				</Link>
+				<button
+					type="button"
+					className={styles.toggleButton}
+					aria-label="Hide sidebar"
+					onClick={toggleSidebar}
+				>
+					◀
+				</button>
 			</div>
 		</div>
 	);
