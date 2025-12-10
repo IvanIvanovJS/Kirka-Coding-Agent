@@ -7,16 +7,15 @@
 
 ## 📋 Table of Contents
 
-- [About](#about)
-- [Prerequisites](#prerequisites)
-- [Installation & Setup](#installation--setup)
-- [Running the Application](#running-the-application)
-- [Project Structure](#project-structure)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [API Documentation](#api-documentation)
-- [Exam Requirements Compliance](#exam-requirements-compliance)
-- [Contact](#contact)
+- [About](#-about)
+- [Prerequisites](#-prerequisites)
+- [Installation & Setup](#-installation--setup)
+- [Running the Application](#-running-the-application)
+- [Project Structure](#-project-structure)
+- [Features](#-features)
+- [Technologies Used](#️-technologies-used)
+- [API Documentation](#-api-documentation)
+- [Contact](#-contact)
 
 ---
 
