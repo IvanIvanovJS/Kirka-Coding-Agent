@@ -45,7 +45,6 @@ export default function PreveiwModal({ isLoading, content, setPreviewFalse }) {
 								title={
 									isAuthenticated ? 'Modify with Kirka' : 'Login for access'
 								}
-								disabled={!isAuthenticated}
 								onClick={() => {
 									setCurrentTemplate(content);
 									navigate('/agent-app');

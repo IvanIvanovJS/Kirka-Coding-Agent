@@ -324,7 +324,7 @@ export default function TemplateDetails() {
 						navigate('/agent-app');
 					}}
 					title={isAuthenticated ? 'Modify with Kirka' : 'Login for access'}
-					disabled={!isAuthenticated}
+
 				>
 					{isMyTemplates ? 'Edit in App' : 'Add to App'}
 				</button>
