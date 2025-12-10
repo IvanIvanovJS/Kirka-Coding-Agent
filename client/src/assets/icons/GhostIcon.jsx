@@ -1,8 +1,6 @@
 export default function GhostIcon({
 	className = '',
 	size = 100,
-	isWorking = false,
-	onApp = false,
 }) {
 	return (
 		<svg
@@ -11,13 +9,6 @@ export default function GhostIcon({
 			height={size}
 			className={className}
 			xmlns="http://www.w3.org/2000/svg"
-			style={{
-				animation: isWorking
-					? 'working 1s ease-in-out infinite'
-					: onApp
-						? 'idle 2s ease-in-out infinite'
-						: 'none',
-			}}
 		>
 			{/* Ghost Body & Legs */}
 			<path

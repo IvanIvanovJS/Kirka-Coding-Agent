@@ -12,7 +12,7 @@ export default function ChatMessage({ message }) {
 		>
 			{!isUser && (
 				<div className={styles.iconWrapper}>
-					<GhostIcon size={60} onApp />
+					<GhostIcon size={60} />
 				</div>
 			)}
 			<div className={styles.messageContent}>

@@ -26,7 +26,7 @@ export default function ChatPanel() {
 			<div className={styles.messageList} ref={messageListRef}>
 				{messages.length === 0 && !isAiProcessing && (
 					<div className={styles.emptyState}>
-						<GhostIcon size={100} onApp />
+						<GhostIcon size={100} isWorking={false} onApp />
 						<p>Start a conversation with Kirka AI assistant</p>
 					</div>
 				)}
