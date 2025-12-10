@@ -25,6 +25,7 @@ const AgentAppContext = createContext({
 	isLoadingMyTemplates: true,
 	myTemplatesError: null,
 	refechMyTemplates: async () => {},
+	refechTemplates: async () => {},
 });
 
 function AgentAppProvider({ children }) {
@@ -44,6 +45,7 @@ function AgentAppProvider({ children }) {
 		data: templates,
 		isLoading,
 		error: serverError,
+		refetch: refechTemplates,
 	} = useFetch('http://localhost:3030/data/templates', {}, 'GET');
 
 	const myTemplatesUrl =
@@ -170,6 +172,7 @@ function AgentAppProvider({ children }) {
 		isLoadingMyTemplates,
 		myTemplatesError,
 		refechMyTemplates,
+		refechTemplates
 	};
 
 	return (

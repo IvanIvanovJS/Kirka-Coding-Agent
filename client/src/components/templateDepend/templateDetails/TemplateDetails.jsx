@@ -21,8 +21,12 @@ export default function TemplateDetails() {
 	const [comments, setComments] = useState(null);
 	const [toast, setToast] = useState(null);
 	const { templateId } = useParams('templateId');
-	const { setCurrentTemplate, refechMyTemplates, currentTemplate } =
-		useAgentApp();
+	const {
+		setCurrentTemplate,
+		refechMyTemplates,
+		refechTemplates,
+		currentTemplate,
+	} = useAgentApp();
 	const { isAuthenticated, user } = useUser();
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -127,6 +131,7 @@ export default function TemplateDetails() {
 			'Content-Type': 'application/json',
 			'X-Authorization': user?.accessToken,
 		});
+		await refechTemplates();
 		setIsPublishing(false);
 	};
 
