@@ -15,6 +15,7 @@ export default function CommentsSection({
 	updateCommentHandler,
 	isLoadingComments,
 	commentsError,
+	isOwner
 }) {
 	const [editingCommentId, setEditingCommentId] = useState(null);
 	const [commentText, setCommentText] = useState(null);
@@ -139,7 +140,7 @@ export default function CommentsSection({
 			</div>
 
 			{isAuthenticated ? (
-				<form className={styles.commentForm} action={formAction}>
+				!isOwner && (<form className={styles.commentForm} action={formAction}>
 					<textarea
 						{...input('comment')}
 						className={styles.commentTextarea}
@@ -155,7 +156,7 @@ export default function CommentsSection({
 					>
 						{isSubmitting ? 'Commenting...' : 'Post Comment'}
 					</button>
-				</form>
+				</form>)
 			) : (
 				<p className={styles.notAuthenticated}>
 					<Link to={'/auth/login'}>Login</Link> to post a comment.

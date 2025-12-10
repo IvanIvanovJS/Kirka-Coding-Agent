@@ -40,7 +40,7 @@ export default function TemplateDetails() {
 		? `http://localhost:3030/data/comments/user-${user._id}?where=templateId%3D%22${templateId}%22`
 		: `http://localhost:3030/data/comments?where=templateId%3D%22${templateId}%22`;
 	const { data, isLoading, error } = useFetch(url, null, 'GET');
-
+	const isOwner = user?._id === data?._ownerId;
 	const {
 		data: commentsData,
 		isLoading: isLoadingComments,
@@ -186,6 +186,7 @@ export default function TemplateDetails() {
 	let content = {};
 	if (!isLoading) {
 		content = data;
+
 	}
 
 	const GoBack = (
@@ -263,6 +264,7 @@ export default function TemplateDetails() {
 				updateCommentHandler={updateCommentHandler}
 				isLoadingComments={isLoadingComments}
 				commentsError={commentsError}
+				isOwner={isOwner}
 			/>
 
 			<div className={styles.fixedNav}>
