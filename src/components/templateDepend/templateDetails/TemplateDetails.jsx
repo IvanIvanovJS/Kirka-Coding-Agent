@@ -18,12 +18,13 @@ export default function TemplateDetails() {
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [comments, setComments] = useState(null);
 	const { templateId } = useParams('templateId');
-	const { setCurrentTemplate } = useAgentApp();
+	const { setCurrentTemplate, refechMyTemplates, currentTemplate } =
+		useAgentApp();
 	const { isAuthenticated, user } = useUser();
 	const navigate = useNavigate();
 	const location = useLocation();
 	const isMyTemplates = location.pathname.includes('user-');
-	const isHistoryOn = window.history.length > 1;
+	const isHistoryOn = window.history.length > 2;
 	const url = isMyTemplates
 		? `http://localhost:3030/data/user-${user._id}/${templateId}`
 		: `http://localhost:3030/data/templates/${templateId}`;
@@ -74,6 +75,10 @@ export default function TemplateDetails() {
 		await refetchOnDelete(null, {
 			'X-Authorization': user?.accessToken,
 		});
+		await refechMyTemplates();
+		if (currentTemplate?._id === templateId) {
+			setCurrentTemplate(null);
+		}
 		setIsDeleting(false);
 		setShowDeleteConfirm(false);
 	};

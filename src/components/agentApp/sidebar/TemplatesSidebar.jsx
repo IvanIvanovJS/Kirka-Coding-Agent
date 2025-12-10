@@ -18,7 +18,7 @@ export default function TemplatesSidebar() {
 		myTemplatesError,
 	} = useAgentApp();
 	const { isAuthenticated } = useUser();
-	const isHistoryOn = window.history.length > 1;
+	const isHistoryOn = window.history.length > 2;
 
 	const currentTemplates =
 		templateViewMode === 'templates' ? templates : myTemplates;
