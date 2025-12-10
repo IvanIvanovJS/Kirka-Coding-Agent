@@ -53,7 +53,6 @@ export default function TemplateDetails() {
 
 	const {
 		data: dataOnDelete,
-		error: errorOnDelete,
 		refetch: refetchOnDelete,
 	} = useFetch(
 		`http://localhost:3030/data/user-${user?._id}/${templateId}`,
@@ -79,16 +78,10 @@ export default function TemplateDetails() {
 
 	useEffect(() => {
 		if (dataOnDelete) {
-			console.log(dataOnDelete);
 			navigate('/my-templates');
 		}
 	}, [dataOnDelete, navigate]);
 
-	useEffect(() => {
-		if (errorOnDelete) {
-			console.log(errorOnDelete);
-		}
-	}, [errorOnDelete]);
 
 	useEffect(() => {
 		if (dataOnPublish) {

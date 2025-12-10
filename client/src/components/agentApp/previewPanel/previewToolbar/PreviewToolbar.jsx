@@ -120,11 +120,6 @@ export default function PreviewToolbar() {
 			}
 		};
 	}, []);
-	useEffect(() => {
-		if (postError) {
-			console.log(postError);
-		}
-	}, [postError]);
 
 	useEffect(() => {
 		if (postData) {

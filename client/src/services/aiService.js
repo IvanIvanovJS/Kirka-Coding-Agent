@@ -19,7 +19,6 @@ class AIService {
 
 	async editTemplate(template, userRequest) {
 		try {
-			console.log(template);
 			validateTemplate(template);
 			validateUserRequest(userRequest);
 
