@@ -1,0 +1,13 @@
+{
+  "name": "kirka-server",
+  "version": "1.0.0",
+  "description": "Backend server for Kirka AI Template Generator",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["server", "api", "backend"],
+   "license": "ISC"
+}

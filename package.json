@@ -1,32 +1,21 @@
 {
-	"name": "kirka-coding-agent",
-	"private": true,
-	"version": "0.0.0",
-	"type": "module",
-	"scripts": {
-		"dev": "vite",
-		"build": "vite build",
-		"lint": "eslint .",
-		"preview": "vite preview"
-	},
-	"dependencies": {
-		"@google/genai": "^1.31.0",
-		"lucide-react": "^0.555.0",
-		"react": "^19.2.0",
-		"react-dom": "^19.2.0",
-		"react-router": "^7.9.6"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "2.3.8",
-		"@eslint/js": "^9.39.1",
-		"@types/react": "^19.2.5",
-		"@types/react-dom": "^19.2.3",
-		"@vitejs/plugin-react-swc": "^4.2.2",
-		"eslint": "^9.39.1",
-		"eslint-plugin-react-hooks": "^7.0.1",
-		"eslint-plugin-react-refresh": "^0.4.24",
-		"globals": "^16.5.0",
-		"sass-embedded": "^1.93.3",
-		"vite": "^7.2.4"
-	}
+  "name": "kirka-coding-agent",
+  "version": "1.0.0",
+  "description": "AI-Powered Template Generator - Monorepo",
+  "scripts": {
+    "client": "cd client && npm run dev",
+    "server": "cd server && npm start",
+    "install:client": "cd client && npm install",
+    "install:server": "cd server && npm install",
+    "install:all": "npm run install:client && npm run install:server",
+    "build": "cd client && npm run build",
+    "preview": "cd client && npm run preview"
+  },
+  "keywords": ["ai", "template", "generator", "react", "gemini"],
+  "author": "Ivan Ivanov",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IvanIvanovJS/Kirka-Coding-Agent.git"
+  }
 }

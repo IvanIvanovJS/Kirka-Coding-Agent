@@ -50,6 +50,30 @@ Before you begin, ensure you have the following installed:
 
 ## 🚀 Installation & Setup
 
+### Quick Start (TL;DR)
+
+```bash
+# Clone and navigate
+git clone https://github.com/IvanIvanovJS/Kirka-Coding-Agent.git
+cd Kirka-Coding-Agent
+
+# Install all dependencies
+npm run install:all
+
+# Create .env file in client folder with your Gemini API key
+cd client
+echo VITE_GEMINI_API_KEY=your_api_key_here > .env
+cd ..
+
+# Start backend (Terminal 1)
+npm run server
+
+# Start frontend (Terminal 2)
+npm run client
+```
+
+### Detailed Setup Instructions
+
 ### Step 1: Clone the Repository
 
 ```bash
@@ -59,8 +83,24 @@ cd Kirka-Coding-Agent
 
 ### Step 2: Install Dependencies
 
+**Option 1: Install All Dependencies at Once (Recommended)**
+
 ```bash
+npm run install:all
+```
+
+**Option 2: Install Manually**
+
+```bash
+# Install client dependencies
+cd client
 npm install
+cd ..
+
+# Install server dependencies
+cd server
+npm install
+cd ..
 ```
 
 ### Step 3: Create Your Gemini API Key
@@ -85,14 +125,20 @@ npm install
 
 ### Step 4: Configure Environment Variables
 
-Create a `.env` file in the root directory:
+Create a `.env` file in the `client` directory:
 
 ```bash
+# Navigate to client folder
+cd client
+
 # Create .env file
 touch .env
+
+# Return to root
+cd ..
 ```
 
-Add your Gemini API key to the `.env` file:
+Add your Gemini API key to the `client/.env` file:
 
 ```env
 VITE_GEMINI_API_KEY=your_actual_api_key_here
@@ -117,7 +163,8 @@ The application uses a custom Node.js backend server for data persistence.
 **In a separate terminal window:**
 
 ```bash
-node server.js
+cd server
+npm start
 ```
 
 The server will start on `http://localhost:3030`
@@ -139,6 +186,7 @@ The server will start on `http://localhost:3030`
 **In your main terminal window:**
 
 ```bash
+cd client
 npm run dev
 ```
 
@@ -166,10 +214,12 @@ You can use these credentials to login and test the application without creating
 
 ### Development Mode
 
+**Option 1: Using Root Scripts (Recommended)**
+
 1. **Start Backend Server** (Terminal 1):
 
    ```bash
-   node server.js
+   npm run server
    ```
 
    Server runs on: `http://localhost:3030`
@@ -177,6 +227,26 @@ You can use these credentials to login and test the application without creating
 2. **Start Frontend** (Terminal 2):
 
    ```bash
+   npm run client
+   ```
+
+   App runs on: `http://localhost:5173`
+
+**Option 2: Manual Start**
+
+1. **Start Backend Server** (Terminal 1):
+
+   ```bash
+   cd server
+   npm start
+   ```
+
+   Server runs on: `http://localhost:3030`
+
+2. **Start Frontend** (Terminal 2):
+
+   ```bash
+   cd client
    npm run dev
    ```
 
@@ -191,6 +261,9 @@ You can use these credentials to login and test the application without creating
 ### Production Build
 
 ```bash
+# Navigate to client folder
+cd client
+
 # Build for production
 npm run build
 
@@ -200,11 +273,35 @@ npm run preview
 
 ### Available Scripts
 
+**Root Scripts (Convenience):**
+
 ```bash
+# From project root
+npm run install:all    # Install all dependencies (client + server)
+npm run install:client # Install client dependencies only
+npm run install:server # Install server dependencies only
+npm run client         # Start client dev server
+npm run server         # Start backend server
+npm run build          # Build client for production
+npm run preview        # Preview client production build
+```
+
+**Client Scripts:**
+
+```bash
+cd client
 npm run dev      # Start development server
 npm run build    # Build for production
 npm run preview  # Preview production build
 npm run lint     # Run ESLint
+```
+
+**Server Scripts:**
+
+```bash
+cd server
+npm start        # Start backend server
+npm run dev      # Start backend server (alias)
 ```
 
 ---
@@ -213,65 +310,76 @@ npm run lint     # Run ESLint
 
 ```
 Kirka-Coding-Agent/
-├── public/                      # Static assets
-│   └── styles/
-│       └── global.css          # Global styles
-├── src/
-│   ├── app/                    # Main application component
-│   │   ├── App.jsx            # Root component with routing
-│   │   └── App.module.css     # App-specific styles
-│   ├── assets/
-│   │   └── icons/             # SVG icon components
-│   ├── components/
-│   │   ├── agentApp/          # AI Agent interface
-│   │   │   ├── chatPanel/     # Chat interface with AI
-│   │   │   ├── previewPanel/  # Template preview
-│   │   │   └── AgentApp.jsx   # Main agent component
-│   │   ├── auth/              # Authentication components
-│   │   │   ├── login/
-│   │   │   ├── register/
-│   │   │   └── logout/
-│   │   ├── hero/              # Landing page hero section
-│   │   ├── layout/            # Layout components
-│   │   │   ├── header/
-│   │   │   └── footer/
-│   │   ├── templateDepend/    # Template-related components
-│   │   │   ├── templates/     # Template catalog
-│   │   │   └── templateDetails/ # Template details & comments
-│   │   └── UI/                # Reusable UI components
-│   ├── config/
-│   │   └── aiRules.js         # AI prompt configuration
-│   ├── contexts/              # React Context providers
-│   │   ├── UserContext.jsx    # User authentication state
-│   │   ├── AgentAppContext.jsx # AI agent state
-│   │   └── index.jsx          # Context exports
-│   ├── hooks/                 # Custom React hooks
-│   │   ├── useForm.js         # Form handling
-│   │   ├── useFetch.js        # API requests
-│   │   ├── useLocalStorage.js # Local storage management
-│   │   └── useCurrentTemplate.js # Template state
-│   ├── portals/               # React Portal components
-│   │   ├── PreviewModalPortal.jsx
-│   │   └── DeleteConfirmationModalProtal.jsx
-│   ├── routeGuards/           # Route protection
-│   │   ├── AuthGuard.jsx      # Protected routes
-│   │   └── GuestGuard.jsx     # Guest-only routes
-│   ├── services/              # API services
-│   │   └── aiService.js       # Gemini AI integration
-│   ├── utils/                 # Utility functions
-│   │   ├── epochConverter.js  # Date formatting
-│   │   ├── exportAsHtml.js    # HTML export
-│   │   ├── toPascalCase.js    # String formatting
-│   │   └── wrapperIframeData.js # Preview wrapper
-│   ├── validators/            # Input validation
-│   │   └── aiValidators.js    # AI input validation
-│   └── main.jsx               # Application entry point
-├── .env                       # Environment variables (create this!)
+├── client/                      # Frontend application
+│   ├── public/                  # Static assets
+│   │   └── styles/
+│   │       └── global.css      # Global styles
+│   ├── src/
+│   │   ├── app/                # Main application component
+│   │   │   ├── App.jsx        # Root component with routing
+│   │   │   └── App.module.css # App-specific styles
+│   │   ├── assets/
+│   │   │   └── icons/         # SVG icon components
+│   │   ├── components/
+│   │   │   ├── agentApp/      # AI Agent interface
+│   │   │   │   ├── chatPanel/     # Chat interface with AI
+│   │   │   │   ├── previewPanel/  # Template preview
+│   │   │   │   ├── sidebar/       # Templates sidebar
+│   │   │   │   └── AgentApp.jsx   # Main agent component
+│   │   │   ├── auth/          # Authentication components
+│   │   │   │   ├── login/
+│   │   │   │   ├── register/
+│   │   │   │   └── logout/
+│   │   │   ├── hero/          # Landing page hero section
+│   │   │   ├── layout/        # Layout components
+│   │   │   │   ├── header/
+│   │   │   │   └── footer/
+│   │   │   ├── templateDepend/ # Template-related components
+│   │   │   │   ├── templates/     # Template catalog
+│   │   │   │   ├── templateCard/  # Template card
+│   │   │   │   └── templateDetails/ # Template details & comments
+│   │   │   └── UI/            # Reusable UI components
+│   │   ├── config/
+│   │   │   └── aiRules.js     # AI prompt configuration
+│   │   ├── contexts/          # React Context providers
+│   │   │   ├── UserContext.jsx    # User authentication state
+│   │   │   ├── AgentAppContext.jsx # AI agent state
+│   │   │   └── index.jsx          # Context exports
+│   │   ├── hooks/             # Custom React hooks
+│   │   │   ├── useForm.js         # Form handling
+│   │   │   ├── useFetch.js        # API requests
+│   │   │   ├── useLocalStorage.js # Local storage management
+│   │   │   └── useCurrentTemplate.js # Template state
+│   │   ├── portals/           # React Portal components
+│   │   │   ├── PreviewModalPortal.jsx
+│   │   │   └── DeleteConfirmationModalProtal.jsx
+│   │   ├── routeGuards/       # Route protection
+│   │   │   ├── AuthGuard.jsx      # Protected routes
+│   │   │   └── GuestGuard.jsx     # Guest-only routes
+│   │   ├── services/          # API services
+│   │   │   └── aiService.js       # Gemini AI integration
+│   │   ├── utils/             # Utility functions
+│   │   │   ├── epochConverter.js  # Date formatting
+│   │   │   ├── exportAsHtml.js    # HTML export
+│   │   │   ├── toPascalCase.js    # String formatting
+│   │   │   └── wrapperIframeData.js # Preview wrapper
+│   │   ├── validators/        # Input validation
+│   │   │   └── aiValidators.js    # AI input validation
+│   │   └── main.jsx           # Application entry point
+│   ├── .env                   # Environment variables (create this!)
+│   ├── .gitignore             # Git ignore rules
+│   ├── index.html             # HTML entry point
+│   ├── package.json           # Client dependencies
+│   ├── package-lock.json      # Dependency lock file
+│   ├── vite.config.js         # Vite configuration
+│   ├── eslint.config.js       # ESLint configuration
+│   └── biome.json             # Biome configuration
+├── server/                    # Backend application
+│   ├── server.js              # Backend server
+│   └── package.json           # Server dependencies
+├── .git/                      # Git repository
+├── .vscode/                   # VS Code settings
 ├── .gitignore                 # Git ignore rules
-├── index.html                 # HTML entry point
-├── package.json               # Dependencies
-├── server.js                  # Backend server
-├── vite.config.js             # Vite configuration
 └── README.md                  # This file
 ```
 
@@ -456,18 +564,19 @@ This project is created for educational purposes as part of the SoftUni React.js
 
 **1. "API Key not found" error**
 
-- Ensure you created the `.env` file in the root directory
+- Ensure you created the `.env` file in the `client` directory
 - Check that the variable name is exactly `VITE_GEMINI_API_KEY`
 - Restart the dev server after adding the API key
 
 **2. "Cannot connect to server" error**
 
-- Make sure the backend server is running (`node server.js`)
+- Make sure the backend server is running (`cd server && npm start`)
 - Check that port 3030 is not in use by another application
 - Verify the server started successfully (check terminal output)
 
 **3. "Module not found" errors**
 
+- Navigate to the appropriate directory (`client` or `server`)
 - Run `npm install` to ensure all dependencies are installed
 - Delete `node_modules` and `package-lock.json`, then run `npm install` again
 
