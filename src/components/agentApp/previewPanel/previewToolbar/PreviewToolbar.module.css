@@ -237,14 +237,22 @@
 		justify-content: flex-end;
 	}
 
-	.actionButton span:not(.dropdownItem span) {
-		display: none;
+	.actionButton {
+		flex: 1;
+		padding: var(--spacing-sm) var(--spacing-md);
+		justify-content: center;
 	}
 
-	.actionButton {
-		padding: var(--spacing-sm);
-		min-width: 40px;
-		justify-content: center;
+	.saveWrapper {
+		flex: 1;
+	}
+
+	.saveWrapper .actionButton {
+		width: 100%;
+	}
+
+	.actionButton span {
+		display: inline;
 	}
 
 	.actionButton .chevron {
