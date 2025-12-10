@@ -8,5 +8,7 @@ export { default as MobileIcon } from './MobileIcon';
 export { default as DownloadIcon } from './DownloadIcon';
 export { default as SaveIcon } from './SaveIcon';
 export { default as ChevronDownIcon } from './ChevronDownIcon';
+export { default as ChevronLeftIcon } from './ChevronLeftIcon';
+export { default as ChevronRightIcon } from './ChevronRightIcon';
 export { default as EmptyStateIcon } from './EmptyStateIcon';
 export { default as GhostIcon } from './GhostIcon';
