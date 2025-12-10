@@ -3,6 +3,13 @@ import GhostIcon from '../UI/ghostIcon/GhostIcon';
 import { Link } from 'react-router';
 
 export default function Hero() {
+	const scrollToFeatures = () => {
+		const featuresSection = document.getElementById('features');
+		if (featuresSection) {
+			featuresSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		}
+	};
+
 	return (
 		<div className={styles.heroContainer}>
 			<div className={styles.heroContent}>
@@ -21,7 +28,11 @@ export default function Hero() {
 							Launch App
 						</Link>
 
-						<button type="button" className={styles.secondaryBtn}>
+						<button
+							type="button"
+							className={styles.secondaryBtn}
+							onClick={scrollToFeatures}
+						>
 							Learn More
 						</button>
 					</div>

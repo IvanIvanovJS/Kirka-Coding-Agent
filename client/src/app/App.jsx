@@ -2,6 +2,7 @@ import { Route, Routes, useLocation } from 'react-router';
 import Footer from '../components/layout/footer/Footer';
 import Header from '../components/layout/header/Header';
 import Hero from '../components/hero/Hero';
+import Features from '../components/features/Features';
 import styles from './App.module.css';
 import Login from '../components/auth/login/Login';
 import Register from '../components/auth/register/Register';
@@ -60,7 +61,12 @@ function App() {
 					<Header />
 					<main className={styles.mainContent}>
 						<Routes>
-							<Route path="/" element={<Hero />} />
+							<Route path="/" element={
+								<>
+									<Hero />
+									<Features />
+								</>
+							} />
 							<Route path="/templates">
 								<Route index element={<Templates />} />
 							</Route>
