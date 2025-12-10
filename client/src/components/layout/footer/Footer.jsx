@@ -8,7 +8,7 @@ export default function Footer() {
 				<p className={styles.copyright}>© 2025 Kirka Coding Agent</p>
 
 				<p className={styles.website}>
-					Build by <Link to={"https://webmorphism.com"}> Webmorphism</Link>
+					Developed by <Link to={"https://webmorphism.com"}> Webmorphism</Link>
 				</p>
 			</div>
 		</footer>
