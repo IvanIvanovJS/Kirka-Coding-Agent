@@ -222,9 +222,9 @@ export default function PreviewToolbar() {
 
 					{toast && (
 						<div
-							className={postError || editError ? styles.error : styles.toast}
+							className={postError || editError ? styles.toastError : styles.toast}
 						>
-							{postError ? (
+							{postError || editError ? (
 								<ErrorIcon aria-hidden="true" />
 							) : (
 								<CheckIcon width={16} height={16} />
