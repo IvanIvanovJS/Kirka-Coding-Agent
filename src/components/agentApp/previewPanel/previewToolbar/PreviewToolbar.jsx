@@ -50,7 +50,7 @@ export default function PreviewToolbar() {
 		}
 	};
 
-	const { refetch: editRefetch } = useFetch(
+	const { error: editError, refetch: editRefetch } = useFetch(
 		`http://localhost:3030/data/user-${user?._id}/${currentTemplate?._id}`,
 		null,
 		'PUT',
@@ -283,7 +283,9 @@ export default function PreviewToolbar() {
 					)}
 
 					{toast && (
-						<div className={postError ? styles.toastError : styles.toast}>
+						<div
+							className={postError || editError ? styles.error : styles.toast}
+						>
 							{postError ? (
 								<svg
 									width="20"

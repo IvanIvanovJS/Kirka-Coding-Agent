@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 import useFetch from '../hooks/useFetch';
 import AIService from '../services/aiService';
 import { useUser } from '.';
+import Toast from '../components/UI/toast/Toast';
 
 const AgentAppContext = createContext({
 	isSidebarVisible: true,
@@ -35,6 +36,7 @@ function AgentAppProvider({ children }) {
 	const [messages, setMessages] = useState([]);
 	const [isAiProcessing, setIsAiProcessing] = useState(false);
 	const [aiError, setAiError] = useState(null);
+	const [toast, setToast] = useState(null);
 	const { user, isAuthenticated } = useUser();
 	const isOwner = user?._id === currentTemplate?._ownerId;
 
@@ -125,8 +127,14 @@ function AgentAppProvider({ children }) {
 			};
 
 			setMessages((prev) => [...prev, aiMessage]);
+
+			setToast({
+				message: 'AI finished processing your request',
+				type: 'success',
+			});
 		} catch (error) {
 			setAiError(error);
+			setToast({ message: 'AI encountered an error', type: 'error' });
 
 			const errorMessage = {
 				id: `error-${Date.now()}`,
@@ -167,6 +175,13 @@ function AgentAppProvider({ children }) {
 	return (
 		<AgentAppContext.Provider value={agentAppContextValues}>
 			{children}
+			{toast && (
+				<Toast
+					message={toast.message}
+					type={toast.type}
+					onClose={() => setToast(null)}
+				/>
+			)}
 		</AgentAppContext.Provider>
 	);
 }
