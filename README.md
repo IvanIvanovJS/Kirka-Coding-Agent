@@ -408,6 +408,7 @@ Kirka-Coding-Agent/
 - Real-time code updates
 - Download generated HTML files
 - Save templates to personal collection
+- Publish personal templates to public catalog
 
 ### 📚 Template Management (CRUD)
 
@@ -415,6 +416,7 @@ Kirka-Coding-Agent/
 - **Read:** Browse public template catalog
 - **Update:** Edit template metadata and code
 - **Delete:** Remove templates from collection
+- **Publish:** Share your personal templates with all users
 - Personal template dashboard
 - Template categorization and filtering
 

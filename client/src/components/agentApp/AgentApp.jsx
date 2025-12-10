@@ -3,12 +3,12 @@ import styles from './AgentApp.module.css';
 import ChatPanel from './chatPanel/ChatPanel';
 import PreviewPanel from './previewPanel/PreviewPanel';
 import TemplatesSidebar from './sidebar/TemplatesSidebar';
-import SplashScreen from '../UI/SplashScreen';
+import SplashScreen from '../UI/splashScreen/SplashScreen';
 
 export default function AgentApp() {
 	const [showSplash, setShowSplash] = useState(true);
 
-	
+
 	const handleSplashFinished = () => {
 		setShowSplash(false);
 	};
@@ -16,9 +16,9 @@ export default function AgentApp() {
 	return (
 		<>
 			{showSplash && <SplashScreen onFinished={handleSplashFinished} />}
-			
-			<div 
-				className={styles.agentApp} 
+
+			<div
+				className={styles.agentApp}
 				id="agent-app"
 				style={{ opacity: showSplash ? 0 : 1 }}
 			>
